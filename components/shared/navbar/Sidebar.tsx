@@ -50,10 +50,10 @@ const Sidebar = () => {
           </SheetTitle>
           <SheetDescription className="mt-10 "></SheetDescription>
         </SheetHeader>
-        <div className="p-6">
+        <div className="text-dark400_light800 p-6">
           <p className="h3-bold">Contact</p>
           <div className="body-regular">
-            <div className="text-dark400_light800 mt-3 flex gap-5">
+            <div className=" mt-3 flex gap-5">
               <Image
                 src="/assets/icons/telephone-call.png"
                 width={20}
@@ -83,7 +83,7 @@ const Sidebar = () => {
           </div>
         </div>
         {/* subscribe form */}
-        <div className="mt-5 p-6">
+        <div className="text-dark400_light800 mt-5 p-6">
           <p className="h3-bold">Subscribe</p>
           <p className="small-regular mb-3 py-2">
             Subscribe to get our latest news and updates.
