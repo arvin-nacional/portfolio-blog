@@ -32,7 +32,7 @@ const Sidebar = () => {
           {mode === "light" ? (
             <Image
               src="/assets/images/primary-logo-dark.svg"
-              width={200}
+              width={180}
               height={40}
               alt="logo"
             />

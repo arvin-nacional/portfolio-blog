@@ -13,8 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { addSubscriber } from "@/lib/actions/subscriber.action";
+import { usePathname } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 const Subscriber = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const pathname = usePathname();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SubscriberFormSchema>>({
     resolver: zodResolver(SubscriberFormSchema),
@@ -24,10 +30,27 @@ const Subscriber = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SubscriberFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof SubscriberFormSchema>) {
+    try {
+      // Do something with the form values.
+      setIsSubmitting(true);
+      await addSubscriber({ email: values.email, path: pathname });
+      console.log(values);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      setTimeout(() => {
+        setIsSubmitting(false);
+        // 3. Clear the form after submitting.
+        form.reset();
+        toast({
+          variant: "default",
+          title: "Subscribed",
+          description: "You have successfully subscribed to our newsletter",
+        });
+      }, 1000);
+    }
   }
 
   return (
@@ -54,9 +77,10 @@ const Subscriber = () => {
 
         <Button
           type="submit"
-          className="primary-gradient !text-light-900 w-fit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
         >
-          Submit
+          {isSubmitting ? "Subscribing..." : "Subscribe"}
         </Button>
       </form>
     </Form>
