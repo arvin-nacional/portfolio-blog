@@ -4,6 +4,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,6 +12,7 @@ import {
 
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeProvider";
+import Subscriber from "@/components/forms/Subscriber";
 
 const Sidebar = () => {
   const { mode } = useTheme();
@@ -25,62 +27,102 @@ const Sidebar = () => {
           className="invert-colors max-sm:hidden"
         />
       </SheetTrigger>
-      <SheetContent className="background-light900_dark200 border-none">
-        <SheetHeader className="text-dark100_light900">
-          <div className="p-6">
-            {mode === "light" ? (
-              <Image
-                src="/assets/images/primary-logo-dark.svg"
-                width={100}
-                height={40}
-                alt="logo"
-              />
-            ) : (
-              <Image
-                src="/assets/images/primary-logo-light.svg"
-                width={100}
-                height={40}
-                alt="logo"
-              />
-            )}
-            <SheetTitle className="mt-5">
-              <p className="h1-bold"></p>Do you have a project in your mind?
-              Let&apos;s connect!
-            </SheetTitle>
-            <SheetDescription className="mt-10 ">
-              <p className="h3-bold">Contact</p>
-              <div className="body-regular">
-                <div className="text-dark400_light800 mt-3 flex gap-5">
-                  <Image
-                    src="/assets/icons/telephone-call.png"
-                    width={20}
-                    height={20}
-                    alt="logo"
-                  />
-                  <p>+63 965 9256 451</p>
-                </div>
-                <div className="mt-3 flex gap-5 ">
-                  <Image
-                    src="/assets/icons/paper-plane.png"
-                    width={20}
-                    height={20}
-                    alt="logo"
-                  />
-                  <p>arvin@rvinpaul.com</p>
-                </div>
-                <div className="mt-3 flex gap-5 ">
-                  <Image
-                    src="/assets/icons/location-pin.png"
-                    width={20}
-                    height={20}
-                    alt="logo"
-                  />
-                  <p>Camarin, Caloocan City, Philippines</p>
-                </div>
-              </div>
-            </SheetDescription>
-          </div>
+      <SheetContent className="background-light900_dark200 flex-center h-full grow  flex-col border-none">
+        <SheetHeader className="text-dark100_light900 mt-2 p-8">
+          {mode === "light" ? (
+            <Image
+              src="/assets/images/primary-logo-dark.svg"
+              width={200}
+              height={40}
+              alt="logo"
+            />
+          ) : (
+            <Image
+              src="/assets/images/primary-logo-light.svg"
+              width={100}
+              height={40}
+              alt="logo"
+            />
+          )}
+          <SheetTitle className="mt-5">
+            <p className="h1-bold"></p>Do you have a project in your mind?
+            Let&apos;s connect!
+          </SheetTitle>
+          <SheetDescription className="mt-10 "></SheetDescription>
         </SheetHeader>
+        <div className="p-6">
+          <p className="h3-bold">Contact</p>
+          <div className="body-regular">
+            <div className="text-dark400_light800 mt-3 flex gap-5">
+              <Image
+                src="/assets/icons/telephone-call.png"
+                width={20}
+                height={20}
+                alt="logo"
+              />
+              <p>+63 965 9256 451</p>
+            </div>
+            <div className="mt-3 flex gap-5 ">
+              <Image
+                src="/assets/icons/paper-plane.png"
+                width={20}
+                height={20}
+                alt="logo"
+              />
+              <p>arvin@rvinpaul.com</p>
+            </div>
+            <div className="mt-3 flex gap-5 ">
+              <Image
+                src="/assets/icons/location-pin.png"
+                width={20}
+                height={20}
+                alt="logo"
+              />
+              <p>Camarin, Caloocan City, Philippines</p>
+            </div>
+          </div>
+        </div>
+        {/* subscribe form */}
+        <div className="mt-5 p-6">
+          <p className="h3-bold">Subscribe</p>
+          <p className="small-regular mb-3 py-2">
+            Subscribe to get our latest news and updates.
+          </p>
+          <Subscriber />
+        </div>
+
+        {/* social media links */}
+        <SheetFooter className="w-full">
+          <div className="flex gap-5 p-6">
+            <a href="https://www.facebook.com/rvinpaul" target="_blank">
+              <Image
+                src="/assets/icons/facebook.svg"
+                width={20}
+                height={20}
+                alt="logo"
+                className="invert-colors"
+              />
+            </a>
+            <a href="https://www.instagram.com/rvinpaul" target="_blank">
+              <Image
+                src="/assets/icons/instagram.svg"
+                width={20}
+                height={20}
+                alt="logo"
+                className="invert-colors"
+              />
+            </a>
+            <a href="https://www.linkedin.com/rvinpaul" target="_blank">
+              <Image
+                src="/assets/icons/linkedin.svg"
+                width={20}
+                height={20}
+                alt="logo"
+                className="invert-colors"
+              />
+            </a>
+          </div>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
