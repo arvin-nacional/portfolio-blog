@@ -11,7 +11,7 @@ const Navbar = () => {
   const { mode } = useTheme();
   return (
     <nav className="flex-center background-light900_dark200 fixed z-50 w-full">
-      <div className=" flex-between gap-5 p-6 max-lg:w-full sm:px-12 lg:min-w-[1200px] dark:shadow-none">
+      <div className=" flex-between gap-5 p-6 dark:shadow-none max-xl:w-full sm:px-12 xl:min-w-[1200px]">
         <Link href="/" className="flex items-center gap-1">
           {mode === "light" ? (
             <Image
