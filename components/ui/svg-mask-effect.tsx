@@ -8,7 +8,7 @@ export const MaskContainer = ({
   children,
   revealText,
   size = 10,
-  revealSize = 600,
+  revealSize = 150,
   className,
 }: {
   children?: string | React.ReactNode;
@@ -47,16 +47,16 @@ export const MaskContainer = ({
       }}
     >
       <motion.div
-        className="bg-grid-white/[0.2] absolute flex size-full items-center justify-center bg-black text-6xl text-white [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
+        className="bg-grid-white/[0.2] absolute flex  size-full items-start justify-start bg-black text-6xl text-white [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
         animate={{
           WebkitMaskPosition: `${mousePosition.x - maskSize / 2}px ${
             mousePosition.y - maskSize / 2
           }px`,
           WebkitMaskSize: `${maskSize}px`,
         }}
-        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
+        transition={{ type: "tween", ease: "backOut", duration: 0.3 }}
       >
-        <div className="absolute inset-0 z-0 size-full bg-black opacity-50" />
+        <div className="bg-dark absolute inset-0 z-0 size-full opacity-50" />
         <div
           onMouseEnter={() => {
             setIsHovered(true);
@@ -64,13 +64,13 @@ export const MaskContainer = ({
           onMouseLeave={() => {
             setIsHovered(false);
           }}
-          className="relative z-20 mx-auto max-w-4xl  text-center text-4xl font-bold text-white"
+          className="relative z-20  mx-[100px] mt-[50px] text-left text-4xl font-bold text-white"
         >
           {children}
         </div>
       </motion.div>
 
-      <div className="flex size-full items-center justify-center text-white">
+      <div className=" mx-[100px] mt-[100px] size-full  text-white">
         {revealText}
       </div>
     </motion.div>
