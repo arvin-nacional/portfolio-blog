@@ -28,7 +28,7 @@ const NavContent = () => {
               href={item.route}
               className={`${
                 isActive
-                  ? "primary-gradient text-light-900 rounded-lg"
+                  ? "primary-gradient rounded-lg text-light-900"
                   : "text-dark300_light900"
               } flex items-center justify-start gap-4 bg-transparent p-4`}
             >
@@ -65,31 +65,31 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-none"
+        className="background-light900_dark200 flex h-full flex-col justify-between border-none"
       >
-        <div className="my-5 p-3">
-          {mode === "light" ? (
-            <Image
-              src="/assets/images/primary-logo-dark.svg"
-              width={100}
-              height={40}
-              alt="logo"
-            />
-          ) : (
-            <Image
-              src="/assets/images/primary-logo-light.svg"
-              width={100}
-              height={40}
-              alt="logo"
-            />
-          )}
-        </div>
-
         <div>
-          <SheetClose asChild>
-            <NavContent />
-          </SheetClose>
-          {/* <SignedOut>
+          <div className="my-5 p-3">
+            {mode === "light" ? (
+              <Image
+                src="/assets/images/primary-logo-dark.svg"
+                width={100}
+                height={40}
+                alt="logo"
+              />
+            ) : (
+              <Image
+                src="/assets/images/primary-logo-light.svg"
+                width={100}
+                height={40}
+                alt="logo"
+              />
+            )}
+          </div>
+          <div>
+            <SheetClose asChild>
+              <NavContent />
+            </SheetClose>
+            {/* <SignedOut>
             <div className="flex flex-col gap-3">
               <SheetClose asChild>
                 <Link href="/sign-in">
@@ -107,6 +107,37 @@ const MobileNav = () => {
               </SheetClose>
             </div>
           </SignedOut> */}
+          </div>
+        </div>
+
+        <div className="flex gap-5 p-6">
+          <a href="https://www.facebook.com/rvinpaul" target="_blank">
+            <Image
+              src="/assets/icons/facebook.svg"
+              width={20}
+              height={20}
+              alt="logo"
+              className="invert-colors"
+            />
+          </a>
+          <a href="https://www.instagram.com/rvinpaul" target="_blank">
+            <Image
+              src="/assets/icons/instagram.svg"
+              width={20}
+              height={20}
+              alt="logo"
+              className="invert-colors"
+            />
+          </a>
+          <a href="https://www.linkedin.com/rvinpaul" target="_blank">
+            <Image
+              src="/assets/icons/linkedin.svg"
+              width={20}
+              height={20}
+              alt="logo"
+              className="invert-colors"
+            />
+          </a>
         </div>
       </SheetContent>
     </Sheet>

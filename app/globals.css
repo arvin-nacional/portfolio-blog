@@ -8,6 +8,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* html {
+  cursor: none;
+} */
+
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;
@@ -95,6 +99,24 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 50px;
+}
+
+.cursor {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  position: fixed;
+  background-color: black;
+}
+
+.follower-cursor {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: 1px solid black;
+  position: fixed;
+  z-index: 999;
+  border-radius: 50%;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
