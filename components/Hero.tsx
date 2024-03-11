@@ -16,8 +16,8 @@ const Hero = () => {
               <h2 className="text-dark500_light700 mt-2 text-5xl font-normal leading-tight lg:mb-12">
                 Design, Develop, Dominate
               </h2>
-              <div className="flex-between mt-9 w-full">
-                <Button className="primary-gradient absolute z-20 w-fit cursor-pointer rounded-3xl px-9 font-light !text-light-900 max-sm:mt-[200px]">
+              <div className="flex-between mt-5 w-full">
+                <Button className="primary-gradient absolute z-20 mt-[-25px] w-fit cursor-pointer rounded-3xl px-9 font-light !text-light-900 max-sm:mt-[200px]">
                   {" "}
                   Connect with me
                 </Button>

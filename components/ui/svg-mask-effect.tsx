@@ -41,13 +41,16 @@ export const MaskContainer = ({
   return (
     <motion.div
       ref={containerRef}
-      className={cn("h-screen relative", className)}
+      className={cn(
+        "h-full relative mb-20 mt-[-100px] max-sm:mb-[200px]",
+        className
+      )}
       animate={{
         backgroundColor: isHovered ? "var(--slate-900)" : "var(--white)",
       }}
     >
       <motion.div
-        className="absolute flex size-full  items-start justify-start bg-black text-6xl text-white bg-grid-white/[0.2] [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
+        className="absolute mb-[100px] flex size-full h-min items-start justify-start bg-black text-6xl text-white bg-grid-white/[0.2] [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
         animate={{
           WebkitMaskPosition: `${mousePosition.x - maskSize / 2}px ${
             mousePosition.y - maskSize / 2
@@ -64,13 +67,13 @@ export const MaskContainer = ({
           onMouseLeave={() => {
             setIsHovered(false);
           }}
-          className="relative z-20  mx-[100px] mt-[50px] text-left text-4xl font-bold text-white max-xl:mx-[0px] max-sm:mx-[20px]"
+          className="relative z-20  mx-[100px] mt-[130px] text-left text-4xl font-bold text-white max-xl:mx-[0px] max-sm:mx-[20px]"
         >
           {children}
         </div>
       </motion.div>
 
-      <div className=" mx-[100px] mt-[100px] size-full  text-white max-xl:mx-[0px] max-sm:mx-[20px]">
+      <div className=" mx-[100px] mt-[100px] size-full h-min  text-white max-xl:mx-[0px] max-sm:mx-[20px]">
         {revealText}
       </div>
     </motion.div>
