@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export const MaskContainer = ({
   children,
   revealText,
-  size = 10,
+  size = 0,
   revealSize = 150,
   className,
 }: {
@@ -47,7 +47,7 @@ export const MaskContainer = ({
       }}
     >
       <motion.div
-        className="bg-grid-white/[0.2] absolute flex  size-full items-start justify-start bg-black text-6xl text-white [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
+        className="absolute flex size-full  items-start justify-start bg-black text-6xl text-white bg-grid-white/[0.2] [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
         animate={{
           WebkitMaskPosition: `${mousePosition.x - maskSize / 2}px ${
             mousePosition.y - maskSize / 2
@@ -56,7 +56,7 @@ export const MaskContainer = ({
         }}
         transition={{ type: "tween", ease: "backOut", duration: 0.3 }}
       >
-        <div className="bg-dark absolute inset-0 z-0 size-full opacity-50" />
+        <div className="bg-dark absolute inset-0 z-0 size-full opacity-100" />
         <div
           onMouseEnter={() => {
             setIsHovered(true);

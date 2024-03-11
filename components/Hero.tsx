@@ -17,7 +17,7 @@ const Hero = () => {
                 Design, Develop, Dominate
               </h2>
               <div className="flex-between mt-9 w-full">
-                <Button className="primary-gradient w-fit rounded-3xl px-9 font-light !text-light-900">
+                <Button className="primary-gradient w-fit cursor-pointer rounded-3xl px-9 font-light !text-light-900">
                   {" "}
                   Connect with me
                 </Button>
@@ -47,12 +47,12 @@ const Hero = () => {
           <h2 className="primary-text-gradient  mt-2 text-5xl font-normal leading-tight">
             Design, Develop, Dominate
           </h2>
-          <div className="flex-between mt-9 w-full">
-            <Button className="primary-gradient w-fit rounded-3xl px-9 font-light !text-light-900">
+          <div className="flex-between mt-14 ">
+            {/* <Button className="primary-gradient w-fit rounded-3xl px-9 font-light !text-light-900">
               {" "}
               Connect with me
-            </Button>
-            <div className="flex-center gap-5">
+            </Button> */}
+            {/* <div className="flex-center gap-5">
               <Image
                 src="/assets/icons/arrow-up-left-contained.svg"
                 width={80}
@@ -65,32 +65,9 @@ const Hero = () => {
                 your brand to stand out, leaving a lasting impression and
                 dominating your market.
               </h3>
-            </div>
+            </div> */}
           </div>
         </MaskContainer>
-        {/* <h2 className="text-dark500_light700 mt-2 text-5xl font-normal leading-tight">
-          Design, Develop, Dominate
-        </h2>
-        <div className="flex-between mt-9 w-full">
-          <Button className="primary-gradient w-fit rounded-3xl px-9 font-light !text-light-900">
-            {" "}
-            Connect with me
-          </Button>
-          <div className="flex-center gap-5">
-            <Image
-              src="/assets/icons/arrow-up-left-contained.svg"
-              width={80}
-              height={80}
-              alt="icon "
-              className="invert-colors "
-            />
-            <h3 className="text-dark300_light700 w-[440px]">
-              From captivating visuals to powerful functionality, we empower
-              your brand to stand out, leaving a lasting impression and
-              dominating your market.
-            </h3>
-          </div>
-        </div> */}
       </div>
     </div>
   );
