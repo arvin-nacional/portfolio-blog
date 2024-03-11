@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 export const MaskContainer = ({
   children,
   revealText,
-  size = 10,
-  revealSize = 600,
+  size = 0,
+  revealSize = 150,
   className,
 }: {
   children?: string | React.ReactNode;
@@ -41,22 +41,25 @@ export const MaskContainer = ({
   return (
     <motion.div
       ref={containerRef}
-      className={cn("h-screen relative", className)}
+      className={cn(
+        "h-full relative mb-20 mt-[-100px] max-sm:mb-[200px]",
+        className
+      )}
       animate={{
         backgroundColor: isHovered ? "var(--slate-900)" : "var(--white)",
       }}
     >
       <motion.div
-        className="bg-grid-white/[0.2] absolute flex size-full items-center justify-center bg-black text-6xl text-white [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
+        className="absolute mb-[100px] flex size-full h-min items-start justify-start bg-black text-6xl text-white bg-grid-white/[0.2] [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
         animate={{
           WebkitMaskPosition: `${mousePosition.x - maskSize / 2}px ${
             mousePosition.y - maskSize / 2
           }px`,
           WebkitMaskSize: `${maskSize}px`,
         }}
-        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
+        transition={{ type: "tween", ease: "backOut", duration: 0.3 }}
       >
-        <div className="absolute inset-0 z-0 size-full bg-black opacity-50" />
+        <div className="bg-dark absolute inset-0 z-0 size-full opacity-100 " />
         <div
           onMouseEnter={() => {
             setIsHovered(true);
@@ -64,13 +67,13 @@ export const MaskContainer = ({
           onMouseLeave={() => {
             setIsHovered(false);
           }}
-          className="relative z-20 mx-auto max-w-4xl  text-center text-4xl font-bold text-white"
+          className="relative z-20  mx-[100px] mt-[130px] text-left text-4xl font-bold text-white max-xl:mx-[0px] max-sm:mx-[20px]"
         >
           {children}
         </div>
       </motion.div>
 
-      <div className="flex size-full items-center justify-center text-white">
+      <div className=" mx-[100px] mt-[100px] size-full h-min  text-white max-xl:mx-[0px] max-sm:mx-[20px]">
         {revealText}
       </div>
     </motion.div>
