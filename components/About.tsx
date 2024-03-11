@@ -26,12 +26,14 @@ const About = () => {
                 in the Business Realm
               </h1>
               <p className="text-dark300_light700 mt-10 text-base leading-7 text-black max-md:max-w-full">
-                Meet Arvin Paul, a multi-talented individual with a passion for
-                creating visually stunning designs and developing seamless web
-                experiences. With a background in graphic design and a strong
-                understanding of digital marketing. <br /> <br /> Arvin Paul has
-                a unique ability to combine creativity with strategy to produce
-                effective and engaging campaigns.{" "}
+                Meet Arvin Paul, a web developer with a passion for creating
+                visually stunning designs and developing seamless web
+                experiences.
+                <br /> <br />
+                With a background in graphic design and a strong understanding
+                of digital marketing, Arvin Paul has a unique ability to combine
+                creativity with strategy to produce effective and engaging
+                campaigns.{" "}
               </p>
               <Button className=" mt-10 flex justify-center gap-4 self-start whitespace-nowrap rounded-[52.731px] py-5 text-lg font-semibold leading-7 text-blue-700">
                 <Image
