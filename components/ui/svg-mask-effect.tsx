@@ -56,7 +56,7 @@ export const MaskContainer = ({
         }}
         transition={{ type: "tween", ease: "backOut", duration: 0.3 }}
       >
-        <div className="bg-dark absolute inset-0 z-0 size-full opacity-100" />
+        <div className="bg-dark absolute inset-0 z-0 size-full opacity-100 " />
         <div
           onMouseEnter={() => {
             setIsHovered(true);
@@ -64,13 +64,13 @@ export const MaskContainer = ({
           onMouseLeave={() => {
             setIsHovered(false);
           }}
-          className="relative z-20  mx-[100px] mt-[50px] text-left text-4xl font-bold text-white"
+          className="relative z-20  mx-[100px] mt-[50px] text-left text-4xl font-bold text-white max-xl:mx-[0px] max-sm:mx-[20px]"
         >
           {children}
         </div>
       </motion.div>
 
-      <div className=" mx-[100px] mt-[100px] size-full  text-white">
+      <div className=" mx-[100px] mt-[100px] size-full  text-white max-xl:mx-[0px] max-sm:mx-[20px]">
         {revealText}
       </div>
     </motion.div>

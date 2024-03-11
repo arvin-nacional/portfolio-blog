@@ -24,7 +24,7 @@ const Sidebar = () => {
           width={36}
           height={36}
           alt="Menu"
-          className="invert-colors max-sm:hidden"
+          className="invert-colors cursor-pointer max-sm:hidden"
         />
       </SheetTrigger>
       <SheetContent className="background-light900_dark200 flex-center h-full grow  flex-col border-none">
