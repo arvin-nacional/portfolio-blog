@@ -45,9 +45,9 @@ export const MaskContainer = ({
         "h-full relative mb-20 mt-[-100px] max-sm:mb-[200px]",
         className
       )}
-      animate={{
-        backgroundColor: isHovered ? "var(--slate-900)" : "var(--white)",
-      }}
+      // animate={{
+      //   backgroundColor: "var(--white)",
+      // }}
     >
       <motion.div
         className="absolute mb-[100px] flex size-full h-min items-start justify-start bg-black text-6xl text-white bg-grid-white/[0.2] [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px]"
@@ -59,7 +59,7 @@ export const MaskContainer = ({
         }}
         transition={{ type: "tween", ease: "backOut", duration: 0.3 }}
       >
-        <div className="bg-dark absolute inset-0 z-0 size-full opacity-100 " />
+        <div className=" absolute inset-0 z-0 size-full opacity-100 " />
         <div
           onMouseEnter={() => {
             setIsHovered(true);
