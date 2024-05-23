@@ -9,43 +9,43 @@ const Services: React.FC = () => {
     {
       title: "Web Development and Design",
       description:
-        "A technology company that builds economic infrastructure for the internet.",
+        "Transform your online presence with our expert web development and design services. We create stunning, responsive websites that captivate your audience and drive results.",
       link: "https://stripe.com",
     },
     {
       title: "Social Media Content Creation",
       description:
-        "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
+        "Elevate your brand's voice with engaging and impactful social media content. Our creative team crafts posts that resonate, build community, and boost your online visibility.",
       link: "https://netflix.com",
     },
     {
       title: "Landing Page Design",
       description:
-        "A multinational technology company that specializes in Internet-related services and products.",
+        "Maximize conversions with our high-converting landing page designs. We design focused, persuasive pages that turn visitors into loyal customers.",
       link: "https://google.com",
     },
     {
       title: "Logo and Brand Design",
       description:
-        "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+        "Define your brand identity with our professional logo and brand design services. We create memorable, unique visuals that set you apart and leave a lasting impression.",
       link: "https://meta.com",
     },
   ];
 
   return (
-    <section className="flex items-center justify-center bg-white px-16 py-10 max-md:px-5">
+    <section className="background-light850_dark100 flex items-center justify-center px-16 py-10 max-md:px-5">
       <div className="mt-14 flex w-[1200px] max-w-full flex-row max-lg:flex-col max-md:mt-10">
         <div className=" flex flex-1 items-center">
           <div className="my-auto flex flex-col self-stretch max-md:mt-10 max-md:max-w-full">
-            <h2 className="text-2xl font-bold leading-7 text-neutral-600 max-md:max-w-full">
+            <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
               {" "}
               How can I contribute{" "}
             </h2>
-            <h1 className="mt-10 text-5xl font-extrabold text-zinc-700 max-md:max-w-full max-md:text-4xl">
+            <h1 className="text-dark300_light700 mt-10 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
               {" "}
               Services I can help you with{" "}
             </h1>
-            <p className="mt-10 text-base leading-7 text-black max-md:max-w-full">
+            <p className="text-dark300_light700 mt-10 text-base leading-7 max-md:max-w-full">
               {" "}
               Transform your online presence with our services. We offer expert
               web development, design, social media content creation, and
