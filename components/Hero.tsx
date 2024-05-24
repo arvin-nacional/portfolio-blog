@@ -10,7 +10,7 @@ const Hero = () => {
         <MaskContainer
           revealText={
             <div className="flex-col">
-              <h1 className="text-dark500_light700 text-8xl font-extrabold leading-tight max-sm:text-6xl">
+              <h1 className="text-dark500_light700 text-8xl font-extrabold leading-tight">
                 Elevate your <br /> Brand
               </h1>
               <h2 className="text-dark500_light700 mt-2 text-5xl font-normal leading-tight max-sm:text-5xl lg:mb-12">
