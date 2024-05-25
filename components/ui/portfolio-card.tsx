@@ -10,7 +10,7 @@ interface Props {
 const PortfolioCard = ({ href, src, title, subtitle }: Props) => {
   return (
     <div
-      className="group relative m-2 size-[350px] cursor-pointer rounded-xl bg-cover bg-center shadow-2xl transition-transform duration-500"
+      className="group relative  h-[350px] w-full cursor-pointer rounded-xl bg-cover bg-center shadow-2xl transition-transform duration-500"
       style={{
         backgroundImage: "url('https://source.unsplash.com/random/800x600')",
       }}

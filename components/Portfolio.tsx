@@ -2,17 +2,27 @@
 
 import React, { useState } from "react";
 import PortfolioCard from "./ui/portfolio-card";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const Portfolio = () => {
   const [active, setActive] = useState("all");
-  const [itemShow, setItemShow] = useState(7);
+  const [itemShow] = useState(10);
+
   const portfolioData = [
     {
       title: "Colorful Art Work",
       subtitle: "See Details",
       href: "/portfolio/portfolio-details",
       src: "/assets/images/branding.png",
-      category: "ui_ux_design",
+      category: "landing_page",
     },
     {
       title: "Colorful Art Work",
@@ -33,14 +43,14 @@ const Portfolio = () => {
       subtitle: "See Details",
       href: "/portfolio/portfolio-details",
       src: "/assets/images/branding.png",
-      category: "mobile_apps",
+      category: "social_media",
     },
     {
       title: "Colorful Art Work",
       subtitle: "See Details",
       href: "/portfolio/portfolio-details",
       src: "/assets/images/branding.png",
-      category: "ui_ux_design",
+      category: "landing_page",
     },
     {
       title: "Colorful Art Work",
@@ -61,7 +71,7 @@ const Portfolio = () => {
       subtitle: "See Details",
       href: "/portfolio/portfolio-details",
       src: "/assets/images/branding.png",
-      category: "ui_ux_design",
+      category: "landing_page",
     },
     {
       title: "Colorful Art Work",
@@ -84,18 +94,19 @@ const Portfolio = () => {
       category: "web_design",
     },
     {
-      title: "UI/UX Design",
-      category: "ui_ux_design",
+      title: "Landing Page",
+      category: "landing_page",
     },
     {
-      title: "Mobile Apps",
-      category: "mobile_apps",
+      title: "Social Media",
+      category: "social_media",
     },
     {
       title: "Logo Design",
       category: "logo_design",
     },
   ];
+
   return (
     <section className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
@@ -128,16 +139,16 @@ const Portfolio = () => {
             </ul>
           </div>
         </div>
-        <div className="mt-10 flex flex-wrap ">
+        <div className=" mt-10 grid grid-cols-3 gap-5 ">
           {portfolioData.slice(0, itemShow).map((item, index) => (
             <div
-              className={` ${
+              className={` ${index === 3 || index === 6 ? "col-span-2" : ""}${
                 active === "all"
                   ? ""
                   : !(active === item.category)
                   ? "hidden"
                   : ""
-              }`}
+              } transition duration-300 ease-in-out`}
               key={index}
             >
               <PortfolioCard
@@ -148,9 +159,26 @@ const Portfolio = () => {
                   "https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716422400&semt=sph"
                 }
               />
+              {/* <div className="size-2"></div> */}
             </div>
           ))}
         </div>
+        <Pagination className="text-dark300_light700 mt-10">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href="#" />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="#">1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext href="#" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </section>
   );
