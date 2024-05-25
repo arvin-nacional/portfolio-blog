@@ -31,8 +31,9 @@ const Sidebar = () => {
         <SheetHeader className="text-dark100_light900 mt-2 p-8">
           <Logo />
           <SheetTitle className="mt-5">
-            <p className="h1-bold"></p>Do you have a project in your mind?
-            Let&apos;s connect!
+            <p className="h3-bold">
+              Do you have a project in your mind? Let&apos;s connect!
+            </p>
           </SheetTitle>
           <SheetDescription className="mt-10 "></SheetDescription>
         </SheetHeader>
