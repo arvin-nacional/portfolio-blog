@@ -55,7 +55,7 @@ const Testimonials = () => {
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(3);
   const [itemsPerPage, setItemsPerPage] = useState(3);
 
   useEffect(() => {
@@ -74,15 +74,26 @@ const Testimonials = () => {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
+  //   move every 2 seconds
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       setCurrentIndex((prevIndex) =>
+  //         prevIndex >= testimonialData.length - 1 ? 0 : prevIndex + 1
+  //       );
+  //     }, 3000);
+
+  //     return () => clearInterval(interval);
+  //   }, [currentIndex, testimonialData.length]);
+
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonialData.length - itemsPerPage : prevIndex - 1
+      prevIndex === 0 ? testimonialData.length - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex >= testimonialData.length - itemsPerPage ? 0 : prevIndex + 1
+      prevIndex >= testimonialData.length - 3 ? 0 : prevIndex + 1
     );
   };
 
@@ -107,6 +118,10 @@ const Testimonials = () => {
                 width={43}
                 src={"/assets/icons/arrow-btn-left.svg"}
                 onClick={handlePrev}
+                style={{
+                  opacity: currentIndex === 0 ? 0.5 : 1,
+                  pointerEvents: currentIndex === 0 ? "none" : "auto",
+                }}
               />
               <Image
                 className="size-[43px] min-h-[43px] cursor-pointer"
@@ -115,6 +130,14 @@ const Testimonials = () => {
                 width={43}
                 src={"/assets/icons/arrow-btn-right.svg"}
                 onClick={handleNext}
+                style={{
+                  opacity:
+                    currentIndex === testimonialData.length - 1 ? 0.5 : 1,
+                  pointerEvents:
+                    currentIndex === testimonialData.length - 1
+                      ? "none"
+                      : "auto",
+                }}
               />
             </div>
           </div>
@@ -123,7 +146,9 @@ const Testimonials = () => {
           <div
             className="flex transition-transform duration-500"
             style={{
-              transform: `translateX(-${(currentIndex / itemsPerPage) * 50}%)`,
+              transform: `translateX(-${
+                (currentIndex / testimonialData.length) * 100
+              }%)`,
               width: `${(testimonialData.length / itemsPerPage) * 100}%`,
             }}
           >
