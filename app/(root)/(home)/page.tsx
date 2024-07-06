@@ -1,10 +1,8 @@
 import About from "@/components/About";
-import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
-import Portfolio from "@/components/Portfolio";
-import Services from "@/components/Services";
-import Testimonials from "@/components/Testimonials";
+// import Services from "@/components/Services";
+
 import React from "react";
 
 const Home = () => {
@@ -12,10 +10,10 @@ const Home = () => {
     <div>
       {/* <Hero /> */}
       <About />
-      <Services />
-      <Portfolio />
+      {/* <Services /> */}
+      {/* <Portfolio />
       <Testimonials />
-      <CTA />
+      <CTA /> */}
       <Footer />
     </div>
   );
