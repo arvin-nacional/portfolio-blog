@@ -9,7 +9,7 @@ const About = () => {
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex w-6/12 flex-col max-md:ml-0 max-md:w-full">
             <Image
-              src="/assets/images/about-img.svg"
+              src="/assets/images/about-img.png"
               alt="About Me"
               height={560}
               width={470}
