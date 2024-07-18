@@ -16,7 +16,7 @@ const About = () => {
               className="aspect-[0.99] w-full max-md:mt-10 max-md:max-w-full"
             />
           </div>
-          <div className="ml-5 flex w-6/12 flex-col max-md:ml-0 max-md:w-full">
+          <div className="ml-5 flex w-6/12 animate-fade-left flex-col max-md:ml-0 max-md:w-full">
             <div className="mt-6 flex grow flex-col max-md:mt-10 max-md:max-w-full">
               <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
                 About me

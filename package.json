@@ -22,7 +22,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.14.3",
-    "framer-motion": "^11.2.6",
+    "framer-motion": "^11.3.6",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
     "lucide-react": "^0.344.0",
@@ -45,6 +45,7 @@
     "eslint-config-next": "14.1.2",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tailwindcss-animated": "^1.1.2",
     "typescript": "^5"
   }
 }

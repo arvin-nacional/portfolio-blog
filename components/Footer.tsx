@@ -4,7 +4,7 @@ import Subscriber from "./forms/Subscriber";
 
 const Footer = () => {
   return (
-    <section className="flex items-center justify-center bg-dark-300 px-16 py-10 max-md:px-5">
+    <section className="background-light850_dark100 flex items-center justify-center bg-dark-300 px-16 py-10 max-md:px-5">
       <div className="mt-14 flex w-[1200px] flex-row  justify-between max-sm:mt-5 max-sm:flex-col">
         <div className="flex flex-col gap-5 pb-12">
           <Image

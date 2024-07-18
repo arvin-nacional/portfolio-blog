@@ -6,8 +6,8 @@ import MobileNav from "./MobileNav";
 import Logo from "@/components/ui/logo";
 const Navbar = () => {
   return (
-    <nav className="flex-center background-light900_dark200 fixed z-50 w-full">
-      <div className=" flex-between gap-5 p-6 dark:shadow-none max-xl:w-full sm:px-12 xl:min-w-[1200px] ">
+    <nav className="flex-center background-light900_dark200 fixed z-50 w-full ">
+      <div className="flex-between gap-5 py-6 dark:shadow-none max-xl:w-full max-sm:p-6 xl:min-w-[1200px] ">
         <Link href="/" className="flex items-center gap-1">
           <Logo />
         </Link>
