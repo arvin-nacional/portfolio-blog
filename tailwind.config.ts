@@ -1,12 +1,12 @@
 import svgToDataUri from "mini-svg-data-uri";
-
+import type { Config } from "tailwindcss";
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 /** @type {import('tailwindcss').Config} */
 
-module.exports = {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -25,7 +25,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          500: "#01545B",
+          500: "#0051cb",
           100: "#01545B",
         },
         dark: {
@@ -64,26 +64,13 @@ module.exports = {
       screens: {
         xs: "420px",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
     require("tailwindcss-animated"),
     require("@tailwindcss/typography"),
+    addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
@@ -106,15 +93,18 @@ module.exports = {
         { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
       );
     },
-    function addVariablesForColors({ addBase, theme }: any) {
-      const allColors = flattenColorPalette(theme("colors"));
-      const newVars = Object.fromEntries(
-        Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-      );
-
-      addBase({
-        ":root": newVars,
-      });
-    },
   ],
-};
+} satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  const allColors = flattenColorPalette(theme("colors"));
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
+
+export default config;

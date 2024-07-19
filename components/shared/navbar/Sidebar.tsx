@@ -75,7 +75,7 @@ const Sidebar = () => {
           <p className="small-regular mb-3 py-2">
             Subscribe to get our latest news and updates.
           </p>
-          <Subscriber />
+          <Subscriber type="sidebar" />
         </div>
 
         {/* social media links */}

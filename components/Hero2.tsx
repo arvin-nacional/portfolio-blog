@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import Link from "next/link";
 const Hero2 = () => {
   return (
     <div className="background-light850_dark100 flex items-center justify-center px-16 pb-10 max-md:px-10">
@@ -26,10 +27,13 @@ const Hero2 = () => {
           </div>
 
           <div className="flex-between mt-10 w-full flex-row items-start gap-5 max-sm:flex-col max-sm:items-start">
-            <Button className="primary-gradient h2-semibold w-fit animate-fade-up cursor-pointer rounded-3xl px-9 py-6 font-light !text-light-900 animate-delay-[2000ms]">
+            <Link href="/contact">
               {" "}
-              Connect with me
-            </Button>
+              <Button className="primary-gradient h2-semibold w-fit animate-fade-up cursor-pointer rounded-3xl px-9 py-6 font-light !text-light-900 animate-delay-[2000ms]">
+                {" "}
+                Connect with me
+              </Button>
+            </Link>
 
             <div className=" ml-auto flex animate-fade-left gap-5 animate-delay-[2000ms]">
               <Image

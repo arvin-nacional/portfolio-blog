@@ -50,8 +50,11 @@ const TestimonialCard = ({ image, name, designation, rating, text }: Props) => {
             </div>
           </div>
         </div>
-        <div className="text-dark300_light700 paragraph-regular flex flex-row items-start justify-start self-stretch py-0 pl-1 pr-0">
-          <p className="relative m-0 flex-1 leading-[27px]">{text}</p>
+
+        <div className="text-dark300_light700 paragraph-regular flex flex-col items-start justify-start self-stretch py-0 pl-1 pr-0">
+          <p className="relative m-0 flex-1 leading-[27px]">
+            &quot;{text}&quot;
+          </p>
         </div>
       </div>
       <div className="flex flex-row items-start justify-start px-1 py-0">

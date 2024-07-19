@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 const About = () => {
   return (
-    <div className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
+    <div className="background-light850_dark100 flex items-center justify-center px-16 py-20 max-md:px-5">
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex w-6/12 flex-col max-md:ml-0 max-md:w-full">

@@ -1,6 +1,7 @@
 import About from "@/components/About";
-import Footer from "@/components/Footer";
+
 import Hero2 from "@/components/Hero2";
+import LogoAnimation from "@/components/LogoAnimation";
 import Portfolio from "@/components/Portfolio";
 
 import Services from "@/components/Services";
@@ -15,12 +16,13 @@ const Home = () => {
     <div>
       {/* <Hero /> */}
       <Hero2 />
+      <LogoAnimation />
       <About />
       <Services />
       <Portfolio />
       <Testimonials />
+
       {/* <CTA /> */}
-      <Footer />
     </div>
   );
 };

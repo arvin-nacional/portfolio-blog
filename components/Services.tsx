@@ -31,7 +31,7 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section className="background-light850_dark100 flex items-center justify-center px-16 py-10 max-md:px-5">
+    <section className="background-light400_dark300 flex items-center justify-center px-16 py-10 max-md:px-5">
       <div className="mt-14 flex w-[1200px] max-w-full flex-row max-lg:flex-col max-md:mt-10">
         <div className=" flex flex-1 items-center">
           <div className="my-auto flex flex-col self-stretch max-md:mt-10 max-md:max-w-full">

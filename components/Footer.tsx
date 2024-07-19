@@ -79,11 +79,11 @@ const Footer = () => {
           </div>
         </div>
         <div className="pb-12">
-          <p className="h3-bold text-slate-300">Subscribe</p>
+          <p className="h3-bold text-white">Subscribe</p>
           <p className="small-regular mb-3 py-2 text-slate-300">
             Subscribe to get our latest news and updates.
           </p>
-          <Subscriber />
+          <Subscriber type="" />
         </div>
       </div>
     </section>
