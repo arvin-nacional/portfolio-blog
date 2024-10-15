@@ -79,7 +79,7 @@ export async function createPost(params: addPostParams) {
 export async function getPosts(params: GetPostsParams) {
   try {
     connectToDatabase();
-    const { searchQuery, filter, page = 1, pageSize = 6 } = params;
+    const { searchQuery, page = 1, pageSize = 6 } = params;
 
     // Calculcate the number of posts to skip based on the page number and page size
     const skipAmount = (page - 1) * pageSize;
@@ -130,7 +130,7 @@ export async function getPostById(params: getPostByIdParams) {
 export async function getRecentPosts(params: GetRecentPostParams) {
   try {
     connectToDatabase();
-    const { searchQuery, filter, postId } = params;
+    const { searchQuery, postId } = params;
 
     const query: FilterQuery<typeof Post> = {};
 
@@ -192,6 +192,7 @@ export async function getRelatedPosts(
 
     // Exclude current post if provided
     if (currentId) {
+      // eslint-disable-next-line no-new-object
       query._id = { $ne: new Object(currentId) };
     }
 
