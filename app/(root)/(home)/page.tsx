@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import Blogs from "@/components/Blogs";
 
 import Hero2 from "@/components/Hero2";
 import LogoAnimation from "@/components/LogoAnimation";
@@ -20,6 +21,7 @@ const Home = () => {
       <About />
       <Services />
       <Portfolio />
+      <Blogs />
       <Testimonials />
 
       {/* <CTA /> */}

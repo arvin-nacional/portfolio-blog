@@ -19,7 +19,7 @@ import { deletePost } from "@/lib/actions/post.action";
 import { usePathname } from "next/navigation";
 
 interface Props {
-  postId: string;
+  postId: string | undefined;
 }
 
 const DeletePost = ({ postId }: Props) => {

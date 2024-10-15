@@ -30,6 +30,30 @@ export interface RemoveUrlQueryParams {
 }
 
 export interface TagProps {
+  _id: string | undefined;
   name: string;
-  posts: string[];
+  posts: ObjectId[];
+  description?: string;
+  createdOn?: Date;
+}
+
+export interface BlogCardProps {
+  title: string;
+  image: string;
+  date: string;
+  link?: string;
+  content: string;
+  _id?: string;
+  tags: TagProps[];
+}
+
+export interface PostProps {
+  title: string;
+  image: string;
+  date: string;
+  link: string;
+  content: string;
+  _id: string;
+  tags: TagProps[];
+  createdAt: string;
 }

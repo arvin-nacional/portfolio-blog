@@ -123,7 +123,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
           image: preview.url,
           path: pathname,
         });
-        router.push(`/company/news/${parsedPostDetails._id}`);
+        router.push(`/blog/${parsedPostDetails._id}`);
       } else {
         await createPost({
           title: values.title,
@@ -132,7 +132,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
           image: preview.url,
           path: pathname,
         });
-        router.push(`/company/news`);
+        router.push(`/blog`);
       }
     } catch (error) {
     } finally {

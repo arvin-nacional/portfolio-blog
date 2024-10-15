@@ -167,6 +167,21 @@ export async function getRecentPosts(params: GetRecentPostParams) {
   }
 }
 
+export async function getRecentlyAddedPosts() {
+  try {
+    connectToDatabase();
+    const posts = await Post.find()
+      .populate({ path: "tags", model: Tag })
+      .sort({ createdAt: -1 }) // Sort by creation date in descending order
+      .limit(5); // Limit to 5 posts to ensure we have 4 after filtering
+
+    return { posts };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getRelatedPosts(
   tags: TagWithPosts[],
   currentId: string,

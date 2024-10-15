@@ -18,10 +18,10 @@ const page = async ({ searchParams }: SearchParamsProps) => {
 
   return (
     <div>
-      <section className="flex items-center justify-center px-16 max-md:px-5 sm:py-20">
+      <section className="background-light400_dark300 flex items-center justify-center px-16 max-md:px-5 sm:py-20">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
           <SignedIn>
-            <Button className="hover:bg-primary-300 animate__fadeIn animate__delay-3s mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out">
+            <Button className="animate__fadeIn animate__delay-3s mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
               <Link
                 href="/company/news/add"
                 className="base-medium flex items-center gap-2"
@@ -37,7 +37,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
             </Button>
           </SignedIn>
 
-          <div className="w-[900px] max-lg:w-[100%]">
+          <div className="w-[900px] max-lg:w-full">
             <LocalSearchbar
               route="/company/news"
               iconPosition="left"

@@ -27,6 +27,7 @@ const config = {
         primary: {
           500: "#0051cb",
           100: "#01545B",
+          300: "E9BC5FF",
         },
         dark: {
           100: "#000000",
@@ -39,6 +40,7 @@ const config = {
           900: "#FFFFFF",
           800: "#F4F6F8",
           850: "#FDFDFD",
+          600: "#9BC5FF",
           700: "#DCE3F1",
           500: "#7B8EC8",
           400: "#EEEEEE",
