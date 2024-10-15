@@ -147,16 +147,16 @@ const Contact = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="cursor-pointer bg-light-900">
-                  <SelectItem value="machineries">
+                  <SelectItem value="WebDevelopmentAndDesign">
                     Web Development and Design
                   </SelectItem>
-                  <SelectItem value="genuineSpareParts">
+                  <SelectItem value="LandingPageDesign">
                     Landing Page Design
                   </SelectItem>
-                  <SelectItem value="preventiveMaintenance">
+                  <SelectItem value="SocialMediaContentCreation">
                     Social Media Content Creation
                   </SelectItem>
-                  <SelectItem value="performanceUpgrade">
+                  <SelectItem value="LogoAndBrandDesign">
                     Logo and Brand Design
                   </SelectItem>
                 </SelectContent>

@@ -21,7 +21,7 @@ const Portfolio = () => {
       title: "Colorful Art Work",
       subtitle: "See Details",
       href: "/portfolio/portfolio-details",
-      src: "/assets/images/branding.png",
+      src: "/assets/images/website1.png",
       category: "landing_page",
     },
     {
@@ -155,9 +155,7 @@ const Portfolio = () => {
                 title={"asdfasdfasdfasdf"}
                 subtitle={"asdfasdfadsf"}
                 href={"asdfasdfasdf"}
-                src={
-                  "https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716422400&semt=sph"
-                }
+                src={item.src}
               />
               {/* <div className="size-2"></div> */}
             </div>

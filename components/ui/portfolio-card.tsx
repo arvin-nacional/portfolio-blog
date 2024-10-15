@@ -12,7 +12,7 @@ const PortfolioCard = ({ href, src, title, subtitle }: Props) => {
     <div
       className="group relative  h-[350px] w-full cursor-pointer rounded-xl bg-cover bg-center shadow-2xl transition-transform duration-500"
       style={{
-        backgroundImage: "url('https://source.unsplash.com/random/800x600')",
+        backgroundImage: `url(${src})`,
       }}
     >
       <div className="absolute inset-0 rounded-xl bg-black/0 transition-opacity duration-300 group-hover:bg-black/50"></div>
