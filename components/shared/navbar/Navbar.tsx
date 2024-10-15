@@ -12,7 +12,7 @@ const Navbar = () => {
           <Logo />
         </Link>
         <div className="text-dark100_light900 flex gap-5 max-md:hidden">
-          <Link href="/projects">Home</Link>
+          <Link href="/">Home</Link>
           <Link href="/blog">About</Link>
           <Link href="/projects">Portfolio</Link>
           <Link href="/blog">Blog</Link>

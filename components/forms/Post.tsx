@@ -1,7 +1,8 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -17,10 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from "../ui/use-toast";
 import { PostSchema } from "@/lib/validations";
-import { Textarea } from "../ui/textarea";
-import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { createPost, editPost } from "@/lib/actions/post.action";
