@@ -11,7 +11,7 @@ export async function getPostsByTagId(params: GetPostsByTagIdParams) {
 
     const {
       tagIds,
-      page = 1,
+      // page = 1,
       pageSize = 10,
       searchQuery,
       currentPostId,
