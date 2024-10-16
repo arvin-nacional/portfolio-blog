@@ -20,7 +20,6 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import { editPost, createPost } from "@/lib/actions/post.action";
 import { ProjectSchema } from "@/lib/validations";
 import { createProject } from "@/lib/actions/project.action";
 

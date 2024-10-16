@@ -12,8 +12,8 @@ import React from "react";
 
 const page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getPosts({
-    searchQuery: searchParams.q,
-    page: searchParams.page ? +searchParams.page : 1,
+    searchQuery: searchParams?.q,
+    page: searchParams?.page ? +searchParams?.page : 1,
   });
 
   return (

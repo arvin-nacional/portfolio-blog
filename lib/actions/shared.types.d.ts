@@ -52,6 +52,13 @@ export interface GetPostsParams {
   searchQuery?: string;
   filter?: string;
 }
+
+export interface GetProjectsParams {
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: string;
+}
 export interface GetRecentPostParams {
   page?: number;
   pageSize?: number;

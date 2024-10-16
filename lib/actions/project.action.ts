@@ -5,10 +5,15 @@ import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 // import { FilterQuery } from "mongoose";
 import { connectToDatabase } from "../mongoose";
-import { addProjectParams, getProjectByIdParams } from "./shared.types";
+import {
+  addProjectParams,
+  getProjectByIdParams,
+  GetProjectsParams,
+} from "./shared.types";
 // import image from "next/image";
 import Category from "@/database/category.model";
 import Project from "@/database/project.model";
+import { FilterQuery } from "mongoose";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -84,5 +89,38 @@ export async function getProjectById(params: getProjectByIdParams) {
     return { project };
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function getAllProjects(params: GetProjectsParams) {
+  try {
+    connectToDatabase();
+    const { searchQuery, page = 1, pageSize = 6 } = params;
+
+    // Calculcate the number of posts to skip based on the page number and page size
+    const skipAmount = (page - 1) * pageSize;
+    const query: FilterQuery<typeof Project> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    const projects = await Project.find(query)
+      .populate({ path: "category", model: Category })
+      .skip(skipAmount)
+      .sort({ createdAt: -1 })
+      .limit(pageSize);
+
+    const totalProjects = await Project.countDocuments(query);
+
+    const isNext = totalProjects > skipAmount + projects.length;
+
+    return { projects, isNext };
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }

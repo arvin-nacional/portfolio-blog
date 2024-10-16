@@ -45,7 +45,7 @@ const page = async ({ params }: ParamsProps) => {
                   <div className="">
                     <p className="h3-bold mb-2 text-primary-500">Category</p>
                     <div className="flex flex-wrap gap-2">
-                      {details.category.map((item) => (
+                      {details.category.map((item: any) => (
                         <Badge variant="secondary" key={item._id}>
                           {item.name}
                         </Badge>
@@ -56,7 +56,7 @@ const page = async ({ params }: ParamsProps) => {
                     <p className="h3-bold mb-2 text-primary-500">Software</p>
 
                     <div className="flex flex-wrap gap-2">
-                      {details.softwareUsed.map((item) => (
+                      {details.softwareUsed.map((item: any) => (
                         <Badge variant="secondary" key={item}>
                           {item}
                         </Badge>

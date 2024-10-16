@@ -7,7 +7,7 @@ export interface SidebarLink {
 }
 
 export interface SearchParamsProps {
-  searchParams: { [key: string]: string | undefined };
+  searchParams?: { [key: string]: string | undefined };
 }
 export interface ParamsProps {
   params: { id: string };
@@ -45,6 +45,19 @@ export interface BlogCardProps {
   content: string;
   _id?: string;
   tags: TagProps[];
+}
+export interface CategoryProps {
+  _id: ObjectId;
+  name: string;
+  projects: ObjectId[];
+}
+export interface ProjectCardProps {
+  title: string;
+  image: string;
+  date: string;
+  content: string;
+  _id: string;
+  category: CategoryProps[];
 }
 
 export interface PostProps {
