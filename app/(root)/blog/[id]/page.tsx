@@ -1,5 +1,6 @@
 import RecentPosts from "@/components/RecentPosts";
 import RelatedPosts from "@/components/RelatedPosts";
+import CTA from "@/components/shared/CTA";
 import ParseHTML from "@/components/shared/ParseHTML";
 import { getPostById } from "@/lib/actions/post.action";
 import { formatDate } from "@/lib/utils";
@@ -15,7 +16,7 @@ const page = async ({ params }: ParamsProps) => {
 
   return (
     <div>
-      <section className="flex items-center justify-center px-16 max-md:px-5 sm:py-20">
+      <section className="flex items-center flex-col px-16 max-md:px-5 sm:py-20">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
           <div className="grid grid-cols-3 gap-10 max-md:grid-cols-1">
             <div className="max-md:cols-span-1 col-span-2">
@@ -47,6 +48,9 @@ const page = async ({ params }: ParamsProps) => {
           </div>
         </div>
       </section>
+      <div className="w-full px-16">
+        <CTA />
+      </div>
     </div>
   );
 };
