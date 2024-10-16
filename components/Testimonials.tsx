@@ -1,7 +1,13 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import TestimonialCard from "./ui/testimonial-card";
-import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Testimonials = () => {
   const testimonialData = [
@@ -55,116 +61,49 @@ const Testimonials = () => {
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
-
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      if (window.innerWidth >= 1024) {
-        setItemsPerPage(3);
-      } else if (window.innerWidth >= 768) {
-        setItemsPerPage(2);
-      } else {
-        setItemsPerPage(1);
-      }
-    };
-
-    updateItemsPerPage();
-    window.addEventListener("resize", updateItemsPerPage);
-    return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
-
-  //   move every 2 seconds
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setCurrentIndex((prevIndex) =>
-  //         prevIndex >= testimonialData.length - 1 ? 0 : prevIndex + 1
-  //       );
-  //     }, 3000);
-
-  //     return () => clearInterval(interval);
-  //   }, [currentIndex, testimonialData.length]);
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonialData.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex >= testimonialData.length - 3 ? 0 : prevIndex + 1
-    );
-  };
-
   return (
-    <section className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
+    <section className="background-light400_dark300 flex items-center justify-center overflow-hidden px-16 py-20 max-md:px-5">
       <div className="w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
-        <div className="flex-between mb-12 flex items-end">
-          <div>
-            <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
-              Testimonial
-            </h2>
-            <h1 className="text-dark500_light700 mt-5 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
-              What clients say about my skill
-            </h1>
-          </div>
-          <div className="flex items-end justify-end">
-            <div className="mt-12 flex flex-row justify-end gap-5">
-              <Image
-                className="size-[43px] min-h-[43px] cursor-pointer"
-                alt="left-button"
-                height={43}
-                width={43}
-                src={"/assets/icons/arrow-btn-left.svg"}
-                onClick={handlePrev}
-                style={{
-                  opacity: currentIndex === 0 ? 0.5 : 1,
-                  pointerEvents: currentIndex === 0 ? "none" : "auto",
-                }}
-              />
-              <Image
-                className="size-[43px] min-h-[43px] cursor-pointer"
-                alt="right-button"
-                height={43}
-                width={43}
-                src={"/assets/icons/arrow-btn-right.svg"}
-                onClick={handleNext}
-                style={{
-                  opacity:
-                    currentIndex === testimonialData.length - 1 ? 0.5 : 1,
-                  pointerEvents:
-                    currentIndex === testimonialData.length - 1
-                      ? "none"
-                      : "auto",
-                }}
-              />
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full"
+        >
+          <div className="flex-between mb-12 flex items-end">
+            <div>
+              <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
+                Blogs
+              </h2>
+              <h1 className="text-dark500_light700 mt-5 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
+                Our recent news and updates
+              </h1>
+            </div>
+            <div className="flex items-end justify-end">
+              <div className="mt-12 flex flex-row justify-end gap-5 max-sm:pt-10">
+                <CarouselPrevious />
+                <CarouselNext />
+              </div>
             </div>
           </div>
-        </div>
-        <div className=" overflow-hidden">
-          <div
-            className="flex transition-transform duration-500"
-            style={{
-              transform: `translateX(-${
-                (currentIndex / testimonialData.length) * 100
-              }%)`,
-              width: `${(testimonialData.length / itemsPerPage) * 100}%`,
-            }}
-          >
+          <CarouselContent>
             {testimonialData.map((item, index) => (
-              <div key={index} className="w-full px-2 md:w-1/2 lg:w-1/3">
-                <TestimonialCard
-                  image={item.testimonialThumb}
-                  name={item.avatarName}
-                  designation={item.avatarDesignation}
-                  rating={item.ratings}
-                  text={item.testimonialText}
-                />
-              </div>
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="px-2 py-5">
+                  <Card>
+                    <TestimonialCard
+                      image={item.testimonialThumb}
+                      name={item.avatarName}
+                      designation={item.avatarDesignation}
+                      rating={item.ratings}
+                      text={item.testimonialText}
+                    />
+                  </Card>
+                </div>
+              </CarouselItem>
             ))}
-          </div>
-        </div>
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );

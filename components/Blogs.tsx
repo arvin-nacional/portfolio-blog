@@ -14,7 +14,7 @@ import { getRecentlyAddedPosts } from "@/lib/actions/post.action";
 const Blogs = async () => {
   const result = await getRecentlyAddedPosts();
   return (
-    <section className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
+    <section className="background-light400_dark300 flex items-center justify-center overflow-hidden px-16 py-20 max-md:px-5">
       <div className="w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
         <Carousel
           opts={{
@@ -46,7 +46,6 @@ const Blogs = async () => {
               >
                 <div className="px-2 py-5">
                   <Card>
-                    {/* <CardContent className="flex aspect-square items-center justify-center"> */}
                     <BlogCard
                       tags={component.tags}
                       title={component.title}
