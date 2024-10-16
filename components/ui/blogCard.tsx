@@ -17,7 +17,7 @@ const BlogCard = ({
   tags,
 }: BlogCardProps) => {
   return (
-    <div className="background-light800_dark300 flex w-full flex-col overflow-hidden rounded-xl transition-all duration-500 hover:shadow-lg">
+    <div className="background-light800_dark300 flex w-full flex-col overflow-hidden rounded-xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 hover:shadow-xl">
       <Link href={`/blog/${link}`}>
         <div
           className="h-[250px] cursor-pointer bg-cover bg-center "
