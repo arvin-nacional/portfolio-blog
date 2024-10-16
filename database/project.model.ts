@@ -5,11 +5,11 @@ export interface IProject extends Document {
   title: string;
   createdOn: Date;
   dateFinished: Date;
-  softwaresUsed: string[];
+  softwareUsed: string[];
   clientName: string;
-  details: string;
+  content: string;
   images: string[];
-  category: Schema.Types.ObjectId;
+  category: Schema.Types.ObjectId[];
   url: string;
 }
 
@@ -18,14 +18,14 @@ const ProjectSchema = new Schema({
   title: { type: String, required: true },
   createdOn: { type: Date, default: Date.now },
   dateFinished: { type: Date, required: true },
-  softwaresUsed: [{ type: String, required: true }],
+  softwareUsed: [{ type: String, required: true }],
   clientName: { type: String, required: true },
-  shortText: { type: String, required: true },
+  content: { type: String, required: true },
   images: [{ type: String }], // Array of image URLs
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+  category: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
   url: String,
 });
 
-const Project = models.Project || model("Poroject", ProjectSchema);
+const Project = models.Project || model("Project", ProjectSchema);
 
 export default Project;

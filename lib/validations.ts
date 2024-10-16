@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { validateDate } from "./utils";
 
 export const SubscriberFormSchema = z.object({
   email: z.string().email(),
@@ -19,4 +20,19 @@ export const PostSchema = z.object({
   title: z.string().min(5).max(130),
   content: z.string().min(5).max(10000),
   image: z.string(),
+});
+
+export const ProjectSchema = z.object({
+  category: z.array(z.string().min(1).max(15)).min(1),
+  title: z.string().min(5).max(130),
+  content: z.string().min(5).max(10000),
+  mainImage: z.string(),
+  clientName: z.string().min(1),
+  softwareUsed: z.array(z.string().min(1).max(20)).min(1),
+  images: z.array(z.string()),
+  dateFinished: z.string().trim().refine(validateDate, {
+    message:
+      "Invalid date. Please use the MM/DD/YYYY format and ensure the date is valid.",
+  }),
+  url: z.string(),
 });

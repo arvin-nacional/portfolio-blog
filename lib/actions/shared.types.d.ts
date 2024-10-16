@@ -20,6 +20,19 @@ export interface addPostParams {
   image: string;
   path: string;
 }
+
+export interface addProjectParams {
+  category: string[];
+  title: string;
+  content: string;
+  mainImage: string;
+  clientName: string;
+  softwareUsed: string[];
+  images?: string[];
+  dateFinished: string;
+  path: string;
+  url?: string;
+}
 export interface EditPostParams {
   postId: string;
   title: string;
@@ -49,6 +62,10 @@ export interface GetRecentPostParams {
 
 export interface getPostByIdParams {
   postId: string;
+}
+
+export interface getProjectByIdParams {
+  projectId: string;
 }
 
 export interface GetRelatedPostsParams {

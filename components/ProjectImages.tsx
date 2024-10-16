@@ -36,7 +36,7 @@ const ProjectImages = () => {
   ];
   return (
     <div>
-      <p className="h3-bold mb-10 px-2">Related Images</p>
+      <p className="h3-bold mb-10 px-2 text-dark400_light900">Project Images</p>
       <div className="flex flex-wrap gap-5 w-[100%] justify-center">
         {projectImages.map((image, idx) => (
           <Image
