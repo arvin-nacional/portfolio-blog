@@ -1,5 +1,6 @@
 import About from "@/components/About";
 import Blogs from "@/components/Blogs";
+import CTA from "@/components/shared/CTA";
 
 import Hero2 from "@/components/Hero2";
 import LogoAnimation from "@/components/LogoAnimation";
@@ -23,8 +24,7 @@ const Home = () => {
       <Portfolio />
       <Blogs />
       <Testimonials />
-
-      {/* <CTA /> */}
+      <CTA />
     </div>
   );
 };

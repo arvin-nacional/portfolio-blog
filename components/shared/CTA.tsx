@@ -1,6 +1,7 @@
 import React from "react";
-import { Boxes } from "./ui/background-boxes";
-import { Button } from "./ui/button";
+import { Boxes } from "../ui/background-boxes";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 const CTA = () => {
   return (
@@ -15,10 +16,12 @@ const CTA = () => {
         {/* <p className="relative z-20 mt-2 text-center text-neutral-300">
           Framer motion is the best animation library ngl
         </p> */}
-        <Button className="primary-gradient z-20  w-fit cursor-pointer rounded-3xl px-9 font-light !text-light-900 ">
-          {" "}
-          Connect with me
-        </Button>
+        <Link href="/contact" className="  z-20 ">
+          <Button className="primary-gradient z-20  w-fit cursor-pointer rounded-3xl px-9 font-light !text-light-900 ">
+            {" "}
+            Connect with me
+          </Button>
+        </Link>
       </div>
     </section>
   );

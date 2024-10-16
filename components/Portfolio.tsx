@@ -146,9 +146,9 @@ const Portfolio = () => {
                 active === "all"
                   ? ""
                   : !(active === item.category)
-                  ? "hidden"
-                  : ""
-              } transition duration-300 ease-in-out`}
+                    ? "hidden"
+                    : ""
+              } `}
               key={index}
             >
               <PortfolioCard
