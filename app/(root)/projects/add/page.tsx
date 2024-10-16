@@ -1,4 +1,3 @@
-import Post from "@/components/forms/Post";
 import Project from "@/components/forms/Project";
 import React from "react";
 
