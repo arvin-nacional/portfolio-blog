@@ -25,13 +25,15 @@ import { createProject } from "@/lib/actions/project.action";
 
 interface Props {
   type?: string;
-  postDetails?: string;
-  postId?: string;
+  projectDetails?: string;
+  projectId?: string;
 }
 
-const Project = ({ type, postDetails, postId }: Props) => {
-  // convert postDetails to object
-  const parsedPostDetails = postDetails ? JSON.parse(postDetails || "") : null;
+const Project = ({ type, projectDetails, projectId }: Props) => {
+  // convert projectDetails to object
+  const parsedProjectDetails = projectDetails
+    ? JSON.parse(projectDetails || "")
+    : null;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
@@ -41,16 +43,32 @@ const Project = ({ type, postDetails, postId }: Props) => {
   const [preview, setPreview] = useState({
     name: "default",
     url: `${
-      parsedPostDetails?.image
-        ? parsedPostDetails.image
+      parsedProjectDetails?.image
+        ? parsedProjectDetails.image
         : "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg"
     }`,
   });
 
-  const groupedCategories = parsedPostDetails?.tags.map((tag: any) => tag.name);
+  const [previewImages, setPreviewImages] = useState(
+    parsedProjectDetails?.images
+      ? parsedProjectDetails.images.map((image: string, index: number) => ({
+          name: `Image ${index + 1}`,
+          url: image,
+        }))
+      : [
+          {
+            name: "default",
+            url: "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg",
+          },
+        ]
+  );
+
+  const groupedCategories = parsedProjectDetails?.tags.map(
+    (tag: any) => tag.name
+  );
 
   // convert image to string
-  const handleImageChange = (file: File) => {
+  const handleMainImageChange = (file: File) => {
     const reader = (readFile: File) =>
       new Promise<string>((resolve, reject) => {
         const fileReader = new FileReader();
@@ -63,16 +81,38 @@ const Project = ({ type, postDetails, postId }: Props) => {
     );
   };
 
+  // Handle multiple images and convert them to strings
+  const handleMultipleImageChange = (files: FileList) => {
+    const reader = (readFile: File) =>
+      new Promise<string>((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => resolve(fileReader.result as string);
+        fileReader.onerror = reject;
+        fileReader.readAsDataURL(readFile);
+      });
+
+    const promises = Array.from(files).map((file) => reader(file));
+
+    Promise.all(promises).then((results: string[]) => {
+      setPreviewImages(
+        results.map((result, index) => ({
+          name: files[index]?.name,
+          url: result,
+        }))
+      );
+    });
+  };
+
   const form = useForm<z.infer<typeof ProjectSchema>>({
     resolver: zodResolver(ProjectSchema),
     defaultValues: {
-      title: parsedPostDetails?.title || "",
-      content: parsedPostDetails?.content || "",
-      mainImage: parsedPostDetails?.mainImage || "",
+      title: parsedProjectDetails?.title || "",
+      content: parsedProjectDetails?.content || "",
+      mainImage: parsedProjectDetails?.mainImage || "",
       category: groupedCategories || [],
-      clientName: parsedPostDetails?.clientName || "",
+      clientName: parsedProjectDetails?.clientName || "",
       softwareUsed: [],
-      images: [],
+      images: previewImages.map((image: any) => image.url) || [],
       dateFinished: "",
       url: "",
     },
@@ -152,16 +192,15 @@ const Project = ({ type, postDetails, postId }: Props) => {
     setIsSubmitting(true);
 
     try {
-      console.log(values, preview.url);
       //   if (type === "Edit") {
       //     await editPost({
-      //       postId: parsedPostDetails._id,
+      //       postId: parsedProjectDetails._id,
       //       title: values.title,
       //       content: values.content,
       //       image: preview.url,
       //       path: pathname,
       //     });
-      //     router.push(`/blog/${parsedPostDetails._id}`);
+      //     router.push(`/blog/${parsedProjectDetails._id}`);
       //   } else {
 
       //   }
@@ -172,7 +211,7 @@ const Project = ({ type, postDetails, postId }: Props) => {
         mainImage: preview.url,
         clientName: values.clientName,
         softwareUsed: values.softwareUsed,
-        images: values.images,
+        images: previewImages.map((image: any) => image.url),
         dateFinished: values.dateFinished,
         path: pathname,
         url: values.url,
@@ -282,7 +321,7 @@ const Project = ({ type, postDetails, postId }: Props) => {
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={parsedPostDetails?.content || ""}
+                  initialValue={parsedProjectDetails?.content || ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -333,7 +372,7 @@ const Project = ({ type, postDetails, postId }: Props) => {
             <>
               <FormItem>
                 <FormLabel className="paragraph-semibold">
-                  Article Photo <span className="text-primary-500">*</span>
+                  Project Photo <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -341,7 +380,37 @@ const Project = ({ type, postDetails, postId }: Props) => {
                     {...rest}
                     onChange={(e) => {
                       // @ts-ignore
-                      handleImageChange(e.target.files[0]);
+                      handleMainImageChange(e.target.files[0]);
+                    }}
+                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline"
+                  />
+                </FormControl>
+                <FormDescription className="body-regular mt-2.5 text-light-500">
+                  Maximum size of 10mb.
+                </FormDescription>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            </>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="images"
+          render={({ field: { onChange, value, ...rest } }) => (
+            <>
+              <FormItem>
+                <FormLabel className="paragraph-semibold">
+                  Related Photos <span className="text-primary-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    {...rest}
+                    multiple // Allow multiple file selection
+                    onChange={(e) => {
+                      // @ts-ignore
+                      handleMultipleImageChange(e.target.files);
                     }}
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline"
                   />
@@ -395,18 +464,18 @@ const Project = ({ type, postDetails, postId }: Props) => {
 
                   {field.value.length > 0 && (
                     <div className="mt-2.5 flex justify-start gap-2.5">
-                      {field.value.map((softwaerUsed: any) => (
+                      {field.value.map((softwareUsed: any) => (
                         <Badge
-                          key={softwaerUsed}
+                          key={softwareUsed}
                           variant="secondary"
                           className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
                           onClick={() =>
                             type !== "Edit"
-                              ? handleTagRemoveSoftwareUsed(softwaerUsed, field)
+                              ? handleTagRemoveSoftwareUsed(softwareUsed, field)
                               : () => {}
                           }
                         >
-                          {softwaerUsed}
+                          {softwareUsed}
                           {type !== "Edit" && (
                             <Image
                               src="/assets/icons/close.svg"

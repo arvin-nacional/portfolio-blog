@@ -28,7 +28,7 @@ export interface addProjectParams {
   mainImage: string;
   clientName: string;
   softwareUsed: string[];
-  images?: string[];
+  images: string[];
   dateFinished: string;
   path: string;
   url?: string;

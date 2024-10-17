@@ -5,49 +5,53 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import Image from "next/image";
 
-const ProjectImages = () => {
+interface Props {
+  images: string[];
+}
+
+const ProjectImages = ({ images }: Props) => {
   const [index, setIndex] = useState(-1);
 
-  const projectImages = [
-    {
-      src: "/assets/images/website1.png",
-      alt: "project Image",
-    },
-    {
-      src: "/assets/images/website1.png",
-      alt: "project Image",
-    },
-    {
-      src: "/assets/images/website1.png",
-      alt: "project Image",
-    },
-    {
-      src: "/assets/images/website1.png",
-      alt: "project Image",
-    },
-    {
-      src: "/assets/images/website1.png",
-      alt: "project Image",
-    },
-    {
-      src: "/assets/images/website1.png",
-      alt: "project Image",
-    },
-  ];
+  // const projectImages = [
+  //   {
+  //     src: "/assets/images/website1.png",
+  //     alt: "project Image",
+  //   },
+  //   {
+  //     src: "/assets/images/website1.png",
+  //     alt: "project Image",
+  //   },
+  //   {
+  //     src: "/assets/images/website1.png",
+  //     alt: "project Image",
+  //   },
+  //   {
+  //     src: "/assets/images/website1.png",
+  //     alt: "project Image",
+  //   },
+  //   {
+  //     src: "/assets/images/website1.png",
+  //     alt: "project Image",
+  //   },
+  //   {
+  //     src: "/assets/images/website1.png",
+  //     alt: "project Image",
+  //   },
+  // ];
   return (
     <div>
-      <p className="h3-bold mb-10 px-2 text-dark400_light900">Project Images</p>
-      <div className="flex flex-wrap gap-5 w-[100%] justify-center">
-        {projectImages.map((image, idx) => (
+      <p className="h3-bold text-dark400_light900 mb-10 px-2">Project Images</p>
+      <div className="flex w-full flex-wrap justify-center gap-5">
+        {images?.map((image, idx) => (
           <Image
             key={idx}
-            src={image.src}
-            alt={image.alt}
+            src={image}
+            alt={image}
             onClick={() => setIndex(idx)}
             width={380}
             height={380}
             // style={{ width: "100%", height: "300px" }}
-            className="cursor-pointer max-w-[450px] rounded-lg shadow-md transition-transform transform hover:scale-105 object-cover"
+            className="max-w-[450px] cursor-pointer rounded-lg object-cover shadow-md transition-transform hover:scale-105"
           />
         ))}
       </div>
@@ -57,7 +61,7 @@ const ProjectImages = () => {
           <Lightbox
             open={index >= 0}
             close={() => setIndex(-1)}
-            slides={projectImages}
+            // slides={{images}}
             plugins={[Zoom]}
             index={index}
             // onIndexChange={setIndex}

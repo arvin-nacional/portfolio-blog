@@ -81,7 +81,7 @@ const page = async ({ params }: ParamsProps) => {
               </div>
             </div>
           </div>
-          <ProjectImages />
+          <ProjectImages images={details.images} />
         </div>
       </section>
       <CTA />

@@ -29,7 +29,7 @@ export async function createProject(params: addProjectParams) {
       title,
       content,
       category,
-      // images,
+      images,
       mainImage,
       path,
       clientName,
@@ -43,6 +43,13 @@ export async function createProject(params: addProjectParams) {
       // Additional Cloudinary options if needed
     });
 
+    // Upload the additional images to Cloudinary
+    const imageUploadResults = await Promise.all(
+      images.map((image) => cloudinary.uploader.upload(image))
+    );
+
+    const imageUrls = imageUploadResults.map((result) => result.url);
+
     // Create the project
     const project = await Project.create({
       title,
@@ -52,6 +59,7 @@ export async function createProject(params: addProjectParams) {
       clientName,
       softwareUsed,
       url,
+      images: imageUrls,
     });
 
     const categoryDocuments = [];
@@ -95,7 +103,7 @@ export async function getProjectById(params: getProjectByIdParams) {
 export async function getAllProjects(params: GetProjectsParams) {
   try {
     connectToDatabase();
-    const { searchQuery, page = 1, pageSize = 6 } = params;
+    const { searchQuery, page = 1, pageSize = 9 } = params;
 
     // Calculcate the number of posts to skip based on the page number and page size
     const skipAmount = (page - 1) * pageSize;
