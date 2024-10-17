@@ -1,5 +1,9 @@
 import { Schema, model, models, Document } from "mongoose";
 
+export interface IImage {
+  src: string;
+  alt: string;
+}
 export interface IProject extends Document {
   mainImage: string;
   title: string;
@@ -8,7 +12,7 @@ export interface IProject extends Document {
   softwareUsed: string[];
   clientName: string;
   content: string;
-  images: string[];
+  images: IImage[];
   category: Schema.Types.ObjectId[];
   url: string;
 }
@@ -21,7 +25,12 @@ const ProjectSchema = new Schema({
   softwareUsed: [{ type: String, required: true }],
   clientName: { type: String, required: true },
   content: { type: String, required: true },
-  images: [{ type: String }], // Array of image URLs
+  images: [
+    {
+      src: { type: String, required: true },
+      alt: { type: String, required: true },
+    },
+  ],
   category: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
   url: String,
 });

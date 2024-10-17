@@ -45,20 +45,20 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     url: `${
       parsedProjectDetails?.image
         ? parsedProjectDetails.image
-        : "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg"
+        : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fthenounproject.com%2Fbrowse%2Ficons%2Fterm%2Fimage-default%2F&psig=AOvVaw05V2R26JecyhhuNtlpd2-l&ust=1729229148224000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMD1i97WlIkDFQAAAAAdAAAAABAS"
     }`,
   });
 
   const [previewImages, setPreviewImages] = useState(
     parsedProjectDetails?.images
       ? parsedProjectDetails.images.map((image: string, index: number) => ({
-          name: `Image ${index + 1}`,
-          url: image,
+          alt: `Image ${index + 1}`,
+          src: image,
         }))
       : [
           {
-            name: "default",
-            url: "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg",
+            alt: "default",
+            src: "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg",
           },
         ]
   );
@@ -96,8 +96,8 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     Promise.all(promises).then((results: string[]) => {
       setPreviewImages(
         results.map((result, index) => ({
-          name: files[index]?.name,
-          url: result,
+          alt: files[index]?.name,
+          src: result,
         }))
       );
     });
@@ -112,7 +112,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       category: groupedCategories || [],
       clientName: parsedProjectDetails?.clientName || "",
       softwareUsed: [],
-      images: previewImages.map((image: any) => image.url) || [],
+      images: previewImages || [],
       dateFinished: "",
       url: "",
     },
@@ -211,7 +211,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         mainImage: preview.url,
         clientName: values.clientName,
         softwareUsed: values.softwareUsed,
-        images: previewImages.map((image: any) => image.url),
+        images: previewImages,
         dateFinished: values.dateFinished,
         path: pathname,
         url: values.url,

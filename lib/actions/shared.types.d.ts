@@ -21,6 +21,11 @@ export interface addPostParams {
   path: string;
 }
 
+export interface ProjectImages {
+  src: string;
+  alt: string;
+}
+
 export interface addProjectParams {
   category: string[];
   title: string;
@@ -28,7 +33,7 @@ export interface addProjectParams {
   mainImage: string;
   clientName: string;
   softwareUsed: string[];
-  images: string[];
+  images: ProjectImages[];
   dateFinished: string;
   path: string;
   url?: string;

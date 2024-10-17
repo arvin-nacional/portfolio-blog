@@ -6,12 +6,14 @@ import React from "react";
 import { ParamsProps } from "@/types";
 import { getProjectById } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
+import ParseHTML from "@/components/shared/ParseHTML";
 
 const page = async ({ params }: ParamsProps) => {
   const result = await getProjectById({ projectId: params.id });
 
   const details = result?.project;
-  console.log(details);
+
+  // console.log(details.images);
 
   return (
     <div>
@@ -32,9 +34,8 @@ const page = async ({ params }: ParamsProps) => {
               <h3 className="h2-bold text-dark400_light700 mb-5">
                 {details.title}
               </h3>
-              <p className="paragraph-regular text-dark400_light700">
-                {details.content}
-              </p>
+
+              <ParseHTML data={details.content} />
             </div>{" "}
             <div className=" flex-1 flex-col ">
               <p className="h3-bold text-dark400_light700 mb-5 mt-12">
@@ -81,9 +82,28 @@ const page = async ({ params }: ParamsProps) => {
               </div>
             </div>
           </div>
-          <ProjectImages images={details.images} />
+
+          <p className="h3-bold text-dark400_light900 mb-10 px-2">
+            Project Images
+          </p>
+          <div className="flex w-full flex-wrap justify-center gap-5">
+            {details.images.map((image: any) => (
+              <Image
+                key={image._id}
+                src={image.src}
+                alt={image.alt}
+                // onClick={() => setIndex(idx)}
+                width={380}
+                height={380}
+                loading="lazy" // Add lazy loading here
+                className="max-w-[450px] cursor-pointer rounded-lg object-cover shadow-md transition-transform hover:scale-105"
+              />
+            ))}
+          </div>
+          {/* <ProjectImages images={details.images} /> */}
         </div>
       </section>
+
       <CTA />
     </div>
   );

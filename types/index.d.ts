@@ -59,6 +59,11 @@ export interface ProjectCardProps {
   _id: string;
   category: CategoryProps[];
 }
+export interface ImageProps {
+  src: string;
+  alt: string;
+  _id: ObjectId;
+}
 
 export interface PostProps {
   title: string;

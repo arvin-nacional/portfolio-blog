@@ -23,13 +23,20 @@ export const PostSchema = z.object({
 });
 
 export const ProjectSchema = z.object({
-  category: z.array(z.string().min(1).max(15)).min(1),
+  category: z.array(z.string().min(1).max(30)).min(1),
   title: z.string().min(5).max(130),
   content: z.string().min(5).max(10000),
   mainImage: z.string(),
   clientName: z.string().min(1),
   softwareUsed: z.array(z.string().min(1).max(20)).min(1),
-  images: z.array(z.string()),
+  images: z
+    .array(
+      z.object({
+        src: z.string().url(),
+        alt: z.string().min(1),
+      })
+    )
+    .min(1),
   dateFinished: z.string().trim().refine(validateDate, {
     message:
       "Invalid date. Please use the MM/DD/YYYY format and ensure the date is valid.",

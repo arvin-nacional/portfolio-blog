@@ -1,73 +1,52 @@
 "use client";
 import React, { useState } from "react";
-import Lightbox from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
+
 import "yet-another-react-lightbox/styles.css";
 import Image from "next/image";
+import { ImageProps } from "@/types";
+import dynamic from "next/dynamic";
 
+// Dynamically import the lightbox to ensure it works only in the browser
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
+  ssr: false,
+});
+// const Zoom = dynamic(() => import("yet-another-react-lightbox/plugins/zoom"), {
+//   ssr: false,
+// });
 interface Props {
-  images: string[];
+  images: ImageProps[];
 }
 
 const ProjectImages = ({ images }: Props) => {
-  const [index, setIndex] = useState(-1);
+  // const [index, setIndex] = useState(-1);
 
-  // const projectImages = [
-  //   {
-  //     src: "/assets/images/website1.png",
-  //     alt: "project Image",
-  //   },
-  //   {
-  //     src: "/assets/images/website1.png",
-  //     alt: "project Image",
-  //   },
-  //   {
-  //     src: "/assets/images/website1.png",
-  //     alt: "project Image",
-  //   },
-  //   {
-  //     src: "/assets/images/website1.png",
-  //     alt: "project Image",
-  //   },
-  //   {
-  //     src: "/assets/images/website1.png",
-  //     alt: "project Image",
-  //   },
-  //   {
-  //     src: "/assets/images/website1.png",
-  //     alt: "project Image",
-  //   },
-  // ];
+  // const filteredImages = images.map(({ src, alt }) => ({ src, alt }));
+  const [open, setOpen] = useState<boolean>();
   return (
     <div>
       <p className="h3-bold text-dark400_light900 mb-10 px-2">Project Images</p>
       <div className="flex w-full flex-wrap justify-center gap-5">
-        {images?.map((image, idx) => (
+        {images.map((image, idx) => (
           <Image
             key={idx}
-            src={image}
-            alt={image}
-            onClick={() => setIndex(idx)}
+            src={image.src}
+            alt={image.alt}
+            onClick={() => setOpen(true)}
             width={380}
             height={380}
-            // style={{ width: "100%", height: "300px" }}
+            loading="lazy" // Add lazy loading here
             className="max-w-[450px] cursor-pointer rounded-lg object-cover shadow-md transition-transform hover:scale-105"
           />
         ))}
       </div>
 
-      <div>
-        {index >= 0 && (
-          <Lightbox
-            open={index >= 0}
-            close={() => setIndex(-1)}
-            // slides={{images}}
-            plugins={[Zoom]}
-            index={index}
-            // onIndexChange={setIndex}
-          />
-        )}
-      </div>
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={images}
+        plugins={[]}
+        // index={index}
+      />
     </div>
   );
 };

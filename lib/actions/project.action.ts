@@ -45,10 +45,13 @@ export async function createProject(params: addProjectParams) {
 
     // Upload the additional images to Cloudinary
     const imageUploadResults = await Promise.all(
-      images.map((image) => cloudinary.uploader.upload(image))
+      images.map((image) => cloudinary.uploader.upload(image.src))
     );
 
-    const imageUrls = imageUploadResults.map((result) => result.url);
+    const imageUrls = imageUploadResults.map((result, index) => ({
+      src: result.url,
+      alt: images[index].alt,
+    }));
 
     // Create the project
     const project = await Project.create({
