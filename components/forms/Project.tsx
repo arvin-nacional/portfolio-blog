@@ -15,6 +15,13 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -22,6 +29,7 @@ import { Badge } from "../ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { ProjectSchema } from "@/lib/validations";
 import { createProject } from "@/lib/actions/project.action";
+import { formatDateInput } from "@/lib/utils";
 
 interface Props {
   type?: string;
@@ -35,6 +43,8 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     ? JSON.parse(projectDetails || "")
     : null;
 
+  console.log(parsedProjectDetails);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
   const router = useRouter();
@@ -43,18 +53,15 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
   const [preview, setPreview] = useState({
     name: "default",
     url: `${
-      parsedProjectDetails?.image
-        ? parsedProjectDetails.image
-        : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fthenounproject.com%2Fbrowse%2Ficons%2Fterm%2Fimage-default%2F&psig=AOvVaw05V2R26JecyhhuNtlpd2-l&ust=1729229148224000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMD1i97WlIkDFQAAAAAdAAAAABAS"
+      parsedProjectDetails?.mainImage
+        ? parsedProjectDetails.mainImage
+        : "https://res.cloudinary.com/dey07xuvf/image/upload/v1729222998/Slide_16_9_-_2_ro7dnm.png"
     }`,
   });
 
   const [previewImages, setPreviewImages] = useState(
     parsedProjectDetails?.images
-      ? parsedProjectDetails.images.map((image: string, index: number) => ({
-          alt: `Image ${index + 1}`,
-          src: image,
-        }))
+      ? parsedProjectDetails.images
       : [
           {
             alt: "default",
@@ -63,7 +70,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         ]
   );
 
-  const groupedCategories = parsedProjectDetails?.tags.map(
+  const groupedCategories = parsedProjectDetails?.category.map(
     (tag: any) => tag.name
   );
 
@@ -94,12 +101,14 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     const promises = Array.from(files).map((file) => reader(file));
 
     Promise.all(promises).then((results: string[]) => {
-      setPreviewImages(
-        results.map((result, index) => ({
+      setPreviewImages((prevImages: any) => [
+        ...prevImages,
+        ...results.map((result, index) => ({
           alt: files[index]?.name,
           src: result,
-        }))
-      );
+          _id: `${files[index]?.name}-${Date.now()}`, // Generate a unique ID for each image
+        })),
+      ]);
     });
   };
 
@@ -113,10 +122,19 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       clientName: parsedProjectDetails?.clientName || "",
       softwareUsed: [],
       images: previewImages || [],
-      dateFinished: "",
+      dateFinished:
+        formatDateInput(parsedProjectDetails?.dateFinished.toString()) || "",
       url: "",
     },
   });
+
+  // removeImagefromListButton
+  const handleRemoveImageFromList = (item: string) => {
+    const updatedImages = previewImages.filter(
+      (image: any) => image._id !== item
+    );
+    setPreviewImages(updatedImages);
+  };
 
   const handleInputKeyDownCategory = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -273,7 +291,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                         <Badge
                           key={category}
                           variant="secondary"
-                          className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
+                          className="subtle-medium  flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
                           onClick={() =>
                             type !== "Edit"
                               ? handleTagRemoveCategory(category, field)
@@ -393,6 +411,32 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
             </>
           )}
         />
+        <div className="flex w-full flex-wrap">
+          {previewImages &&
+            previewImages.map((item: any) => (
+              <TooltipProvider key={item.alt}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Avatar className="w-1/3 p-2">
+                      <AvatarImage
+                        src={item.src}
+                        className="object-cover object-left-top"
+                      />
+                      <AvatarFallback>Your Photo</AvatarFallback>
+                    </Avatar>
+                  </TooltipTrigger>
+                  <TooltipContent className="background-light900_dark300">
+                    <p
+                      onClick={() => handleRemoveImageFromList(item._id)}
+                      className="text-dark400_light800  cursor-pointer"
+                    >
+                      Remove
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ))}
+        </div>
 
         <FormField
           control={form.control}

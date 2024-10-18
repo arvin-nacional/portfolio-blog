@@ -114,7 +114,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
     setIsSubmitting(true);
 
     try {
-      console.log(values, preview.url);
+      // console.log(values, preview.url);
       if (type === "Edit") {
         await editPost({
           postId: parsedPostDetails._id,

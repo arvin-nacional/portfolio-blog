@@ -13,8 +13,6 @@ const page = async ({ params }: ParamsProps) => {
 
   const details = result?.project;
 
-  // console.log(details.images);
-
   return (
     <div>
       <section className="flex items-center justify-center px-16 max-md:px-5 sm:py-10">
@@ -83,24 +81,7 @@ const page = async ({ params }: ParamsProps) => {
             </div>
           </div>
 
-          <p className="h3-bold text-dark400_light900 mb-10 px-2">
-            Project Images
-          </p>
-          <div className="flex w-full flex-wrap justify-center gap-5">
-            {details.images.map((image: any) => (
-              <Image
-                key={image._id}
-                src={image.src}
-                alt={image.alt}
-                // onClick={() => setIndex(idx)}
-                width={380}
-                height={380}
-                loading="lazy" // Add lazy loading here
-                className="max-w-[450px] cursor-pointer rounded-lg object-cover shadow-md transition-transform hover:scale-105"
-              />
-            ))}
-          </div>
-          {/* <ProjectImages images={details.images} /> */}
+          <ProjectImages images={JSON.stringify(details.images)} />
         </div>
       </section>
 
