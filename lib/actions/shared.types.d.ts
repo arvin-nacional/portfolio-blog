@@ -38,6 +38,20 @@ export interface addProjectParams {
   path: string;
   url?: string;
 }
+
+export interface EditProjectParams {
+  projectId: string;
+  title: string;
+  content: string;
+  mainImage: string;
+  clientName: string;
+  softwareUsed: string[];
+  images: ProjectImages[];
+  dateFinished: string;
+  path: string;
+  url?: string;
+}
+
 export interface EditPostParams {
   postId: string;
   title: string;

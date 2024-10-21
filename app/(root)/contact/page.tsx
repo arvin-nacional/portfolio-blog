@@ -4,7 +4,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <section className="background-light850_dark100 flex items-center justify-center px-16 max-md:px-5 sm:py-20">
+    <section className="background-light850_dark100 flex items-center justify-center px-16  py-20 max-md:px-5 max-md:py-20">
       <div className="flex w-[1200px] max-w-full  pb-6 max-md:mt-10">
         <div className="flex items-start gap-5 max-sm:flex-col-reverse">
           <div className="flex flex-1 flex-col items-start justify-between">

@@ -7,6 +7,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { connectToDatabase } from "../mongoose";
 import {
   addProjectParams,
+  EditProjectParams,
   getProjectByIdParams,
   GetProjectsParams,
 } from "./shared.types";
@@ -81,6 +82,47 @@ export async function createProject(params: addProjectParams) {
     await Project.findByIdAndUpdate(project._id, {
       $push: { category: { $each: categoryDocuments } },
     });
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateProject(params: EditProjectParams) {
+  try {
+    connectToDatabase();
+    const {
+      projectId,
+      title,
+      content,
+      images,
+      mainImage,
+      clientName,
+      softwareUsed,
+      dateFinished,
+      path,
+      url,
+    } = params;
+
+    console.log(params);
+
+    const project = await Project.findById(projectId).populate("category");
+
+    if (!project) {
+      throw new Error("Project not found");
+    }
+
+    project.title = title;
+    project.content = content;
+    project.clientName = clientName;
+    project.softwareUsed = softwareUsed;
+    project.dateFinished = dateFinished;
+    project.url = url;
+    project.mainImage = mainImage;
+    project.images = images;
+
+    await project.save();
 
     revalidatePath(path);
   } catch (error) {

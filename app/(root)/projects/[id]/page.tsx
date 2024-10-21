@@ -7,6 +7,7 @@ import { ParamsProps } from "@/types";
 import { getProjectById } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
 import ParseHTML from "@/components/shared/ParseHTML";
+import Link from "next/link";
 
 const page = async ({ params }: ParamsProps) => {
   const result = await getProjectById({ projectId: params.id });
@@ -15,7 +16,7 @@ const page = async ({ params }: ParamsProps) => {
 
   return (
     <div>
-      <section className="flex items-center justify-center px-16 max-md:px-5 sm:py-10">
+      <section className="flex items-center justify-center px-16 py-20 max-md:px-5 sm:py-[100px]">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
           <Image
             src={details.mainImage}
@@ -60,6 +61,22 @@ const page = async ({ params }: ParamsProps) => {
                           {item}
                         </Badge>
                       ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="h3-bold mb-2 text-primary-500">
+                      Website Link
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {details.url && (
+                        <Link
+                          href={details.url}
+                          className="paragraph-medium text-dark400_light700"
+                        >
+                          {details.url}
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

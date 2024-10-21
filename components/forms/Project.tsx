@@ -28,7 +28,7 @@ import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { ProjectSchema } from "@/lib/validations";
-import { createProject } from "@/lib/actions/project.action";
+import { createProject, updateProject } from "@/lib/actions/project.action";
 import { formatDateInput } from "@/lib/utils";
 
 interface Props {
@@ -60,18 +60,15 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
   });
 
   const [previewImages, setPreviewImages] = useState(
-    parsedProjectDetails?.images
-      ? parsedProjectDetails.images
-      : [
-          {
-            alt: "default",
-            src: "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg",
-          },
-        ]
+    parsedProjectDetails?.images ? parsedProjectDetails.images : []
   );
 
   const groupedCategories = parsedProjectDetails?.category.map(
     (tag: any) => tag.name
+  );
+
+  const groupedSoftwareUsed = parsedProjectDetails?.softwareUsed.map(
+    (item: any) => item
   );
 
   // convert image to string
@@ -120,11 +117,11 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       mainImage: parsedProjectDetails?.mainImage || "",
       category: groupedCategories || [],
       clientName: parsedProjectDetails?.clientName || "",
-      softwareUsed: [],
+      softwareUsed: groupedSoftwareUsed || [],
       images: previewImages || [],
       dateFinished:
         formatDateInput(parsedProjectDetails?.dateFinished.toString()) || "",
-      url: "",
+      url: parsedProjectDetails.url || "",
     },
   });
 
@@ -210,31 +207,36 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     setIsSubmitting(true);
 
     try {
-      //   if (type === "Edit") {
-      //     await editPost({
-      //       postId: parsedProjectDetails._id,
-      //       title: values.title,
-      //       content: values.content,
-      //       image: preview.url,
-      //       path: pathname,
-      //     });
-      //     router.push(`/blog/${parsedProjectDetails._id}`);
-      //   } else {
+      if (type === "Edit") {
+        await updateProject({
+          projectId: parsedProjectDetails._id,
+          title: values.title,
+          content: values.content,
+          mainImage: preview.url,
+          clientName: values.clientName,
+          softwareUsed: values.softwareUsed,
+          images: previewImages,
+          dateFinished: values.dateFinished,
+          path: pathname,
+          url: values.url,
+        });
+        router.push(`/projects/${parsedProjectDetails._id}`);
+      } else {
+        await createProject({
+          title: values.title,
+          content: values.content,
+          category: values.category,
+          mainImage: preview.url,
+          clientName: values.clientName,
+          softwareUsed: values.softwareUsed,
+          images: previewImages,
+          dateFinished: values.dateFinished,
+          path: pathname,
+          url: values.url,
+        });
+      }
 
-      //   }
-      await createProject({
-        title: values.title,
-        content: values.content,
-        category: values.category,
-        mainImage: preview.url,
-        clientName: values.clientName,
-        softwareUsed: values.softwareUsed,
-        images: previewImages,
-        dateFinished: values.dateFinished,
-        path: pathname,
-        url: values.url,
-      });
-      router.push(`/projects`);
+      // router.push(`/projects/${parsedProjectDetails?._id}`);
     } catch (error) {
     } finally {
       setIsSubmitting(false);
