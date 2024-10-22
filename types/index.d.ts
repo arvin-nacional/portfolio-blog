@@ -9,6 +9,10 @@ export interface SidebarLink {
 export interface SearchParamsProps {
   searchParams?: { [key: string]: string | undefined };
 }
+
+export interface FilterParamsProps {
+  filterParams?: { [key: string]: string | undefined };
+}
 export interface ParamsProps {
   params: { id: string };
 }

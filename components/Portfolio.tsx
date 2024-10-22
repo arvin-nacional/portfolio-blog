@@ -9,114 +9,31 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { getAllProjects } from "@/lib/actions/project.action";
+import {
+  getAllCategoryNamesAndIds,
+  getAllProjects,
+} from "@/lib/actions/project.action";
 import { SearchParamsProps } from "@/types";
 import ProjectCard from "./ui/projectCard";
 import { formatDate } from "@/lib/utils";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { SignedIn } from "@clerk/nextjs";
+import Filter from "./search/Filter";
 
-const Portfolio = async ({ searchParams }: SearchParamsProps) => {
-  // const portfolioData = [
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/website1.png",
-  //     category: "landing_page",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "logo_design",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "web_design",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "social_media",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "landing_page",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "web_design",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "logo_design",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "landing_page",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "logo_design",
-  //   },
-  //   {
-  //     title: "Colorful Art Work",
-  //     subtitle: "See Details",
-  //     href: "/portfolio/portfolio-details",
-  //     src: "/assets/images/branding.png",
-  //     category: "web_design",
-  //   },
-  // ];
-  // const categoryMenu = [
-  //   {
-  //     title: "Web Design",
-  //     category: "web_design",
-  //   },
-  //   {
-  //     title: "Landing Page",
-  //     category: "landing_page",
-  //   },
-  //   {
-  //     title: "Social Media",
-  //     category: "social_media",
-  //   },
-  //   {
-  //     title: "Logo Design",
-  //     category: "logo_design",
-  //   },
-  // ];
-
+const Portfolio = async ({ searchParams = {} }: SearchParamsProps) => {
   const result = await getAllProjects({
-    // searchQuery: searchParams.q,
-    // page: searchParams.page ? +searchParams.page : 1,
+    searchQuery: searchParams.q,
+    page: searchParams.page ? +searchParams.page : 1,
+    filter: searchParams.filter,
   });
 
-  console.log(result);
+  const categories = await getAllCategoryNamesAndIds();
 
   return (
     <section className="background-light850_dark100 flex items-center justify-center px-16 py-20 max-md:px-5">
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
-        <div className="flex flex-wrap items-end justify-between">
+        <div className="flex flex-wrap items-start justify-between">
           <div>
             <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
               Portfolio
@@ -126,23 +43,17 @@ const Portfolio = async ({ searchParams }: SearchParamsProps) => {
             </h1>
           </div>
           <div className="text-dark300_light700">
-            {/* <ul className="flex-center mb-3 flex cursor-pointer gap-5">
-              <li className={active === "all" ? "primary-text-gradient" : ""}>
-                <span onClick={() => setActive("all")}>All</span>
-              </li>
-              {categoryMenu.map((item, index) => (
-                <li
-                  className={
-                    active === item.category ? "primary-text-gradient" : ""
-                  }
-                  key={index}
-                >
-                  <span onClick={() => setActive(item.category)}>
-                    {item.title}
-                  </span>
-                </li>
-              ))}
-            </ul> */}
+            <SignedIn>
+              <Link href="/projects/add">
+                <Button variant="outline" className="bg-primary-500 text-white">
+                  Create
+                </Button>
+              </Link>
+            </SignedIn>
+            <Filter
+              filters={categories}
+              otherClasses="min-h-[56px] sm:min-w-[170px]"
+            />
           </div>
         </div>
         <div className=" mt-10 grid grid-cols-3 gap-5 ">

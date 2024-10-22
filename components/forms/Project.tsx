@@ -121,7 +121,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       images: previewImages || [],
       dateFinished:
         formatDateInput(parsedProjectDetails?.dateFinished.toString()) || "",
-      url: parsedProjectDetails.url || "",
+      url: parsedProjectDetails?.url || "",
     },
   });
 

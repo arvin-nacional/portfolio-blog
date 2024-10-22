@@ -7,6 +7,8 @@ import Sidebar from "./Sidebar";
 import MobileNav from "./MobileNav";
 import Logo from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -45,9 +47,31 @@ const Navbar = () => {
           <Link href="/blog">Blog</Link>
           <Link href="/#services">Services</Link>
         </div>
-        <div className="flex-between">
+        <div className="flex-between gap-5">
           <Theme />
+          <SignedOut>
+            <Link href="/sign-in" className="max-lg:hidden">
+              <Avatar>
+                <AvatarImage src="/assets/images/default_user.svg" />
+                <AvatarFallback>R</AvatarFallback>
+              </Avatar>
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "h-10 w-10",
+                },
+                variables: {
+                  colorPrimary: "#ff7000",
+                },
+              }}
+            />
+          </SignedIn>
+
           <Sidebar />
+
           <MobileNav />
         </div>
       </div>

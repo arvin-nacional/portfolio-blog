@@ -39,6 +39,11 @@ export interface addProjectParams {
   url?: string;
 }
 
+export interface DeleteProjectParams {
+  projectId: string;
+  path: string;
+}
+
 export interface EditProjectParams {
   projectId: string;
   title: string;
@@ -70,6 +75,13 @@ export interface GetPostsParams {
   pageSize?: number;
   searchQuery?: string;
   filter?: string;
+}
+
+export interface GetProjectByCategoryId {
+  categoryId: string;
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
 }
 
 export interface GetProjectsParams {

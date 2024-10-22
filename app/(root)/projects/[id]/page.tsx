@@ -8,6 +8,8 @@ import { getProjectById } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
 import ParseHTML from "@/components/shared/ParseHTML";
 import Link from "next/link";
+import { SignedIn } from "@clerk/nextjs";
+import DeletePost from "@/components/DeletePost";
 
 const page = async ({ params }: ParamsProps) => {
   const result = await getProjectById({ projectId: params.id });
@@ -31,7 +33,21 @@ const page = async ({ params }: ParamsProps) => {
                 {details.category[0].name}
               </h4>
               <h3 className="h2-bold text-dark400_light700 mb-5">
-                {details.title}
+                {details.title}{" "}
+                <SignedIn>
+                  <div className="flex items-center gap-5">
+                    <Link href={`/projects/edit/${params.id}`}>
+                      <Image
+                        src="/assets/icons/edit.svg"
+                        alt="edit"
+                        height={20}
+                        width={20}
+                        className="hover:text-primary-500"
+                      />
+                    </Link>
+                    <DeletePost id={params.id} type="project" />
+                  </div>
+                </SignedIn>
               </h3>
 
               <ParseHTML data={details.content} />

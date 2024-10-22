@@ -8,7 +8,7 @@ const About = () => {
       className="background-light850_dark100 flex items-center justify-center px-16 py-20 max-md:px-5"
       id="about"
     >
-      <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
+      <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10 max-sm:mt-0">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex w-6/12 flex-col max-md:ml-0 max-md:w-full">
             <Image
@@ -16,7 +16,7 @@ const About = () => {
               alt="About Me"
               height={560}
               width={470}
-              className="aspect-[0.99] w-full max-md:mt-10 max-md:max-w-full"
+              className="aspect-[0.99] w-full max-md:mt-10 max-md:max-w-full max-sm:mt-0"
             />
           </div>
           <div className="ml-5 flex w-6/12 animate-fade-left flex-col max-md:ml-0 max-md:w-full">

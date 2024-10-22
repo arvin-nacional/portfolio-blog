@@ -7,6 +7,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { connectToDatabase } from "../mongoose";
 import {
   addProjectParams,
+  DeleteProjectParams,
   EditProjectParams,
   getProjectByIdParams,
   GetProjectsParams,
@@ -82,6 +83,23 @@ export async function createProject(params: addProjectParams) {
     await Project.findByIdAndUpdate(project._id, {
       $push: { category: { $each: categoryDocuments } },
     });
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteProject(params: DeleteProjectParams) {
+  try {
+    connectToDatabase();
+
+    const { projectId, path } = params;
+    await Project.deleteOne({ _id: projectId });
+    await Category.updateMany(
+      { projects: projectId },
+      { $pull: { projects: projectId } }
+    );
 
     revalidatePath(path);
   } catch (error) {
@@ -172,6 +190,16 @@ export async function getAllProjects(params: GetProjectsParams) {
     const isNext = totalProjects > skipAmount + projects.length;
 
     return { projects, isNext };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+export async function getAllCategoryNamesAndIds() {
+  try {
+    connectToDatabase();
+    const categories = await Category.find({}, { name: 1, _id: 1 });
+    return categories;
   } catch (error) {
     console.log(error);
     throw error;

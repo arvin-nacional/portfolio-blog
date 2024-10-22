@@ -16,13 +16,16 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import { deletePost } from "@/lib/actions/post.action";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { deleteProject } from "@/lib/actions/project.action";
 
 interface Props {
-  postId: string | undefined;
+  id: string;
+  type?: string;
 }
 
-const DeletePost = ({ postId }: Props) => {
+const DeletePost = ({ id, type }: Props) => {
+  const router = useRouter();
   const path = usePathname();
   return (
     <AlertDialog>
@@ -49,11 +52,29 @@ const DeletePost = ({ postId }: Props) => {
           <AlertDialogAction
             variant="destructive"
             onClick={() => {
-              deletePost({ path, postId });
-              return toast({
-                title: "Article Removed",
-                variant: "default",
-              });
+              if (type === "project") {
+                try {
+                  deleteProject({ path, projectId: id });
+                  router.push("/projects");
+                  return toast({
+                    title: "Project Removed",
+                    variant: "default",
+                  });
+                } catch (error) {
+                  return toast({
+                    title: "Error",
+                    variant: "destructive",
+                  });
+                }
+              } else if (type === "post") {
+                deletePost({ path, postId: id });
+
+                router.push("/blog");
+                return toast({
+                  title: "Article Removed",
+                  variant: "default",
+                });
+              }
             }}
           >
             Continue
