@@ -43,8 +43,6 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     ? JSON.parse(projectDetails || "")
     : null;
 
-  console.log(parsedProjectDetails);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
   const router = useRouter();
@@ -103,10 +101,12 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         ...results.map((result, index) => ({
           alt: files[index]?.name,
           src: result,
-          _id: `${files[index]?.name}-${Date.now()}`, // Generate a unique ID for each image
+          _id: Math.floor(Math.random() * 1000),
         })),
       ]);
     });
+
+    console.log(previewImages);
   };
 
   const form = useForm<z.infer<typeof ProjectSchema>>({
@@ -118,7 +118,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       category: groupedCategories || [],
       clientName: parsedProjectDetails?.clientName || "",
       softwareUsed: groupedSoftwareUsed || [],
-      images: previewImages || [],
+      images: previewImages,
       dateFinished:
         formatDateInput(parsedProjectDetails?.dateFinished.toString()) || "",
       url: parsedProjectDetails?.url || "",
@@ -128,7 +128,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
   // removeImagefromListButton
   const handleRemoveImageFromList = (item: string) => {
     const updatedImages = previewImages.filter(
-      (image: any) => image._id !== item
+      (image: any) => image.src !== item
     );
     setPreviewImages(updatedImages);
   };
@@ -144,10 +144,10 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       const categoryValue = categoryInput.value.trim();
 
       if (categoryValue !== "") {
-        if (categoryValue.length > 15) {
+        if (categoryValue.length > 30) {
           return form.setError("category", {
             type: "required",
-            message: "Tag must be less than 15 characters.",
+            message: "Cateogry must be less than 30 characters.",
           });
         }
 
@@ -173,10 +173,10 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       const softwareUsedValue = softwareUsedInput.value.trim();
 
       if (softwareUsedValue !== "") {
-        if (softwareUsedValue.length > 15) {
+        if (softwareUsedValue.length > 30) {
           return form.setError("softwareUsed", {
             type: "required",
-            message: "Tag must be less than 15 characters.",
+            message: "Tag must be less than 30 characters.",
           });
         }
 
@@ -234,6 +234,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
           path: pathname,
           url: values.url,
         });
+        router.push("/projects");
       }
 
       // router.push(`/projects/${parsedProjectDetails?._id}`);
@@ -416,7 +417,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         <div className="flex w-full flex-wrap">
           {previewImages &&
             previewImages.map((item: any) => (
-              <TooltipProvider key={item.alt}>
+              <TooltipProvider key={item._id}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Avatar className="w-1/3 p-2">
@@ -429,7 +430,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                   </TooltipTrigger>
                   <TooltipContent className="background-light900_dark300">
                     <p
-                      onClick={() => handleRemoveImageFromList(item._id)}
+                      onClick={() => handleRemoveImageFromList(item.src)}
                       className="text-dark400_light800  cursor-pointer"
                     >
                       Remove

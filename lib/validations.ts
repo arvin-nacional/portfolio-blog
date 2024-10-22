@@ -29,14 +29,13 @@ export const ProjectSchema = z.object({
   mainImage: z.string(),
   clientName: z.string().min(1),
   softwareUsed: z.array(z.string().min(1).max(20)).min(1),
-  images: z
-    .array(
-      z.object({
-        src: z.string().url(),
-        alt: z.string().min(1),
-      })
-    )
-    .min(1),
+  images: z.array(
+    z.object({
+      src: z.string().url(),
+      alt: z.string().min(1),
+      _id: z.string().min(1).max(30),
+    })
+  ),
   dateFinished: z.string().trim().refine(validateDate, {
     message:
       "Invalid date. Please use the MM/DD/YYYY format and ensure the date is valid.",

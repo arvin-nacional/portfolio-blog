@@ -125,6 +125,22 @@ export async function updateProject(params: EditProjectParams) {
 
     console.log(params);
 
+    // Upload the project photo to Cloudinary
+    const photoUploadResult = await cloudinary.uploader.upload(mainImage, {
+      // Additional Cloudinary options if needed
+    });
+
+    // Upload additional images if they are in base64 format
+    const updatedImages = await Promise.all(
+      images.map(async (image) => {
+        if (image.src.startsWith("data:image")) {
+          const imageUploadResult = await cloudinary.uploader.upload(image.src);
+          return { src: imageUploadResult.url, alt: image.alt };
+        }
+        return image;
+      })
+    );
+
     const project = await Project.findById(projectId).populate("category");
 
     if (!project) {
@@ -137,8 +153,8 @@ export async function updateProject(params: EditProjectParams) {
     project.softwareUsed = softwareUsed;
     project.dateFinished = dateFinished;
     project.url = url;
-    project.mainImage = mainImage;
-    project.images = images;
+    project.mainImage = photoUploadResult.url;
+    project.images = updatedImages;
 
     await project.save();
 

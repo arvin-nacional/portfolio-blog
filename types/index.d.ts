@@ -45,7 +45,7 @@ export interface BlogCardProps {
   title: string;
   image: string;
   date: string;
-  link?: string;
+  link: string;
   content: string;
   _id?: string;
   tags: TagProps[];
