@@ -11,17 +11,14 @@ import Pagination from "./search/Pagination";
 
 interface Props {
   projects: string;
-  page?: number;
-  isNext?: boolean;
+  page: number;
+  isNext: boolean;
 }
 
 const Portfolio = async ({ projects, page, isNext }: Props) => {
   const categories = await getAllCategoryNamesAndIds();
 
   const parsedProjects = JSON.parse(projects);
-
-  const parsedPage = JSON.parse(JSON.stringify(page));
-  const parsedIsNext = JSON.parse(JSON.stringify(isNext));
 
   return (
     <section className="background-light850_dark100 flex items-center justify-center px-16 py-20 max-md:px-5">
@@ -85,7 +82,7 @@ const Portfolio = async ({ projects, page, isNext }: Props) => {
             </div>
           ))}
         </div>
-        <Pagination pageNumber={parsedPage} isNext={parsedIsNext} />
+        <Pagination pageNumber={page} isNext={isNext} />
       </div>
     </section>
   );

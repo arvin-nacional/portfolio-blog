@@ -13,7 +13,11 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
   return (
     <div>
-      <Portfolio projects={JSON.stringify(result.projects)} />
+      <Portfolio
+        projects={JSON.stringify(result.projects)}
+        page={searchParams?.page ? +searchParams.page : 1}
+        isNext={result.isNext}
+      />
     </div>
   );
 };

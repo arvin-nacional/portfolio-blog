@@ -1,5 +1,4 @@
 import LocalSearchbar from "@/components/search/LocalSearchBar";
-import Pagination from "@/components/search/Pagination";
 import BlogCard from "@/components/ui/blogCard";
 import { Button } from "@/components/ui/button";
 import { getPosts } from "@/lib/actions/post.action";
@@ -21,9 +20,9 @@ const page = async ({ searchParams }: SearchParamsProps) => {
       <section className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
           <SignedIn>
-            <Button className="animate__fadeIn animate__delay-3s mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
+            <Button className="  mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
               <Link
-                href="/company/news/add"
+                href="/blog/add"
                 className="base-medium flex items-center gap-2"
               >
                 <Image
@@ -60,10 +59,6 @@ const page = async ({ searchParams }: SearchParamsProps) => {
               />
             ))}
           </div>
-          <Pagination
-            pageNumber={searchParams?.page ? +searchParams.page : 1}
-            isNext={result.isNext}
-          />
         </div>
       </section>
       {/* <CTA
