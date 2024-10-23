@@ -14,10 +14,7 @@ import { formUrlQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
-  filters: {
-    name: string;
-    _id: string;
-  }[];
+  filters: string;
   otherClasses?: string;
   containerClasses?: string;
 }
@@ -25,17 +22,20 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const paramFilter = searchParams.get("q");
+  const parsedFilters = JSON.parse(filters);
+
+  const paramFilter = searchParams.get("category");
 
   const handleUpdateParams = (value: string) => {
     const newUrl = formUrlQuery({
       params: searchParams.toString(),
-      key: "q",
+      key: "category",
       value,
     });
 
     router.push(newUrl, { scroll: false });
   };
+
   return (
     <div className={`relative ${containerClasses}`}>
       <Select
@@ -51,7 +51,14 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
         </SelectTrigger>
         <SelectContent className="text-dark500_light700 small-regular border-none bg-light-900 dark:bg-dark-300">
           <SelectGroup>
-            {filters.map((item) => (
+            <SelectItem
+              key="all"
+              value="All"
+              className="cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400"
+            >
+              All Projects
+            </SelectItem>
+            {parsedFilters.map((item: any) => (
               <SelectItem
                 key={item._id}
                 value={item._id}

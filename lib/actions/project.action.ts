@@ -104,6 +104,9 @@ export async function deleteProject(params: DeleteProjectParams) {
     revalidatePath(path);
   } catch (error) {
     console.log(error);
+  } finally {
+    // Remove any categories that no longer have any projects
+    await Category.deleteMany({ projects: { $size: 0 } });
   }
 }
 
@@ -182,7 +185,7 @@ export async function getProjectById(params: getProjectByIdParams) {
 export async function getAllProjects(params: GetProjectsParams) {
   try {
     connectToDatabase();
-    const { searchQuery, page = 1, pageSize = 9 } = params;
+    const { searchQuery, page = 1, pageSize = 3, category } = params;
 
     // Calculcate the number of posts to skip based on the page number and page size
     const skipAmount = (page - 1) * pageSize;
@@ -193,6 +196,14 @@ export async function getAllProjects(params: GetProjectsParams) {
         { title: { $regex: new RegExp(searchQuery, "i") } },
         { content: { $regex: new RegExp(searchQuery, "i") } },
       ];
+    }
+
+    if (category && category !== "All") {
+      const categoryQuery = await Category.findOne({ _id: category });
+
+      if (categoryQuery) {
+        query.category = categoryQuery._id;
+      }
     }
 
     const projects = await Project.find(query)

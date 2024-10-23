@@ -12,8 +12,16 @@ import Testimonials from "@/components/Testimonials";
 // import Services from "@/components/Services";
 
 import React from "react";
+import { getAllProjects } from "@/lib/actions/project.action";
+import { SearchParamsProps } from "@/types";
 
-const Home = () => {
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllProjects({
+    searchQuery: searchParams?.q,
+    page: searchParams?.page ? +searchParams.page : 1,
+    filter: searchParams?.filter,
+    category: searchParams?.category,
+  });
   return (
     <div>
       {/* <Hero /> */}
@@ -21,7 +29,11 @@ const Home = () => {
       <LogoAnimation />
       <About />
       <Services />
-      <Portfolio />
+      <Portfolio
+        projects={JSON.stringify(result.projects)}
+        page={searchParams?.page ? +searchParams.page : 1}
+        isNext={result.isNext}
+      />
       <Blogs />
       <Testimonials />
       <CTA />
@@ -29,4 +41,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Page;

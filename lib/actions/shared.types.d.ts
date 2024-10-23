@@ -89,6 +89,7 @@ export interface GetProjectsParams {
   pageSize?: number;
   searchQuery?: string;
   filter?: string;
+  category?: string;
 }
 export interface GetRecentPostParams {
   page?: number;

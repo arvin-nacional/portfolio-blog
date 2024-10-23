@@ -50,7 +50,7 @@ const page = async ({ params }: ParamsProps) => {
                 </SignedIn>
               </h3>
 
-              <ParseHTML data={details.content} />
+              <ParseHTML data={details?.content} />
             </div>{" "}
             <div className=" flex-1 flex-col ">
               <p className="h3-bold text-dark400_light700 mb-5 mt-12">
@@ -72,7 +72,7 @@ const page = async ({ params }: ParamsProps) => {
                     <p className="h3-bold mb-2 text-primary-500">Software</p>
 
                     <div className="flex flex-wrap gap-2">
-                      {details.softwareUsed.map((item: any) => (
+                      {details?.softwareUsed.map((item: any) => (
                         <Badge variant="secondary" key={item}>
                           {item}
                         </Badge>
@@ -80,20 +80,22 @@ const page = async ({ params }: ParamsProps) => {
                     </div>
                   </div>
                   <div>
-                    <p className="h3-bold mb-2 text-primary-500">
-                      Website Link
-                    </p>
+                    {details?.url && (
+                      <>
+                        <p className="h3-bold mb-2 text-primary-500">
+                          Website Link
+                        </p>
 
-                    <div className="flex flex-wrap gap-2">
-                      {details.url && (
-                        <Link
-                          href={details.url}
-                          className="paragraph-medium text-dark400_light700"
-                        >
-                          {details.url}
-                        </Link>
-                      )}
-                    </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Link
+                            href={details.url}
+                            className="paragraph-medium text-dark400_light700"
+                          >
+                            {details.url}
+                          </Link>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="flex w-[250px] flex-col  gap-8">
@@ -114,7 +116,7 @@ const page = async ({ params }: ParamsProps) => {
             </div>
           </div>
 
-          <ProjectImages images={JSON.stringify(details.images)} />
+          <ProjectImages images={JSON.stringify(details?.images)} />
         </div>
       </section>
 
