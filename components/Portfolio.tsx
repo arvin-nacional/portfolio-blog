@@ -32,7 +32,7 @@ const Portfolio = async ({ projects, page, isNext }: Props) => {
               Some of recent work
             </h1>
           </div>
-          <div className="text-dark300_light700 flex flex-row items-center gap-5">
+          <div className="text-dark300_light700 mt-10 flex flex-row items-center justify-end gap-5">
             <SignedIn>
               <Link href="/projects/add">
                 <Button variant="outline" className="bg-primary-500 text-white">
@@ -46,7 +46,7 @@ const Portfolio = async ({ projects, page, isNext }: Props) => {
             />
           </div>
         </div>
-        <div className=" mt-10 grid grid-cols-3 gap-5 ">
+        <div className=" mt-10 grid grid-cols-3 gap-5 max-sm:grid-cols-1">
           {/* <div>
             {portfolioData.slice(0, itemShow).map((item, index) => (
               <div

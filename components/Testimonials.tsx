@@ -73,10 +73,10 @@ const Testimonials = () => {
           <div className="flex-between mb-12 flex items-end">
             <div>
               <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
-                Blogs
+                Testimonials
               </h2>
               <h1 className="text-dark500_light700 mt-5 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
-                Our recent news and updates
+                What our clients say about us
               </h1>
             </div>
             <div className="flex items-end justify-end">

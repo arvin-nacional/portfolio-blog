@@ -255,5 +255,7 @@ export async function deletePost(params: DeletePostParams) {
     revalidatePath(path);
   } catch (error) {
     console.log(error);
+  } finally {
+    await Tag.deleteMany({ posts: { $size: 0 } });
   }
 }

@@ -123,7 +123,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
           image: preview.url,
           path: pathname,
         });
-        router.push(`/blog/${parsedPostDetails._id}`);
+        router.push(`/blog`);
       } else {
         await createPost({
           title: values.title,
