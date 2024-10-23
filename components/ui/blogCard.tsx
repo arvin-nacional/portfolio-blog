@@ -60,7 +60,7 @@ const BlogCard = ({
                   className="hover:text-primary-500"
                 />
               </Link>
-              <DeletePost id={link} type="post" />
+              <DeletePost id={JSON.stringify(link)} type="post" />
             </div>
           </SignedIn>
         </div>

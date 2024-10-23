@@ -4,16 +4,15 @@ import CTA from "@/components/shared/CTA";
 
 import Hero2 from "@/components/Hero2";
 import LogoAnimation from "@/components/LogoAnimation";
-import Portfolio from "@/components/Portfolio";
+// import Portfolio from "@/components/Portfolio";
 
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
 
-// import Services from "@/components/Services";
-
 import React from "react";
 import { getAllProjects } from "@/lib/actions/project.action";
 import { SearchParamsProps } from "@/types";
+import Portfolio from "@/components/Portfolio";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllProjects({

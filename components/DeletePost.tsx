@@ -27,6 +27,8 @@ interface Props {
 const DeletePost = ({ id, type }: Props) => {
   const router = useRouter();
   const path = usePathname();
+
+  const parsedId = JSON.parse(id);
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -54,7 +56,7 @@ const DeletePost = ({ id, type }: Props) => {
             onClick={() => {
               if (type === "project") {
                 try {
-                  deleteProject({ path, projectId: id });
+                  deleteProject({ path, projectId: parsedId });
                   router.push("/projects");
                   return toast({
                     title: "Project Removed",

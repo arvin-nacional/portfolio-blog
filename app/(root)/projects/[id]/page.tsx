@@ -45,7 +45,7 @@ const page = async ({ params }: ParamsProps) => {
                         className="hover:text-primary-500"
                       />
                     </Link>
-                    <DeletePost id={params.id} type="project" />
+                    <DeletePost id={JSON.stringify(params.id)} type="project" />
                   </div>
                 </SignedIn>
               </h3>
