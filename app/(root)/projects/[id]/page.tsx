@@ -21,7 +21,7 @@ const page = async ({ params }: ParamsProps) => {
       <section className="flex items-center justify-center px-16 py-20 max-md:px-5 sm:py-[100px]">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
           <Image
-            src={details.mainImage}
+            src={details?.mainImage}
             alt="projectImage"
             width={1200}
             height={300}
@@ -30,10 +30,10 @@ const page = async ({ params }: ParamsProps) => {
           <div className="flex gap-10 px-2 py-10 max-lg:flex-col lg:flex-row">
             <div className=" flex-1">
               <h4 className="base-semibold text-dark400_light700 mb-5">
-                {details.category[0].name}
+                {details?.category[0].name}
               </h4>
               <h3 className="h2-bold text-dark400_light700 mb-5">
-                {details.title}{" "}
+                {details?.title}{" "}
                 <SignedIn>
                   <div className="flex items-center gap-5">
                     <Link href={`/projects/edit/${params.id}`}>
@@ -61,7 +61,7 @@ const page = async ({ params }: ParamsProps) => {
                   <div className="">
                     <p className="h3-bold mb-2 text-primary-500">Category</p>
                     <div className="flex flex-wrap gap-2">
-                      {details.category.map((item: any) => (
+                      {details?.category.map((item: any) => (
                         <Badge variant="secondary" key={item._id}>
                           {item.name}
                         </Badge>
@@ -102,13 +102,13 @@ const page = async ({ params }: ParamsProps) => {
                   <div>
                     <p className="h3-bold my-2 text-primary-500">Date</p>
                     <p className="paragraph-medium text-dark400_light700">
-                      {formatDate(details.dateFinished)}
+                      {formatDate(details?.dateFinished)}
                     </p>
                   </div>
                   <div>
                     <p className="h3-bold mb-2 text-primary-500">Client</p>
                     <p className="paragraph-medium text-dark400_light700">
-                      {details.clientName}
+                      {details?.clientName}
                     </p>
                   </div>
                 </div>
