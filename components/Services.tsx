@@ -32,26 +32,23 @@ const Services: React.FC = () => {
 
   return (
     <section
-      className="background-light400_dark300 flex items-center justify-center px-16 py-10 max-md:px-5"
+      className="background-light400_dark300 flex items-center justify-center px-16 py-10 max-md:p-10"
       id="services"
     >
-      <div className="mt-14 flex w-[1200px] max-w-full flex-row max-lg:flex-col max-md:mt-10">
+      <div className="mt-14 flex w-[1200px] max-w-full flex-row max-lg:flex-col max-md:mt-0">
         <div className=" flex flex-1 items-center">
           <div className="my-auto flex flex-col self-stretch max-md:mt-10 max-md:max-w-full">
-            <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
-              {" "}
-              How can I contribute{" "}
+            <h2 className="text-dark300_light700 max-sm:base-bold h2-bold leading-7 max-md:max-w-full">
+              How can I contribute
             </h2>
-            <h1 className="text-dark300_light700 mt-10 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
-              {" "}
-              Services I can help you with{" "}
+            <h1 className="text-dark300_light700 h1-semihero max-md:h2-bold mt-3 max-md:max-w-full sm:mt-10">
+              Services I can help you with
             </h1>
             <p className="text-dark300_light700 mt-10 text-base leading-7 max-md:max-w-full">
-              {" "}
               Transform your online presence with our services. We offer expert
               web development, design, social media content creation, and
               logo/brand design. Elevate your brand with captivating landing
-              page designs. Let&apos;s bring your vision to life online.{" "}
+              page designs. Let&apos;s bring your vision to life online.
             </p>
             <a
               href="/services"
@@ -69,8 +66,8 @@ const Services: React.FC = () => {
             </a>
           </div>
         </div>
-        <div className="ml-5 flex flex-1 flex-col max-md:ml-0 max-md:w-full">
-          <div className="mx-auto max-w-5xl px-8">
+        <div className="flex flex-1 flex-col max-md:ml-0 max-md:w-full">
+          <div className="max-w-5xl">
             <HoverEffect items={testServices} />
           </div>
         </div>

@@ -121,6 +121,11 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.primary-bg-gradient {
+  background: linear-gradient(129deg, #0051cb 0%, #4094f7 100%);
+  -webkit-text-fill-color: transparent;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 3px;
   height: 3px;

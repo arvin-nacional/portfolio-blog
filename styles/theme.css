@@ -113,6 +113,10 @@
     @apply text-[72px] font-bold leading-[80px] tracking-tighter;
   }
 
+  .h1-semihero {
+    @apply text-[60px] font-extrabold leading-[80px] tracking-tighter;
+  }
+
   .h1-bold {
     @apply text-[30px] font-bold leading-[42px] tracking-tighter;
   }

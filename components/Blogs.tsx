@@ -14,7 +14,7 @@ import { getRecentlyAddedPosts } from "@/lib/actions/post.action";
 const Blogs = async () => {
   const result = await getRecentlyAddedPosts();
   return (
-    <section className="background-light400_dark300 flex items-center justify-center overflow-hidden px-16 py-20 max-md:px-5">
+    <section className="background-light400_dark300 flex items-center justify-center overflow-hidden px-16 py-20 max-md:p-10">
       <div className="w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
         <Carousel
           opts={{
@@ -24,10 +24,10 @@ const Blogs = async () => {
         >
           <div className="flex-between mb-12 flex items-end">
             <div>
-              <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
+              <h2 className="text-dark300_light700 h2-bold max-md:base-bold leading-7 max-md:max-w-full">
                 Blogs
               </h2>
-              <h1 className="text-dark500_light700 mt-5 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
+              <h1 className="text-dark500_light700 max-md:h2-bold h1-semihero mt-3 max-md:max-w-full  md:mt-5">
                 Our recent news and updates
               </h1>
             </div>
@@ -44,7 +44,7 @@ const Blogs = async () => {
                 key={component._id}
                 className="md:basis-1/2 lg:basis-1/3"
               >
-                <div className="px-2 py-5">
+                <div>
                   <Card>
                     <BlogCard
                       tags={component.tags}

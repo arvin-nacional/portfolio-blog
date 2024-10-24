@@ -3,9 +3,6 @@ import React from "react";
 import { getAllCategoryNamesAndIds } from "@/lib/actions/project.action";
 import ProjectCard from "./ui/projectCard";
 import { formatDate } from "@/lib/utils";
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { SignedIn } from "@clerk/nextjs";
 import Filter from "./search/Filter";
 import Pagination from "./search/Pagination";
 
@@ -21,25 +18,18 @@ const Portfolio = async ({ projects, page, isNext }: Props) => {
   const parsedProjects = JSON.parse(projects);
 
   return (
-    <section className="background-light850_dark100 flex items-center justify-center px-16 py-20 max-md:px-5">
+    <section className=" flex items-center justify-center px-16 py-20 max-md:px-10 max-sm:py-10">
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
-        <div className="flex flex-wrap items-end justify-between">
+        <div className="flex flex-wrap items-end justify-between max-sm:flex-col max-sm:items-start">
           <div>
-            <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
+            <h2 className="text-dark300_light700 h2-bold max-md:base-bold leading-7 max-md:max-w-full">
               Portfolio
             </h2>
-            <h1 className="text-dark300_light700 mt-10 text-4xl font-extrabold leading-tight text-zinc-700 max-md:max-w-full max-md:text-4xl">
+            <h1 className="text-dark300_light700 h1-semihero max-md:h2-bold mt-3 leading-tight text-zinc-700 max-md:max-w-full md:mt-10">
               Some of recent work
             </h1>
           </div>
-          <div className="text-dark300_light700 mt-10 flex flex-row items-center justify-end gap-5">
-            <SignedIn>
-              <Link href="/projects/add">
-                <Button variant="outline" className="bg-primary-500 text-white">
-                  Create
-                </Button>
-              </Link>
-            </SignedIn>
+          <div className="text-dark300_light700 mt-10 flex flex-row items-center justify-end gap-5 max-md:mt-5">
             <Filter
               filters={JSON.stringify(categories)}
               otherClasses="min-h-[56px] sm:min-w-[170px]"

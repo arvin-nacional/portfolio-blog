@@ -30,11 +30,11 @@ const TestimonialCard = ({ image, name, designation, rating, text }: Props) => {
       className={`card-wrapper group  box-border flex min-w-[277px] max-w-full flex-1 flex-col items-start justify-start gap-[26px] overflow-hidden rounded-xl py-[60px] pl-8 pr-[31px] text-left font-inter text-5xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 hover:shadow-lg `}
     >
       <div className="mq450:gap-[16px] flex flex-col items-start justify-start gap-[33px] self-stretch">
-        <div className="mq925:flex-wrap flex flex-row items-start justify-start gap-[10.2px]">
+        <div className="mq925:flex-wrap flex flex-row items-center justify-start gap-[10.2px]">
           <Image
             className="relative size-16 object-cover"
             loading="lazy"
-            alt=""
+            alt={name}
             width={24}
             height={24}
             src={image}

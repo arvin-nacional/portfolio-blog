@@ -5,30 +5,29 @@ import { Button } from "./ui/button";
 const About = () => {
   return (
     <div
-      className="background-light850_dark100 flex items-center justify-center px-16 py-20 max-md:px-5"
+      className=" flex items-center justify-center px-16 py-20 max-md:p-10"
       id="about"
     >
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10 max-sm:mt-0">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex w-6/12 flex-col max-md:ml-0 max-md:w-full">
             <Image
-              src="/assets/images/about-img.png"
+              src="/assets/images/about-img2.png"
               alt="About Me"
-              height={560}
-              width={470}
-              className="aspect-[0.99] w-full max-md:mt-10 max-md:max-w-full max-sm:mt-0"
+              height={563}
+              width={500}
+              className=" max-md:mt-10 max-md:max-w-full max-sm:mt-0 "
             />
           </div>
           <div className="ml-5 flex w-6/12 animate-fade-left flex-col max-md:ml-0 max-md:w-full">
             <div className="mt-6 flex grow flex-col max-md:mt-10 max-md:max-w-full">
-              <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
+              <h2 className="text-dark300_light700 h2-bold max-sm:base-bold leading-7 max-md:max-w-full">
                 About me
               </h2>
-              <h1 className="text-dark300_light700 mt-10 text-5xl font-extrabold leading-tight text-zinc-700 max-md:max-w-full max-md:text-4xl">
-                Your Reliable Ally <br />
-                in the Business Realm
+              <h1 className="text-dark300_light700 max-md:h2-bold h1-semihero mt-3 max-md:max-w-full sm:mt-10">
+                Your Reliable Ally in the Business Realm
               </h1>
-              <p className="text-dark300_light700 mt-10 text-base leading-7 text-black max-md:max-w-full">
+              <p className="text-dark300_light700 mt-10 text-base leading-7  max-md:max-w-full">
                 Meet Arvin Paul, a web developer with a passion for creating
                 visually stunning designs and developing seamless web
                 experiences.

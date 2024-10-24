@@ -19,10 +19,10 @@ const Hero2 = () => {
     //       ease: "easeInOut",
     //     }}
     //   >
-    <div className=" flex items-center justify-center px-16 pb-10 pt-20 max-md:px-10">
+    <div className=" flex items-center justify-center px-16 py-20 pb-10 max-md:px-10">
       <div className=" w-[1200px] max-w-full justify-between py-20 pb-6 max-md:mt-1 max-sm:py-2">
         <div>
-          <div className="flex-between max-sm:flex-col">
+          <div className="flex-between max-sm:flex-col max-sm:items-start">
             <div>
               <h1 className="text-dark500_light700 h1-hero animate-fade-up font-extrabold leading-tight max-sm:text-[60px]">
                 Elevate your <br /> Brand

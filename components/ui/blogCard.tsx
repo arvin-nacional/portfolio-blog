@@ -19,12 +19,13 @@ const BlogCard = ({
   return (
     <div className="card-wrapper background-light800_dark300 flex w-full flex-col overflow-hidden rounded-xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 hover:shadow-lg">
       <Link href={`/blog/${link}`}>
-        <div
+        <Image src={image} alt={title} height={250} width={400} />
+        {/* <div
           className="h-[250px] cursor-pointer bg-cover bg-center "
           style={{
             backgroundImage: `url(${image})`,
           }}
-        ></div>
+        ></div> */}
       </Link>
       <div className="px-7 pb-5 pt-3">
         <Link href={`/blog/${link}`}>
