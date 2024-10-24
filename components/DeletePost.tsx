@@ -69,13 +69,20 @@ const DeletePost = ({ id, type }: Props) => {
                   });
                 }
               } else if (type === "post") {
-                deletePost({ path, postId: id });
+                try {
+                  deletePost({ path, postId: parsedId });
 
-                router.push("/blog");
-                return toast({
-                  title: "Article Removed",
-                  variant: "default",
-                });
+                  router.push("/blog");
+                  return toast({
+                    title: "Article Removed",
+                    variant: "default",
+                  });
+                } catch (error) {
+                  return toast({
+                    title: "Error",
+                    variant: "destructive",
+                  });
+                }
               }
             }}
           >

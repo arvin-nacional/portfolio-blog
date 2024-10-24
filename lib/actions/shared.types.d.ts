@@ -66,7 +66,7 @@ export interface EditPostParams {
 }
 
 export interface DeletePostParams {
-  postId: string | undefined;
+  postId: string;
   path: string;
 }
 
