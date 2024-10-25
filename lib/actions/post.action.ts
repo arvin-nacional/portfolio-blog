@@ -231,12 +231,12 @@ export async function editPost(params: EditPostParams) {
 
     // Upload additional images if they are in base64 format
     const updatedImages = await Promise.all(
-      images.map(async (image) => {
-        if (image.src.startsWith("data:image")) {
-          const imageUploadResult = await cloudinary.uploader.upload(image.src);
-          return { src: imageUploadResult.url, alt: image.alt };
+      images.map(async (item) => {
+        if (item.src.startsWith("data:item")) {
+          const imageUploadResult = await cloudinary.uploader.upload(item.src);
+          return { src: imageUploadResult.url, alt: item.alt };
         }
-        return image;
+        return item;
       })
     );
 
