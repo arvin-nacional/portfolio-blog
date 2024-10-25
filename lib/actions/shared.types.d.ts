@@ -12,7 +12,10 @@ export interface addContactParams {
   typeOfService: string;
   message: string;
 }
-
+export interface ProjectImages {
+  src: string;
+  alt: string;
+}
 export interface addPostParams {
   title: string;
   content: string;
@@ -20,11 +23,6 @@ export interface addPostParams {
   image: string;
   path: string;
   images: ProjectImages[];
-}
-
-export interface ProjectImages {
-  src: string;
-  alt: string;
 }
 
 export interface addProjectParams {
