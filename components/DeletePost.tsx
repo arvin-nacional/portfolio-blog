@@ -32,7 +32,7 @@ const DeletePost = ({ id, type }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <div className="text-dark100_light900 flex cursor-pointer items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400">
+        <div className=" flex cursor-pointer items-center py-2 dark:focus:bg-dark-400">
           <Image
             src="/assets/icons/delete.svg"
             alt="delete"

@@ -117,6 +117,10 @@
     @apply text-[60px] font-extrabold leading-[80px] tracking-tighter;
   }
 
+  .h2-title {
+    @apply text-[40px] font-extrabold leading-[80px] tracking-tighter;
+  }
+
   .h1-bold {
     @apply text-[30px] font-bold leading-[42px] tracking-tighter;
   }

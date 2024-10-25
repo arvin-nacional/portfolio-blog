@@ -34,12 +34,15 @@ const page = async ({ params }: ParamsProps) => {
                 style={{ borderRadius: "10px" }}
               />
               <div className="px-3">
-                <div className="flex flex-row gap-5 items-center  mt-10 mb-3">
+                <p className="small-regular mt-10">
+                  {formatDate(details?.createdAt)}
+                </p>
+                <div className="flex flex-row gap-2 items-center  mb-3 ">
                   <h3 className="h2-bold text-dark400_light700 ">
-                    {details?.title}{" "}
+                    {details?.title}
                   </h3>
                   <SignedIn>
-                    <div className="flex items-center gap-5">
+                    <div className="flex items-center gap-2 ">
                       <Link href={`/blog/edit/${params.id}`}>
                         <Image
                           src="/assets/icons/edit.svg"
@@ -57,7 +60,7 @@ const page = async ({ params }: ParamsProps) => {
                   </SignedIn>
                 </div>
 
-                <h4 className="base-semibold text-dark400_light700 mb-5 ">
+                <h4 className="base-semibold text-dark400_light700 mb-5 flex flex-wrap gap-2 ">
                   {details?.tags.map((tag: any) => (
                     <Badge key={tag._id} variant="secondary">
                       {tag.name}

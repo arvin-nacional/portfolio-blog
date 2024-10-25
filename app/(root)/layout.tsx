@@ -9,7 +9,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="background-light900_dark200 relative">
       <Navbar />
-      {/* <CustomCursor /> */}
       <section className="flex min-h-screen flex-1 flex-col overflow-y-auto  max-md:pb-14  ">
         <div className="mx-auto w-full ">{children}</div>
       </section>

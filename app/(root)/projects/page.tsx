@@ -25,12 +25,12 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
   return (
     <div>
-      <section className="background-light400_dark300 mt-20 flex items-center justify-center px-16 py-10 max-md:px-5">
+      <section className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
-          <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
+          {/* <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Portfolio
-          </h2>
-          <h1 className="text-dark500_light700 mt-5 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
+          </h2> */}
+          <h1 className="text-dark500_light700  text-center h2-title max-md:max-w-full max-md:h2-bold">
             Our Projects
           </h1>
 

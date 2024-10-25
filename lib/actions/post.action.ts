@@ -229,14 +229,6 @@ export async function editPost(params: EditPostParams) {
     const { postId, title, content, path, image, images } = params;
     const post = await Post.findById(postId).populate("tags");
 
-    // let photoUploadResult;
-    // if (image.startsWith("data:image")) {
-    //   // Upload the photo to Cloudinary
-    //   photoUploadResult = await cloudinary.uploader.upload(image, {
-    //     // Additional Cloudinary options if needed
-    //   });
-    // }
-
     // Upload additional images if they are in base64 format
     const updatedImages = await Promise.all(
       images.map(async (image) => {
