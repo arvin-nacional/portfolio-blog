@@ -18,7 +18,7 @@ const ProjectCard = ({
   _id,
 }: ProjectCardProps) => {
   return (
-    <div className="card-wrapper background-light800_dark300 flex w-full flex-col overflow-hidden rounded-xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 hover:shadow-lg">
+    <div className="card-wrapper background-light800_dark300 flex w-full flex-col overflow-hidden rounded-xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 hover:shadow-lg animate-fade animate-once animate-duration-[500ms] animate-ease-in">
       <Link href={`/projects/${_id}`}>
         <Image src={image} alt={title} height={250} width={400} />
         {/* <div
