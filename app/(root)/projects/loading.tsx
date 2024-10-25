@@ -44,7 +44,7 @@ const Page = async () => {
                     width={24}
                     height={24}
                   />
-                  Add an Project
+                  Add a Project
                 </Link>
               </Button>
             </SignedIn>

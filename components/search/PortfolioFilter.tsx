@@ -38,7 +38,9 @@ const PortfolioFilter = ({ filters, otherClasses }: Props) => {
         <Button
           className={cn(
             "hover:bg-primary-500 hover:text-white text-dark500_light500",
-            paramFilter === "All" ? "bg-primary-500 text-white" : ""
+            paramFilter === "All" || !paramFilter
+              ? "bg-primary-500 text-white"
+              : ""
           )}
         >
           All Projects

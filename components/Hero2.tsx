@@ -19,7 +19,7 @@ const Hero2 = () => {
     //       ease: "easeInOut",
     //     }}
     //   >
-    <div className=" flex items-center justify-center px-16 py-5 max-md:py-20 pb-14 max-md:px-10">
+    <div className=" flex items-center justify-center px-16 py-10 pb-14 max-md:px-10 max-md:py-20">
       <div className=" w-[1200px] max-w-full justify-between py-20 pb-6 max-md:mt-1 max-sm:py-2">
         <div>
           <div className="flex-between max-sm:flex-col max-sm:items-start">

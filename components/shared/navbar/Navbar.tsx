@@ -45,7 +45,7 @@ const Navbar = () => {
         <div className="text-dark100_light900 flex gap-5 max-md:hidden">
           <Link href="/">Home</Link>
           <Link href="/#about">About</Link>
-          <Link href="/projects?category=All">Portfolio</Link>
+          <Link href="/projects">Portfolio</Link>
           <Link href="/blog">Blog</Link>
           <Link href="/#services">Services</Link>
         </div>

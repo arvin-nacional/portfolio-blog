@@ -39,7 +39,7 @@ const Services: React.FC = () => {
     >
       <div className="mt-14 flex w-[1200px] max-w-full flex-row max-lg:flex-col max-md:mt-0">
         <div className=" flex flex-1 items-center">
-          <div className="my-auto flex flex-col self-stretch max-md:mt-10 max-md:max-w-full">
+          <div className="my-auto flex animate-fade-right flex-col self-stretch max-md:mt-10 max-md:max-w-full">
             <h2 className="text-dark300_light700 max-sm:base-bold h2-bold leading-7 max-md:max-w-full">
               How can I contribute
             </h2>
