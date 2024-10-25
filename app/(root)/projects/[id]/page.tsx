@@ -89,6 +89,7 @@ const page = async ({ params }: ParamsProps) => {
                         <div className="flex flex-wrap gap-2">
                           <Link
                             href={details.url}
+                            target="_blank"
                             className="paragraph-medium text-dark400_light700"
                           >
                             {details.url}

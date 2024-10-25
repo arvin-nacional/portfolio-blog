@@ -22,7 +22,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
           <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Blogs
           </h2>
-          <h1 className="text-dark500_light700 mt-5 text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
+          <h1 className="text-dark500_light700 mt-5 text-center text-5xl font-extrabold max-md:max-w-full max-md:text-4xl">
             Our Recent News and Updates
           </h1>
 

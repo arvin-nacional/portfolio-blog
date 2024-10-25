@@ -9,7 +9,7 @@ import Pagination from "./search/Pagination";
 interface Props {
   projects: string;
   page: number;
-  isNext: boolean;
+  isNext: boolean | undefined;
 }
 
 const Portfolio = async ({ projects, page, isNext }: Props) => {

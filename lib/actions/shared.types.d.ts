@@ -19,6 +19,7 @@ export interface addPostParams {
   tags: string[];
   image: string;
   path: string;
+  images: ProjectImages[];
 }
 
 export interface ProjectImages {
@@ -63,6 +64,7 @@ export interface EditPostParams {
   content: string;
   path: string;
   image: string;
+  images: ProjectImages[];
 }
 
 export interface DeletePostParams {

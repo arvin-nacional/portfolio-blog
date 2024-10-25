@@ -17,6 +17,7 @@ import Tag from "@/database/tag.model";
 
 import { v2 as cloudinary } from "cloudinary";
 import { FilterQuery } from "mongoose";
+import image from "next/image";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -28,18 +29,29 @@ export async function createPost(params: addPostParams) {
   try {
     connectToDatabase();
 
-    const { title, content, tags, image, path } = params;
+    const { title, content, tags, image, path, images } = params;
 
-    // Upload the member photo to Cloudinary
+    // Upload the photo to Cloudinary
     const photoUploadResult = await cloudinary.uploader.upload(image, {
       // Additional Cloudinary options if needed
     });
+
+    // Upload the additional images to Cloudinary
+    const imageUploadResults = await Promise.all(
+      images.map((image) => cloudinary.uploader.upload(image.src))
+    );
+
+    const imageUrls = imageUploadResults.map((result, index) => ({
+      src: result.url,
+      alt: images[index].alt,
+    }));
 
     // Create the question
     const post = await Post.create({
       title,
       content,
       image: photoUploadResult.url, // Use the Cloudinary URL
+      images: imageUrls,
     });
 
     const tagDocuments = [];
@@ -58,17 +70,6 @@ export async function createPost(params: addPostParams) {
     await Post.findByIdAndUpdate(post._id, {
       $push: { tags: { $each: tagDocuments } },
     });
-
-    // // Create an interaction record for the user's ask_question action
-    // await Interaction.create({
-    //   user: author,
-    //   action: "ask_question",
-    //   question: question._id,
-    //   tags: tagDocuments,
-    // });
-
-    // // Increment author's reputation by +5 for creating a question
-    // await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
 
     revalidatePath(path);
   } catch (error) {
@@ -225,8 +226,27 @@ export async function editPost(params: EditPostParams) {
   try {
     connectToDatabase();
 
-    const { postId, title, content, path, image } = params;
+    const { postId, title, content, path, image, images } = params;
     const post = await Post.findById(postId).populate("tags");
+
+    // let photoUploadResult;
+    // if (image.startsWith("data:image")) {
+    //   // Upload the photo to Cloudinary
+    //   photoUploadResult = await cloudinary.uploader.upload(image, {
+    //     // Additional Cloudinary options if needed
+    //   });
+    // }
+
+    // Upload additional images if they are in base64 format
+    const updatedImages = await Promise.all(
+      images.map(async (image) => {
+        if (image.src.startsWith("data:image")) {
+          const imageUploadResult = await cloudinary.uploader.upload(image.src);
+          return { src: imageUploadResult.url, alt: image.alt };
+        }
+        return image;
+      })
+    );
 
     if (!post) {
       throw new Error("Post not found");
@@ -235,6 +255,7 @@ export async function editPost(params: EditPostParams) {
     post.title = title;
     post.image = image;
     post.content = content;
+    post.images = updatedImages;
 
     await post.save();
 

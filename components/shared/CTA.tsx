@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const CTA = () => {
   return (
-    <section className="background-light850_dark100 flex items-center justify-center px-16 py-10 max-md:px-5">
+    <section className="background-light850_dark100 flex items-center justify-center px-16 max-md:px-5">
       <div className="background-light850_dark100 relative flex h-96 w-full flex-col items-center justify-center gap-10 overflow-hidden rounded-lg">
         <div className="background-light850_dark100 pointer-events-none absolute inset-0 z-20 size-full [mask-image:radial-gradient(transparent,white)]" />
 

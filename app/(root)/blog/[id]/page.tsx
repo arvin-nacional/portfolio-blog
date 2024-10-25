@@ -1,10 +1,16 @@
+import DeletePost from "@/components/DeletePost";
+import ProjectImages from "@/components/ProjectImages";
 import RecentPosts from "@/components/RecentPosts";
 import RelatedPosts from "@/components/RelatedPosts";
 import CTA from "@/components/shared/CTA";
 import ParseHTML from "@/components/shared/ParseHTML";
+import { Badge } from "@/components/ui/badge";
 import { getPostById } from "@/lib/actions/post.action";
 import { formatDate } from "@/lib/utils";
 import { ParamsProps } from "@/types";
+import { SignedIn } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const page = async ({ params }: ParamsProps) => {
@@ -12,43 +18,68 @@ const page = async ({ params }: ParamsProps) => {
 
   const details = result?.post;
 
-  const tagArr: Object[] = details.tags.map((item: { _id: any }) => item._id);
+  const tagArr: Object[] = details?.tags.map((item: { _id: any }) => item._id);
 
   return (
     <div>
-      <section className="flex flex-col items-center px-16 max-md:px-5 sm:py-[100px]">
+      <section className="flex flex-col items-center px-16 max-md:px-5 py-12 sm:py-24">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
           <div className="grid grid-cols-3 gap-10 max-md:grid-cols-1">
             <div className="max-md:cols-span-1 col-span-2">
-              <div
-                className="relative mb-10 flex min-h-[400px] w-full flex-col justify-end rounded-2xl bg-center object-cover p-12 text-white"
-                style={{
-                  backgroundImage: `url(${details.image})`,
-                }}
-              >
-                <div className="absolute inset-x-0 bottom-0 h-[30%] rounded-xl bg-gradient-to-t from-black to-transparent transition-opacity duration-300"></div>
-                <div className="absolute inset-x-0 bottom-0 p-5 text-white  transition-opacity duration-300 ">
-                  <div>
-                    <p> {formatDate(details.createdAt)}</p>
-                    <h3 className="h2-bold max-sm:base-bold">
-                      {details.title}
-                    </h3>
-                  </div>
+              <Image
+                src={details?.image}
+                alt="projectImage"
+                width={1200}
+                height={300}
+                style={{ borderRadius: "10px" }}
+              />
+              <div className="px-3">
+                <div className="flex flex-row gap-5 items-center  mt-10 mb-3">
+                  <h3 className="h2-bold text-dark400_light700 ">
+                    {details?.title}{" "}
+                  </h3>
+                  <SignedIn>
+                    <div className="flex items-center gap-5">
+                      <Link href={`/blog/edit/${params.id}`}>
+                        <Image
+                          src="/assets/icons/edit.svg"
+                          alt="edit"
+                          height={20}
+                          width={20}
+                          className="hover:text-primary-500"
+                        />
+                      </Link>
+                      <DeletePost
+                        id={JSON.stringify(params.id)}
+                        type="project"
+                      />
+                    </div>
+                  </SignedIn>
                 </div>
+
+                <h4 className="base-semibold text-dark400_light700 mb-5 ">
+                  {details?.tags.map((tag: any) => (
+                    <Badge key={tag._id} variant="secondary">
+                      {tag.name}
+                    </Badge>
+                  ))}
+                </h4>
+
+                <ParseHTML data={details?.content} />
               </div>
 
-              <ParseHTML data={details.content} />
               {/* <p className="paragraph-regular mt-10">{details.content}</p> */}
             </div>
-            <div className="col-span-1 flex flex-col gap-10 max-md:col-span-1">
+            <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
               <RecentPosts postId={params.id} />
               {/* @ts-ignore */}
               <RelatedPosts currentPostId={params.id} tagIds={tagArr} />
             </div>
           </div>
+          <ProjectImages images={JSON.stringify(details?.images)} />
         </div>
       </section>
-      <div className="w-full px-16">
+      <div className="w-full px-16 max-md:px-0">
         <CTA />
       </div>
     </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -37,16 +38,18 @@ const About = () => {
                 creativity with strategy to produce effective and engaging
                 campaigns.{" "}
               </p>
-              <Button className=" mt-10 flex justify-center gap-4 self-start whitespace-nowrap rounded-[52.731px] py-5 text-lg font-semibold leading-7 text-blue-700">
-                <Image
-                  src="/assets/icons/arrow-right-contained-02.png"
-                  alt="Contact Me Icon"
-                  height={18}
-                  width={18}
-                  className=" aspect-square w-6 shrink-0"
-                />
-                <span className="grow">Contact me</span>
-              </Button>
+              <Link href="/contact">
+                <Button className=" mt-10 flex justify-center gap-4 self-start whitespace-nowrap rounded-[52.731px] py-5 text-lg font-semibold leading-7 text-blue-700">
+                  <Image
+                    src="/assets/icons/arrow-right-contained-02.png"
+                    alt="Contact Me Icon"
+                    height={18}
+                    width={18}
+                    className=" aspect-square w-6 shrink-0"
+                  />
+                  <span className="grow">Contact me</span>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

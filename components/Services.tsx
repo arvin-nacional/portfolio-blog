@@ -8,25 +8,25 @@ const Services: React.FC = () => {
       title: "Web Development and Design",
       description:
         "Transform your online presence with our expert web development and design services. We create stunning, responsive websites that captivate your audience and drive results.",
-      link: "https://stripe.com",
+      link: "/projects?category=671a4cae3daed0abd0a8379f",
     },
     {
       title: "Social Media Content Creation",
       description:
         "Elevate your brand's voice with engaging and impactful social media content. Our creative team crafts posts that resonate, build community, and boost your online visibility.",
-      link: "https://netflix.com",
+      link: "/projects?category=67185f403daed0abd0c4e585",
     },
     {
       title: "Landing Page Design",
       description:
         "Maximize conversions with our high-converting landing page designs. We design focused, persuasive pages that turn visitors into loyal customers.",
-      link: "https://google.com",
+      link: "/projects?category=671857e73daed0abd0bd9f05",
     },
     {
       title: "Logo and Brand Design",
       description:
         "Define your brand identity with our professional logo and brand design services. We create memorable, unique visuals that set you apart and leave a lasting impression.",
-      link: "https://meta.com",
+      link: "/projects?category=671880413daed0abd0e62836",
     },
   ];
 

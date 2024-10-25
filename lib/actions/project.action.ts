@@ -15,7 +15,7 @@ import {
 // import image from "next/image";
 import Category from "@/database/category.model";
 import Project from "@/database/project.model";
-import { FilterQuery } from "mongoose";
+import mongoose, { FilterQuery } from "mongoose";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -126,8 +126,6 @@ export async function updateProject(params: EditProjectParams) {
       url,
     } = params;
 
-    console.log(params);
-
     // Upload the project photo to Cloudinary
     const photoUploadResult = await cloudinary.uploader.upload(mainImage, {
       // Additional Cloudinary options if needed
@@ -185,7 +183,7 @@ export async function getProjectById(params: getProjectByIdParams) {
 export async function getAllProjects(params: GetProjectsParams) {
   try {
     connectToDatabase();
-    const { searchQuery, page = 1, pageSize = 3, category } = params;
+    const { searchQuery, page = 1, pageSize = 6, category } = params;
 
     // Calculcate the number of posts to skip based on the page number and page size
     const skipAmount = (page - 1) * pageSize;
@@ -199,6 +197,9 @@ export async function getAllProjects(params: GetProjectsParams) {
     }
 
     if (category && category !== "All") {
+      if (!mongoose.Types.ObjectId.isValid(category)) {
+        return;
+      }
       const categoryQuery = await Category.findOne({ _id: category });
 
       if (categoryQuery) {
@@ -206,10 +207,18 @@ export async function getAllProjects(params: GetProjectsParams) {
       }
     }
 
+    // if (category && category !== "All") {
+    //   const categoryQuery = await Category.findOne({ _id: category });
+
+    //   if (categoryQuery) {
+    //     query.category = categoryQuery._id;
+    //   }
+    // }
+
     const projects = await Project.find(query)
       .populate({ path: "category", model: Category })
       .skip(skipAmount)
-      .sort({ createdAt: -1 })
+      .sort({ createdOn: -1 })
       .limit(pageSize);
 
     const totalProjects = await Project.countDocuments(query);

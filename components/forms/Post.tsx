@@ -23,6 +23,12 @@ import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { createPost, editPost } from "@/lib/actions/post.action";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
   type?: string;
@@ -44,9 +50,13 @@ const Post = ({ type, postDetails, postId }: Props) => {
     url: `${
       parsedPostDetails?.image
         ? parsedPostDetails.image
-        : "https://res.cloudinary.com/dey07xuvf/image/upload/v1700148763/default-user-square_fmd1az.svg"
+        : "https://res.cloudinary.com/dey07xuvf/image/upload/v1729222998/Slide_16_9_-_2_ro7dnm.png"
     }`,
   });
+
+  const [previewImages, setPreviewImages] = useState(
+    parsedPostDetails?.images ? parsedPostDetails.images : []
+  );
 
   const groupedTags = parsedPostDetails?.tags.map((tag: any) => tag.name);
 
@@ -64,6 +74,38 @@ const Post = ({ type, postDetails, postId }: Props) => {
     );
   };
 
+  // Handle multiple images and convert them to strings
+  const handleMultipleImageChange = (files: FileList) => {
+    const reader = (readFile: File) =>
+      new Promise<string>((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => resolve(fileReader.result as string);
+        fileReader.onerror = reject;
+        fileReader.readAsDataURL(readFile);
+      });
+
+    const promises = Array.from(files).map((file) => reader(file));
+
+    Promise.all(promises).then((results: string[]) => {
+      setPreviewImages((prevImages: any) => [
+        ...prevImages,
+        ...results.map((result, index) => ({
+          alt: files[index]?.name,
+          src: result,
+          _id: Math.floor(Math.random() * 1000),
+        })),
+      ]);
+    });
+  };
+
+  // removeImagefromListButton
+  const handleRemoveImageFromList = (item: string) => {
+    const updatedImages = previewImages.filter(
+      (image: any) => image.src !== item
+    );
+    setPreviewImages(updatedImages);
+  };
+
   const form = useForm<z.infer<typeof PostSchema>>({
     resolver: zodResolver(PostSchema),
     defaultValues: {
@@ -71,6 +113,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
       content: parsedPostDetails?.content || "",
       image: parsedPostDetails?.image || "",
       tags: groupedTags || [],
+      images: previewImages,
     },
   });
 
@@ -122,8 +165,9 @@ const Post = ({ type, postDetails, postId }: Props) => {
           content: values.content,
           image: preview.url,
           path: pathname,
+          images: previewImages,
         });
-        router.push(`/blog`);
+        router.push(`/blog/${parsedPostDetails._id}`);
       } else {
         await createPost({
           title: values.title,
@@ -131,6 +175,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
           tags: values.tags,
           image: preview.url,
           path: pathname,
+          images: previewImages,
         });
         router.push(`/blog`);
       }
@@ -221,7 +266,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
           )}
         />
         {/* photo preview */}
-        <Avatar className="size-24">
+        <Avatar className="w-full">
           <AvatarImage
             src={preview.url}
             className="object-cover object-left-top"
@@ -244,6 +289,63 @@ const Post = ({ type, postDetails, postId }: Props) => {
                     onChange={(e) => {
                       // @ts-ignore
                       handleImageChange(e.target.files[0]);
+                    }}
+                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline"
+                  />
+                </FormControl>
+                <FormDescription className="body-regular mt-2.5 text-light-500">
+                  Maximum size of 10mb.
+                </FormDescription>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            </>
+          )}
+        />
+
+        <div className="flex w-full flex-wrap">
+          {previewImages &&
+            previewImages.map((item: any) => (
+              <TooltipProvider key={item._id}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Avatar className="w-1/3 p-2">
+                      <AvatarImage
+                        src={item.src}
+                        className="object-cover object-left-top"
+                      />
+                      <AvatarFallback>Your Photo</AvatarFallback>
+                    </Avatar>
+                  </TooltipTrigger>
+                  <TooltipContent className="background-light900_dark300">
+                    <p
+                      onClick={() => handleRemoveImageFromList(item.src)}
+                      className="text-dark400_light800  cursor-pointer"
+                    >
+                      Remove
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ))}
+        </div>
+
+        <FormField
+          control={form.control}
+          name="images"
+          render={({ field: { onChange, value, ...rest } }) => (
+            <>
+              <FormItem>
+                <FormLabel className="paragraph-semibold">
+                  Related Photos <span className="text-primary-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    {...rest}
+                    multiple // Allow multiple file selection
+                    onChange={(e) => {
+                      // @ts-ignore
+                      handleMultipleImageChange(e.target.files);
                     }}
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline"
                   />
@@ -279,7 +381,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
                         <Badge
                           key={tag}
                           variant="secondary"
-                          className="subtle-medium background-light800_dark300 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize text-light-900"
+                          className="ssubtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
                           onClick={() =>
                             type !== "Edit"
                               ? handleTagRemove(tag, field)

@@ -105,8 +105,6 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         })),
       ]);
     });
-
-    console.log(previewImages);
   };
 
   const form = useForm<z.infer<typeof ProjectSchema>>({

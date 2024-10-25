@@ -4,7 +4,7 @@ import "yet-another-react-lightbox/styles.css";
 import Image from "next/image";
 // import { ImageProps } from "@/types";
 import dynamic from "next/dynamic";
-
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 // Dynamically import the lightbox to ensure it works only in the browser
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
   ssr: false,
@@ -21,10 +21,9 @@ const ProjectImages = ({ images }: Props) => {
   const [index, setIndex] = useState(-1);
 
   const parsedImages = JSON.parse(images);
-
   return (
     <div>
-      <p className="h3-bold text-dark400_light900 mb-10 px-2">Project Images</p>
+      {/* <p className="h3-bold text-dark400_light900 mb-10 ">Related Images</p> */}
       <div className="flex w-full flex-wrap gap-5">
         {parsedImages.map((image: any, idx: any) => (
           <Image
@@ -46,7 +45,7 @@ const ProjectImages = ({ images }: Props) => {
             open={index >= 0}
             close={() => setIndex(-1)}
             slides={parsedImages}
-            plugins={[]}
+            plugins={[Zoom]}
             index={index}
             // onIndexChange={setIndex}
           />

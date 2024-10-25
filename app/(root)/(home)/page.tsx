@@ -29,9 +29,9 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <About />
       <Services />
       <Portfolio
-        projects={JSON.stringify(result.projects)}
+        projects={JSON.stringify(result?.projects)}
         page={searchParams?.page ? +searchParams.page : 1}
-        isNext={result.isNext}
+        isNext={result?.isNext}
       />
       <Blogs />
       <Testimonials />

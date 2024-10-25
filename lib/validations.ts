@@ -20,6 +20,13 @@ export const PostSchema = z.object({
   title: z.string().min(5).max(130),
   content: z.string().min(5).max(10000),
   image: z.string(),
+  images: z.array(
+    z.object({
+      src: z.string().url(),
+      alt: z.string().min(1),
+      _id: z.string().min(1).max(30),
+    })
+  ),
 });
 
 export const ProjectSchema = z.object({
