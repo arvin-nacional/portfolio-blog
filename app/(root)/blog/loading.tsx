@@ -1,8 +1,6 @@
 import LocalSearchbar from "@/components/search/LocalSearchBar";
-import BlogCard from "@/components/ui/blogCard";
 import { Button } from "@/components/ui/button";
 import CardSekeleton from "@/components/ui/skeletonCard";
-import { formatDate } from "@/lib/utils";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";

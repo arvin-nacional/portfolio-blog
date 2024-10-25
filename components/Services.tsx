@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { HoverEffect } from "./ui/card-hover-effect";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 const Services: React.FC = () => {
   const testServices = [
@@ -50,20 +52,18 @@ const Services: React.FC = () => {
               logo/brand design. Elevate your brand with captivating landing
               page designs. Let&apos;s bring your vision to life online.
             </p>
-            <a
-              href="/services"
-              className="mt-10 flex justify-center gap-4 self-start whitespace-nowrap rounded-[52.731px] py-5 text-lg font-semibold leading-7 text-blue-700"
-              tabIndex={0}
-            >
-              <Image
-                src="/assets/icons/arrow-right-contained-02.png"
-                width={18}
-                height={18}
-                alt="arrow-right"
-                className="my-auto aspect-square w-6 shrink-0"
-              />
-              <span className="grow">See all services</span>
-            </a>
+            <Link href="/contact">
+              <Button className=" mt-10 flex justify-center gap-4 self-start whitespace-nowrap rounded-[52.731px] py-5 text-lg font-semibold leading-7 text-blue-700">
+                <Image
+                  src="/assets/icons/arrow-right-contained-02.png"
+                  alt="Contact Me Icon"
+                  height={18}
+                  width={18}
+                  className=" aspect-square w-6 shrink-0"
+                />
+                <span className="grow">Contact me</span>
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="flex flex-1 flex-col max-md:ml-0 max-md:w-full">

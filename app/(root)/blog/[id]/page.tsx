@@ -24,7 +24,7 @@ const page = async ({ params }: ParamsProps) => {
     <div>
       <section className="flex flex-col items-center px-16 max-md:px-5 py-12 sm:py-24">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
-          <div className="grid grid-cols-3 gap-10 max-md:grid-cols-1">
+          <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
             <div className="max-md:cols-span-1 col-span-2">
               <Image
                 src={details?.image}

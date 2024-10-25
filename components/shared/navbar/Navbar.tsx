@@ -38,7 +38,7 @@ const Navbar = () => {
           : "navbar-transparent"
       )}
     >
-      <div className="flex-between gap-5 py-6  dark:shadow-none max-xl:w-full max-xl:p-6 max-sm:px-10 max-sm:py-6 xl:min-w-[1200px]">
+      <div className="flex-between gap-5 py-4  dark:shadow-none max-xl:w-full max-xl:p-6 max-sm:px-10 max-sm:py-6 xl:min-w-[1200px]">
         <Link href="/" className="flex items-center gap-1 ">
           <Logo />
         </Link>
@@ -54,7 +54,10 @@ const Navbar = () => {
           <SignedOut>
             <Link href="/sign-in" className="max-lg:hidden">
               <Avatar>
-                <AvatarImage src="/assets/images/default_user.svg" />
+                <AvatarImage
+                  src="/assets/images/default_user.svg"
+                  alt="Avatar"
+                />
                 <AvatarFallback>R</AvatarFallback>
               </Avatar>
             </Link>

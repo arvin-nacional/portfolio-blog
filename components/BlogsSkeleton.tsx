@@ -7,8 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import BlogCard from "./ui/blogCard";
-import { formatDate } from "@/lib/utils";
 import CardSekeleton from "./ui/skeletonCard";
 
 const BlogsSkeleton = async () => {

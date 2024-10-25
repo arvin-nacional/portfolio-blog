@@ -1,5 +1,6 @@
 import { getRecentPosts } from "@/lib/actions/post.action";
 import { formatDate } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -17,13 +18,12 @@ const RecentPosts = async ({ postId }: Props) => {
           <Link href={`/blog/${item._id}`} key={item.title}>
             <div className="flex gap-5 max-xl:flex-col max-md:flex-row">
               <div>
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
-                  width={0}
-                  height={0}
-                  style={{ width: "67px", height: "60px" }}
-                  className="rounded-lg object-cover"
+                  width={55}
+                  height={50}
+                  className="rounded-lg object-cover aspect-square"
                 />
               </div>
 

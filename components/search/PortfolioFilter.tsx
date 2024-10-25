@@ -37,7 +37,7 @@ const PortfolioFilter = ({ filters, otherClasses }: Props) => {
       <div onClick={() => handleUpdateParams("All")}>
         <Button
           className={cn(
-            "hover:bg-primary-500 hover:text-white",
+            "hover:bg-primary-500 hover:text-white text-dark500_light500",
             paramFilter === "All" ? "bg-primary-500 text-white" : ""
           )}
         >
@@ -48,7 +48,7 @@ const PortfolioFilter = ({ filters, otherClasses }: Props) => {
         <div onClick={() => handleUpdateParams(item._id)} key={item._id}>
           <Button
             className={cn(
-              "transition-all duration-150 hover:bg-primary-500 hover:text-white",
+              "transition-all duration-150 hover:bg-primary-500 hover:text-white text-dark500_light500",
               paramFilter === item._id ? "bg-primary-500 text-white" : ""
             )}
           >

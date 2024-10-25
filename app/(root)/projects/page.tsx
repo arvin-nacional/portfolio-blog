@@ -41,7 +41,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                 iconPosition="left"
                 imgSrc="/assets/icons/search.svg"
                 placeholder="Search for articles"
-                otherClasses="text-dark300_light700"
+                otherClasses="text-dark500_light500"
               />
             </div>
             <SignedIn>
