@@ -98,6 +98,13 @@ export interface GetRecentPostParams {
   filter?: string;
   postId?: string;
 }
+export interface GetRecentProjectParams {
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: string;
+  projectId?: string;
+}
 
 export interface getPostByIdParams {
   postId: string;

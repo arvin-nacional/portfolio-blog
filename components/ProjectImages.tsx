@@ -20,12 +20,18 @@ interface Props {
 const ProjectImages = ({ images }: Props) => {
   const [index, setIndex] = useState(-1);
 
-  const parsedImages = JSON.parse(images);
+  let imageList = [];
+
+  if (images) {
+    const parsedImages = JSON.parse(images);
+    imageList = parsedImages;
+  }
+
   return (
     <div>
       {/* <p className="h3-bold text-dark400_light900 mb-10 ">Related Images</p> */}
       <div className="flex w-full flex-wrap gap-5">
-        {parsedImages.map((image: any, idx: any) => (
+        {imageList.map((image: any, idx: any) => (
           <Image
             key={idx}
             src={image.src}
@@ -44,7 +50,7 @@ const ProjectImages = ({ images }: Props) => {
           <Lightbox
             open={index >= 0}
             close={() => setIndex(-1)}
-            slides={parsedImages}
+            slides={imageList}
             plugins={[Zoom]}
             index={index}
             // onIndexChange={setIndex}

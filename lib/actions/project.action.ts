@@ -11,6 +11,7 @@ import {
   EditProjectParams,
   getProjectByIdParams,
   GetProjectsParams,
+  GetRecentProjectParams,
 } from "./shared.types";
 // import image from "next/image";
 import Category from "@/database/category.model";
@@ -236,6 +237,37 @@ export async function getAllCategoryNamesAndIds() {
     connectToDatabase();
     const categories = await Category.find({}, { name: 1, _id: 1 });
     return categories;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getRecentProjects(params: GetRecentProjectParams) {
+  try {
+    connectToDatabase();
+    const { searchQuery, projectId } = params;
+
+    const query: FilterQuery<typeof Project> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    let projects = await Project.find(query)
+      .populate({ path: "category", model: Category })
+      .sort({ createdOn: -1 }) // Sort by creation date in descending order
+      .limit(5); // Limit to 5 posts to ensure we have 4 after filtering
+
+    // Filter out the post with the given projectId
+    projects = projects.filter(
+      (project) => project._id.toString() !== projectId
+    );
+
+    return { projects };
   } catch (error) {
     console.log(error);
     throw error;
