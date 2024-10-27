@@ -15,11 +15,12 @@ import { SearchParamsProps } from "@/types";
 import Portfolio from "@/components/Portfolio";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
+  const params = await searchParams;
   const result = await getAllProjects({
-    searchQuery: searchParams?.q,
-    page: searchParams?.page ? +searchParams.page : 1,
-    filter: searchParams?.filter,
-    category: searchParams?.category,
+    searchQuery: params?.q,
+    page: params?.page ? +params.page : 1,
+    filter: params?.filter,
+    category: params?.category,
   });
   return (
     <div>
@@ -30,7 +31,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <Services />
       <Portfolio
         projects={JSON.stringify(result?.projects)}
-        page={searchParams?.page ? +searchParams.page : 1}
+        page={params?.page ? +params.page : 1}
         isNext={result?.isNext}
       />
       <Blogs />

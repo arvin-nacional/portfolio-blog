@@ -10,9 +10,10 @@ import Link from "next/link";
 import React from "react";
 
 const page = async ({ searchParams }: SearchParamsProps) => {
+  const params = await searchParams;
   const result = await getPosts({
-    searchQuery: searchParams?.q,
-    page: searchParams?.page ? +searchParams?.page : 1,
+    searchQuery: params?.q,
+    page: params?.page ? +params?.page : 1,
   });
 
   return (
@@ -22,7 +23,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
           {/* <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Our Recent News and Updates
           </h2> */}
-          <h1 className="text-dark500_light700  text-center h2-title max-md:max-w-full max-md:h2-bold">
+          <h1 className="text-dark500_light700  h2-title max-md:h2-bold text-center max-md:max-w-full">
             Updates and Contents
           </h1>
 

@@ -4,7 +4,8 @@ import { ParamsProps } from "@/types";
 import React from "react";
 
 const Page = async ({ params }: ParamsProps) => {
-  const result = await getProjectById({ projectId: params.id });
+  const { id } = await params;
+  const result = await getProjectById({ projectId: id });
   return (
     <div>
       <section className=" flex items-center justify-center px-16 max-md:px-5 sm:py-20">

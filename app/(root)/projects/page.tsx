@@ -8,17 +8,19 @@ import {
 } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
 import { SearchParamsProps } from "@/types";
-import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { auth } from "@clerk/nextjs/server";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
+  const { userId } = await auth();
+  const params = await searchParams;
   const result = await getAllProjects({
-    searchQuery: searchParams?.q,
-    page: searchParams?.page ? +searchParams.page : 1,
-    filter: searchParams?.filter,
-    category: searchParams?.category,
+    searchQuery: params?.q,
+    page: params?.page ? +params.page : 1,
+    filter: params?.filter,
+    category: params?.category,
   });
 
   const categories = await getAllCategoryNamesAndIds();
@@ -30,7 +32,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
           {/* <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Portfolio
           </h2> */}
-          <h1 className="text-dark500_light700  text-center h2-title max-md:max-w-full max-md:h2-bold">
+          <h1 className="text-dark500_light700  h2-title max-md:h2-bold text-center max-md:max-w-full">
             Our Projects
           </h1>
 
@@ -44,7 +46,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                 otherClasses="text-dark500_light500"
               />
             </div>
-            <SignedIn>
+            {userId && (
               <Button className="  mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
                 <Link
                   href="/projects/add"
@@ -59,7 +61,22 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                   Add an Project
                 </Link>
               </Button>
-            </SignedIn>
+            )}
+
+            <Button className="  mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
+              <Link
+                href="/projects/add"
+                className="paragraph-regular flex items-center gap-2 text-white"
+              >
+                <Image
+                  src="/assets/icons/add.svg"
+                  alt="arrow-right"
+                  width={24}
+                  height={24}
+                />
+                Add an Project
+              </Link>
+            </Button>
           </div>
           <PortfolioFilter filters={JSON.stringify(categories)} />
 
