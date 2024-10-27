@@ -3,7 +3,8 @@ import { getProjectById } from "@/lib/actions/project.action";
 import { ParamsProps } from "@/types";
 import React from "react";
 
-const Page = async ({ params }: ParamsProps) => {
+const Page = async (props: ParamsProps) => {
+  const params = await props.params;
   const { id } = await params;
   const result = await getProjectById({ projectId: id });
   return (

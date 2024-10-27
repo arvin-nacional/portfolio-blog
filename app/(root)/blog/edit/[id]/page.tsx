@@ -3,7 +3,8 @@ import { getPostById } from "@/lib/actions/post.action";
 import { ParamsProps } from "@/types";
 import React from "react";
 
-const Page = async ({ params }: ParamsProps) => {
+const Page = async (props: ParamsProps) => {
+  const params = await props.params;
   const { id } = await params;
   const result = await getPostById({ postId: id });
   return (
