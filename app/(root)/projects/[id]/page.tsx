@@ -10,9 +10,10 @@ import ParseHTML from "@/components/shared/ParseHTML";
 import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
 import DeletePost from "@/components/DeletePost";
-
+import RecentProjects from "@/components/RecentProjects";
 const page = async ({ params }: ParamsProps) => {
-  const result = await getProjectById({ projectId: params.id });
+  const { id } = await params;
+  const result = await getProjectById({ projectId: id });
 
   const details = result?.project;
 
@@ -20,13 +21,20 @@ const page = async ({ params }: ParamsProps) => {
     <div>
       <section className="flex items-center justify-center px-16 py-20 max-md:px-5 sm:py-[100px]">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
-          <Image
-            src={details?.mainImage}
-            alt="projectImage"
-            width={1200}
-            height={300}
-            style={{ borderRadius: "20px" }}
-          />
+          <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
+            <Image
+              src={details?.mainImage}
+              alt="projectImage"
+              width={1200}
+              height={300}
+              style={{ borderRadius: "20px" }}
+              className="col-span-2"
+            />
+            <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
+              <RecentProjects projectId={id} />
+            </div>
+          </div>
+
           <div className="flex gap-10 px-2 py-10 max-lg:flex-col lg:flex-row">
             <div className=" flex-1">
               <h4 className="base-semibold text-dark400_light700 mb-5">
@@ -36,7 +44,7 @@ const page = async ({ params }: ParamsProps) => {
                 {details?.title}{" "}
                 <SignedIn>
                   <div className="flex items-center gap-5">
-                    <Link href={`/projects/edit/${params.id}`}>
+                    <Link href={`/projects/edit/${id}`}>
                       <Image
                         src="/assets/icons/edit.svg"
                         alt="edit"
@@ -45,12 +53,12 @@ const page = async ({ params }: ParamsProps) => {
                         className="hover:text-primary-500"
                       />
                     </Link>
-                    <DeletePost id={JSON.stringify(params.id)} type="project" />
+                    <DeletePost id={JSON.stringify(id)} type="project" />
                   </div>
                 </SignedIn>
               </h3>
 
-              <ParseHTML data={details?.content} />
+              <ParseHTML data={details.content} />
             </div>{" "}
             <div className=" flex-1 flex-col ">
               <p className="h3-bold text-dark400_light700 mb-5 mt-12">
