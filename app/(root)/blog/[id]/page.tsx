@@ -14,7 +14,9 @@ import Link from "next/link";
 import React from "react";
 
 const page = async ({ params }: ParamsProps) => {
-  const result = await getPostById({ postId: params.id });
+  const { id } = await params;
+
+  const result = await getPostById({ postId: id });
 
   const details = result?.post;
 
@@ -25,7 +27,7 @@ const page = async ({ params }: ParamsProps) => {
       <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
           <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
-            <div className="max-md:cols-span-1 col-span-2">
+            <div className="col-span-2 max-md:col-span-1">
               <Image
                 src={details?.image}
                 alt="projectImage"
@@ -43,7 +45,7 @@ const page = async ({ params }: ParamsProps) => {
                   </h3>
                   <SignedIn>
                     <div className="flex items-center gap-2 ">
-                      <Link href={`/blog/edit/${params.id}`}>
+                      <Link href={`/blog/edit/${id}`}>
                         <Image
                           src="/assets/icons/edit.svg"
                           alt="edit"
@@ -52,10 +54,7 @@ const page = async ({ params }: ParamsProps) => {
                           className="hover:text-primary-500"
                         />
                       </Link>
-                      <DeletePost
-                        id={JSON.stringify(params.id)}
-                        type="project"
-                      />
+                      <DeletePost id={JSON.stringify(id)} type="project" />
                     </div>
                   </SignedIn>
                 </div>
@@ -74,9 +73,9 @@ const page = async ({ params }: ParamsProps) => {
               {/* <p className="paragraph-regular mt-10">{details.content}</p> */}
             </div>
             <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
-              <RecentPosts postId={params.id} />
+              <RecentPosts postId={id} />
               {/* @ts-ignore */}
-              <RelatedPosts currentPostId={params.id} tagIds={tagArr} />
+              <RelatedPosts currentPostId={id} tagIds={tagArr} />
             </div>
           </div>
           <ProjectImages images={JSON.stringify(details?.images)} />

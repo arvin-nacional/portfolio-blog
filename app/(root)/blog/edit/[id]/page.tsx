@@ -3,8 +3,10 @@ import { getPostById } from "@/lib/actions/post.action";
 import { ParamsProps } from "@/types";
 import React from "react";
 
-const Page = async ({ params }: ParamsProps) => {
-  const result = await getPostById({ postId: params.id });
+const Page = async (props: ParamsProps) => {
+  const params = await props.params;
+  const { id } = await params;
+  const result = await getPostById({ postId: id });
   return (
     <div>
       <section className=" flex items-center justify-center px-16 max-md:px-5 sm:py-20">
