@@ -19,9 +19,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "rvinpaul | Full Stack Developer",
+  title:
+    "RvinPaul | Full Stack Developer | Web Designer | Digital Marketing Specialist",
   description:
-    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+    "A web developer with a passion for creating visually stunning designs and developing seamless web experiences. With a background in graphic design and a strong understandingof digital marketing, Arvin Paul has a unique ability to combinecreativity with strategy to produce effective and engaging campaigns",
   icons: {
     icon: "./favicon.ico",
   },
