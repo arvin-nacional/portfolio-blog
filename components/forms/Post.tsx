@@ -128,10 +128,10 @@ const Post = ({ type, postDetails, postId }: Props) => {
       const tagValue = tagInput.value.trim();
 
       if (tagValue !== "") {
-        if (tagValue.length > 15) {
+        if (tagValue.length > 50) {
           return form.setError("tags", {
             type: "required",
-            message: "Tag must be less than 15 characters.",
+            message: "Tag must be less than 50 characters.",
           });
         }
 
