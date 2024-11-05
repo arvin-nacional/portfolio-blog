@@ -1,4 +1,5 @@
 import LocalSearchbar from "@/components/search/LocalSearchBar";
+import Pagination from "@/components/search/Pagination";
 import BlogCard from "@/components/ui/blogCard";
 import { Button } from "@/components/ui/button";
 import { getPosts } from "@/lib/actions/post.action";
@@ -67,6 +68,10 @@ const page = async ({ searchParams }: SearchParamsProps) => {
               />
             ))}
           </div>
+          <Pagination
+            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            isNext={result.isNext}
+          />
         </div>
       </section>
       {/* <CTA

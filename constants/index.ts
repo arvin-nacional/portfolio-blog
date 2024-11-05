@@ -32,4 +32,9 @@ export const sidebarLinks: SidebarLink[] = [
     label: "Services",
     route: "/#services",
   },
+  {
+    imgURL: "/assets/icons/send-2.svg",
+    label: "Contact",
+    route: "/contact",
+  },
 ];

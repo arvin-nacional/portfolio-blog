@@ -1,4 +1,5 @@
 import LocalSearchbar from "@/components/search/LocalSearchBar";
+import Pagination from "@/components/search/Pagination";
 import PortfolioFilter from "@/components/search/PortfolioFilter";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/ui/projectCard";
@@ -30,7 +31,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
           {/* <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Portfolio
           </h2> */}
-          <h1 className="text-dark500_light700  text-center h2-title max-md:max-w-full max-md:h2-bold">
+          <h1 className="text-dark500_light700 h2-title max-md:h2-bold text-center max-md:max-w-full">
             Our Projects
           </h1>
 
@@ -77,6 +78,10 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
               </div>
             ))}
           </div>
+          <Pagination
+            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            isNext={result?.isNext}
+          />
         </div>
       </section>
     </div>

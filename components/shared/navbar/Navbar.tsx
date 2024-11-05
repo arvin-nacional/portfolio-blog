@@ -48,6 +48,7 @@ const Navbar = () => {
           <Link href="/projects">Portfolio</Link>
           <Link href="/blog">Blog</Link>
           <Link href="/#services">Services</Link>
+          <Link href="/contact">Contact</Link>
         </div>
         <div className="flex-between gap-5">
           <Theme />

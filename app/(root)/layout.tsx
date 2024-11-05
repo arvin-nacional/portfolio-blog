@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import GoHighLevelChatWidget from "@/components/shared/navbar/GoHighLevelChatWidget";
 import Navbar from "@/components/shared/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import React from "react";
@@ -14,6 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </section>
       <Toaster />
       <Footer />
+      <GoHighLevelChatWidget />
     </main>
   );
 };

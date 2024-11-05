@@ -26,7 +26,7 @@ const Portfolio = async ({ projects, page, isNext }: Props) => {
               Portfolio
             </h2>
             <h1 className="text-dark300_light700 h1-semihero max-md:h2-bold mt-3 leading-tight text-zinc-700 max-md:max-w-full md:mt-10">
-              Some of recent work
+              Some of my recent work
             </h1>
           </div>
           <div className="text-dark300_light700 mt-10 flex flex-row items-center justify-end gap-5 max-md:mt-5">
