@@ -86,8 +86,6 @@ export async function getPosts(params: GetPostsParams) {
 
     const query: FilterQuery<typeof Post> = {};
 
-    console.log(searchQuery);
-
     if (searchQuery) {
       query.$or = [
         { title: { $regex: new RegExp(searchQuery, "i") } },

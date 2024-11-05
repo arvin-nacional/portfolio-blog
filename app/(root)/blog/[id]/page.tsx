@@ -22,7 +22,7 @@ const page = async ({ params }: ParamsProps) => {
 
   return (
     <div>
-      <section className="flex flex-col items-center px-16 max-md:px-5 py-12 sm:py-24">
+      <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
           <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
             <div className="max-md:cols-span-1 col-span-2">
@@ -34,10 +34,10 @@ const page = async ({ params }: ParamsProps) => {
                 style={{ borderRadius: "10px" }}
               />
               <div className="px-3">
-                <p className="small-regular mt-10">
+                <p className="small-regular text-dark500_light500 mt-10">
                   {formatDate(details?.createdAt)}
                 </p>
-                <div className="flex flex-row gap-2 items-center  mb-3 ">
+                <div className="mb-3 flex flex-row items-center  gap-2 ">
                   <h3 className="h2-bold text-dark400_light700 ">
                     {details?.title}
                   </h3>

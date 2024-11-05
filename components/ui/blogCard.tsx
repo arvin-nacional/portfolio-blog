@@ -17,7 +17,7 @@ const BlogCard = ({
   tags,
 }: BlogCardProps) => {
   return (
-    <div className="card-wrapper background-light800_dark300 flex w-full flex-col overflow-hidden rounded-xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 hover:shadow-lg animate-fade animate-once animate-duration-[500ms] animate-ease-in">
+    <div className="card-wrapper background-light800_dark300 mb-2 flex w-full animate-fade flex-col overflow-hidden rounded-xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] transition-all duration-500 animate-duration-[500ms] animate-once animate-ease-in hover:shadow-lg">
       <Link href={`/blog/${link}`}>
         <Image src={image} alt={title} height={250} width={400} />
         {/* <div
@@ -30,7 +30,9 @@ const BlogCard = ({
       <div className="px-7 pb-5 pt-3">
         <Link href={`/blog/${link}`}>
           {" "}
-          <h2 className="h3-bold text-dark300_light700 ">{title}</h2>
+          <h2 className="h3-bold text-dark300_light700 line-clamp-3">
+            {title}
+          </h2>
         </Link>
 
         <h2 className="small-regular text-dark300_light700 mt-2">{date}</h2>

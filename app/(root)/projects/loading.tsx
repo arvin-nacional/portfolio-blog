@@ -1,15 +1,15 @@
 import LocalSearchbar from "@/components/search/LocalSearchBar";
-import PortfolioFilter from "@/components/search/PortfolioFilter";
+// import PortfolioFilter from "@/components/search/PortfolioFilter";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { getAllCategoryNamesAndIds } from "@/lib/actions/project.action";
+import CardSekeleton from "@/components/ui/skeletonCard";
+// import { getAllCategoryNamesAndIds } from "@/lib/actions/project.action";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Page = async () => {
-  const categories = await getAllCategoryNamesAndIds();
+  // const categories = await getAllCategoryNamesAndIds();
 
   return (
     <div>
@@ -18,7 +18,7 @@ const Page = async () => {
           {/* <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Portfolio
           </h2> */}
-          <h1 className="text-dark500_light700  text-center h2-title max-md:max-w-full max-md:h2-bold">
+          <h1 className="text-dark500_light700  h2-title max-md:h2-bold text-center max-md:max-w-full">
             Our Projects
           </h1>
 
@@ -49,11 +49,11 @@ const Page = async () => {
               </Button>
             </SignedIn>
           </div>
-          <PortfolioFilter filters={JSON.stringify(categories)} />
+          {/* <PortfolioFilter filters={JSON.stringify(categories)} /> */}
 
           <div className="mt-5 grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-sm:grid-cols-1">
             {[1, 2, 3, 4, 5, 6].map((item) => (
-              <Skeleton key={item} />
+              <CardSekeleton key={item} />
             ))}
           </div>
         </div>

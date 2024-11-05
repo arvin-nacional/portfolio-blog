@@ -88,7 +88,10 @@ const Testimonials = () => {
           </div>
           <CarouselContent>
             {testimonialData.map((item, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <CarouselItem
+                key={index}
+                className="my-2 md:basis-1/2 lg:basis-1/3"
+              >
                 <div>
                   <Card>
                     <TestimonialCard

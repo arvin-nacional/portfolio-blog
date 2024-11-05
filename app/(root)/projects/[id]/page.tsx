@@ -59,10 +59,10 @@ const page = async ({ params }: ParamsProps) => {
               </h3>
 
               <ParseHTML data={details.content} />
-            </div>{" "}
+            </div>
             <div className=" flex-1 flex-col ">
               <p className="h3-bold text-dark400_light700 mb-5 mt-12">
-                Project Information -{" "}
+                Project Information
               </p>
               <div className="flex flex-wrap gap-10">
                 <div className="flex w-[250px] flex-col gap-8">
