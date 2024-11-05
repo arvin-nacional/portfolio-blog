@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Sheet,
@@ -11,11 +10,12 @@ import {
 } from "@/components/ui/sheet";
 
 import Image from "next/image";
-import { useTheme } from "@/context/ThemeProvider";
+// import { useTheme } from "@/context/ThemeProvider";
 import Subscriber from "@/components/forms/Subscriber";
+import Logo from "@/components/ui/logo";
 
 const Sidebar = () => {
-  const { mode } = useTheme();
+  // const { mode } = useTheme();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -29,24 +29,11 @@ const Sidebar = () => {
       </SheetTrigger>
       <SheetContent className="background-light900_dark200 flex-center h-full grow  flex-col border-none">
         <SheetHeader className="text-dark100_light900 mt-2 p-8">
-          {mode === "light" ? (
-            <Image
-              src="/assets/images/primary-logo-dark.svg"
-              width={150}
-              height={40}
-              alt="logo"
-            />
-          ) : (
-            <Image
-              src="/assets/images/primary-logo-light.svg"
-              width={150}
-              height={40}
-              alt="logo"
-            />
-          )}
+          <Logo />
           <SheetTitle className="mt-5">
-            <p className="h1-bold"></p>Do you have a project in your mind?
-            Let&apos;s connect!
+            <p className="h3-bold">
+              Do you have a project in your mind? Let&apos;s connect!
+            </p>
           </SheetTitle>
           <SheetDescription className="mt-10 "></SheetDescription>
         </SheetHeader>
@@ -88,7 +75,7 @@ const Sidebar = () => {
           <p className="small-regular mb-3 py-2">
             Subscribe to get our latest news and updates.
           </p>
-          <Subscriber />
+          <Subscriber type="sidebar" />
         </div>
 
         {/* social media links */}

@@ -13,7 +13,7 @@ const Hero = () => {
               <h1 className="text-dark500_light700 text-8xl font-extrabold leading-tight">
                 Elevate your <br /> Brand
               </h1>
-              <h2 className="text-dark500_light700 mt-2 text-5xl font-normal leading-tight lg:mb-12">
+              <h2 className="text-dark500_light700 mt-2 text-5xl font-normal leading-tight max-sm:text-5xl lg:mb-12">
                 Design, Develop, Dominate
               </h2>
               <div className="flex-between mt-5 w-full">
@@ -30,7 +30,7 @@ const Hero = () => {
                     alt="icon "
                     className="invert-colors "
                   />
-                  <h3 className="text-dark300_light700 paragraph-regular w-[440px]">
+                  <h3 className="text-dark300_light700 paragraph-regular max-sm:body-regular md:w-[440px] ">
                     From captivating visuals to powerful functionality, we
                     empower your brand to stand out, leaving a lasting
                     impression and dominating your market.

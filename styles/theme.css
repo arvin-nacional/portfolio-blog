@@ -25,6 +25,9 @@
   .background-light800_darkgradient {
     @apply bg-light-800 dark:dark-gradient;
   }
+  .background-light800_dark300 {
+    @apply bg-light-800 dark:bg-dark-300;
+  }
 
   .background-light800_dark400 {
     @apply bg-light-800 dark:bg-dark-400 !important;
@@ -106,6 +109,18 @@
     @apply border-light-700 dark:border-dark-400 !important;
   }
 
+  .h1-hero {
+    @apply text-[72px] font-bold leading-[80px] tracking-tighter;
+  }
+
+  .h1-semihero {
+    @apply text-[60px] font-extrabold leading-[80px] tracking-tighter;
+  }
+
+  .h2-title {
+    @apply text-[40px] font-extrabold leading-[80px] tracking-tighter;
+  }
+
   .h1-bold {
     @apply text-[30px] font-bold leading-[42px] tracking-tighter;
   }
@@ -139,7 +154,7 @@
   }
 
   .paragraph-regular {
-    @apply text-[16px] font-normal leading-[22.4px];
+    @apply text-[16px] font-normal leading-[150%];
   }
 
   .paragraph-medium {
@@ -183,7 +198,7 @@
   }
 
   .placeholder {
-    @apply placeholder:text-light-400 dark:placeholder:text-light-500;
+    @apply placeholder:text-light-200 dark:placeholder:text-light-500;
   }
 
   .invert-colors {

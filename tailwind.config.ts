@@ -1,12 +1,12 @@
 import svgToDataUri from "mini-svg-data-uri";
-
+import type { Config } from "tailwindcss";
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 /** @type {import('tailwindcss').Config} */
 
-module.exports = {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -23,10 +23,25 @@ module.exports = {
       },
     },
     extend: {
+      animation: {
+        aurora: "aurora 60s linear infinite",
+      },
+      keyframes: {
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
+      },
       colors: {
         primary: {
-          500: "#01545B",
+          500: "#0051cb",
+          400: "#4094F7",
           100: "#01545B",
+          300: "E9BC5FF",
         },
         dark: {
           100: "#000000",
@@ -39,9 +54,11 @@ module.exports = {
           900: "#FFFFFF",
           800: "#F4F6F8",
           850: "#FDFDFD",
+          600: "#9BC5FF",
           700: "#DCE3F1",
           500: "#7B8EC8",
           400: "#EEEEEE",
+          200: "#A6A1A1",
         },
         "accent-blue": "#1DA1F2",
       },
@@ -64,25 +81,13 @@ module.exports = {
       screens: {
         xs: "420px",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("tailwindcss-animated"),
     require("@tailwindcss/typography"),
+    addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
@@ -106,4 +111,17 @@ module.exports = {
       );
     },
   ],
-};
+} satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  const allColors = flattenColorPalette(theme("colors"));
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
+
+export default config;

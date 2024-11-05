@@ -6,6 +6,7 @@
 
 body {
   font-family: "Inter", sans-serif;
+  scroll-behavior: smooth !important;
 }
 
 /* html {
@@ -60,6 +61,40 @@ body {
   .tab {
     @apply min-h-full dark:bg-dark-400 bg-light-800 text-light-500 dark:data-[state=active]:bg-dark-300 data-[state=active]:bg-primary-100 data-[state=active]:text-primary-500 !important;
   }
+
+  .navbar-transparent {
+    background: transparent;
+    transition: background-color 1s ease-in-out;
+  }
+
+  .portfolio_hover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    background-color: rgba(23, 28, 35, 0.41, 0.4);
+    transition: all 0.4s ease;
+    z-index: 999;
+  }
+
+  .cs-mp0 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cs-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 .no-focus {
@@ -83,6 +118,11 @@ body {
   background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.primary-bg-gradient {
+  background: linear-gradient(129deg, #0051cb 0%, #4094f7 100%);
   -webkit-text-fill-color: transparent;
 }
 

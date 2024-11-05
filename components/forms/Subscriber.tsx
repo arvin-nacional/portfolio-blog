@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SubscriberFormSchema } from "@/lib/validations";
-
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,7 +18,10 @@ import { addSubscriber } from "@/lib/actions/subscriber.action";
 import { usePathname } from "next/navigation";
 import { toast } from "../ui/use-toast";
 
-const Subscriber = () => {
+interface Props {
+  type: string;
+}
+const Subscriber = ({ type }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const pathname = usePathname();
   // 1. Define your form.
@@ -66,7 +69,11 @@ const Subscriber = () => {
                 <Input
                   placeholder="Enter your email address"
                   {...field}
-                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  className={cn(
+                    type === "sidebar"
+                      ? "no-focus paragraph-regular min-h-[56px] border border-light-500 text-dark-200 bg-light-800"
+                      : "no-focus paragraph-regular min-h-[56px] border border-dark-500 bg-dark-300 text-light-700"
+                  )}
                 />
               </FormControl>
               {/* <FormDescription>Enter your email</FormDescription> */}

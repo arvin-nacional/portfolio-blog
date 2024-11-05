@@ -15,12 +15,12 @@ export const sidebarLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/about.svg",
     label: "About",
-    route: "/about",
+    route: "/#about",
   },
   {
     imgURL: "/assets/icons/portfolio.svg",
     label: "Portfolio",
-    route: "/portfolio",
+    route: "/projects",
   },
   {
     imgURL: "/assets/icons/blog.svg",
@@ -30,6 +30,6 @@ export const sidebarLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/services.svg",
     label: "Services",
-    route: "/services",
+    route: "/#services",
   },
 ];

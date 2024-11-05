@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/shared/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import React from "react";
@@ -6,13 +7,13 @@ import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="background-light850_dark100 relative">
+    <main className="background-light900_dark200 relative">
       <Navbar />
-      {/* <CustomCursor /> */}
-      <section className="flex min-h-screen flex-1 flex-col overflow-y-auto pb-24 pt-28 max-md:pb-14  ">
+      <section className="flex min-h-screen flex-1 flex-col overflow-y-auto  max-md:pb-14  ">
         <div className="mx-auto w-full ">{children}</div>
       </section>
       <Toaster />
+      <Footer />
     </main>
   );
 };
