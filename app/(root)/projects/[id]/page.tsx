@@ -21,13 +21,13 @@ const page = async ({ params }: ParamsProps) => {
   return (
     <>
       <Head>
-        <title>{details?.title}</title>
-        <meta property="og:title" content={details?.title} />
-        <meta property="og:description" content={details?.content} />
-        <meta property="og:image" content={details?.mainImage} />
+        <title>{details.title}</title>
+        <meta property="og:title" content={details.title} />
+        <meta property="og:description" content={details.content} />
+        <meta property="og:image" content={details.mainImage} />
         <meta
           property="og:url"
-          content={`https://www.rvinpaul.com/blog/${details?._id}`}
+          content={`https://www.rvinpaul.com/blog/${details._id}`}
         />
         <meta name="facebook:card" content="summary_large_image" />
       </Head>
