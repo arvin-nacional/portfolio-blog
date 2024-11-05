@@ -25,7 +25,7 @@ const page = async ({ params }: ParamsProps) => {
       <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
           <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
-            <div className="max-md:cols-span-1 col-span-2">
+            <div className="col-span-2 max-md:col-span-1">
               <Image
                 src={details?.image}
                 alt="projectImage"
@@ -82,9 +82,8 @@ const page = async ({ params }: ParamsProps) => {
           <ProjectImages images={JSON.stringify(details?.images)} />
         </div>
       </section>
-      <div className="w-full px-16 max-md:px-0">
-        <CTA />
-      </div>
+      <div className="w-full px-16 max-md:px-0"></div>
+      <CTA />
     </div>
   );
 };
