@@ -13,7 +13,7 @@ import DeletePost from "@/components/DeletePost";
 import RecentProjects from "@/components/RecentProjects";
 import Head from "next/head";
 const page = async ({ params }: ParamsProps) => {
-  const { id } = await params;
+  const { id } = params;
   const result = await getProjectById({ projectId: id });
 
   const details = result?.project;
@@ -22,14 +22,15 @@ const page = async ({ params }: ParamsProps) => {
     <>
       <Head>
         <title>{details.title}</title>
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={details.title} />
         <meta property="og:description" content={details.content} />
         <meta property="og:image" content={details.mainImage} />
         <meta
           property="og:url"
-          content={`https://www.rvinpaul.com/blog/${details._id}`}
+          content={`https://www.rvinpaul.com/projects/${details._id}`}
         />
-        <meta name="facebook:card" content="summary_large_image" />
+        <meta name="facebook:card" content={details.mainImage} />
       </Head>
       <div>
         <section className="flex items-center justify-center px-16 py-20 max-md:px-5 sm:py-[100px]">

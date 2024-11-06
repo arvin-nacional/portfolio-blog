@@ -12,6 +12,7 @@ import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Head from "next/head";
 
 const page = async ({ params }: ParamsProps) => {
   const result = await getPostById({ postId: params.id });
@@ -21,70 +22,84 @@ const page = async ({ params }: ParamsProps) => {
   const tagArr: Object[] = details?.tags.map((item: { _id: any }) => item._id);
 
   return (
-    <div>
-      <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">
-        <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
-          <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
-            <div className="col-span-2 max-md:col-span-1">
-              <Image
-                src={details?.image}
-                alt="projectImage"
-                width={1200}
-                height={300}
-                style={{ borderRadius: "10px" }}
-              />
-              <div className="px-3">
-                <p className="small-regular text-dark500_light500 mt-10">
-                  {formatDate(details?.createdAt)}
-                </p>
-                <div className="mb-3 flex flex-row items-center  gap-2 ">
-                  <h3 className="h2-bold text-dark400_light700 ">
-                    {details?.title}
-                  </h3>
-                  <SignedIn>
-                    <div className="flex items-center gap-2 ">
-                      <Link href={`/blog/edit/${params.id}`}>
-                        <Image
-                          src="/assets/icons/edit.svg"
-                          alt="edit"
-                          height={20}
-                          width={20}
-                          className="hover:text-primary-500"
+    <>
+      <Head>
+        <title>{details.title}</title>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={details.title} />
+        <meta property="og:description" content={details.content} />
+        <meta property="og:image" content={details.image} />
+        <meta
+          property="og:url"
+          content={`https://www.rvinpaul.com/blog/${details._id}`}
+        />
+        <meta name="facebook:card" content={details.image} />
+      </Head>
+      <div>
+        <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">
+          <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
+            <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
+              <div className="col-span-2 max-md:col-span-1">
+                <Image
+                  src={details?.image}
+                  alt="projectImage"
+                  width={1200}
+                  height={300}
+                  style={{ borderRadius: "10px" }}
+                />
+                <div className="px-3">
+                  <p className="small-regular text-dark500_light500 mt-10">
+                    {formatDate(details?.createdAt)}
+                  </p>
+                  <div className="mb-3 flex flex-row items-center  gap-2 ">
+                    <h3 className="h2-bold text-dark400_light700 ">
+                      {details?.title}
+                    </h3>
+                    <SignedIn>
+                      <div className="flex items-center gap-2 ">
+                        <Link href={`/blog/edit/${params.id}`}>
+                          <Image
+                            src="/assets/icons/edit.svg"
+                            alt="edit"
+                            height={20}
+                            width={20}
+                            className="hover:text-primary-500"
+                          />
+                        </Link>
+                        <DeletePost
+                          id={JSON.stringify(params.id)}
+                          type="project"
                         />
-                      </Link>
-                      <DeletePost
-                        id={JSON.stringify(params.id)}
-                        type="project"
-                      />
-                    </div>
-                  </SignedIn>
+                      </div>
+                    </SignedIn>
+                  </div>
+
+                  <h4 className="base-semibold text-dark400_light700 mb-5 flex flex-wrap gap-2 ">
+                    {details?.tags.map((tag: any) => (
+                      <Badge key={tag._id} variant="secondary">
+                        {tag.name}
+                      </Badge>
+                    ))}
+                  </h4>
+
+                  <ParseHTML data={details?.content} />
                 </div>
 
-                <h4 className="base-semibold text-dark400_light700 mb-5 flex flex-wrap gap-2 ">
-                  {details?.tags.map((tag: any) => (
-                    <Badge key={tag._id} variant="secondary">
-                      {tag.name}
-                    </Badge>
-                  ))}
-                </h4>
-
-                <ParseHTML data={details?.content} />
+                {/* <p className="paragraph-regular mt-10">{details.content}</p> */}
               </div>
-
-              {/* <p className="paragraph-regular mt-10">{details.content}</p> */}
+              <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
+                <RecentPosts postId={params.id} />
+                {/* @ts-ignore */}
+                <RelatedPosts currentPostId={params.id} tagIds={tagArr} />
+              </div>
             </div>
-            <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
-              <RecentPosts postId={params.id} />
-              {/* @ts-ignore */}
-              <RelatedPosts currentPostId={params.id} tagIds={tagArr} />
-            </div>
+            <ProjectImages images={JSON.stringify(details?.images)} />
           </div>
-          <ProjectImages images={JSON.stringify(details?.images)} />
-        </div>
-      </section>
-      <div className="w-full px-16 max-md:px-0"></div>
-      <CTA />
-    </div>
+        </section>
+        <div className="w-full px-16 max-md:px-0"></div>
+        <CTA />
+      </div>
+    </>
   );
 };
 

@@ -17,7 +17,7 @@ const GoHighLevelForm = () => {
   }, []);
 
   return (
-    <div className="size-full shadow-md animate-fade animate-once animate-duration-[500ms] animate-ease-in">
+    <div className="size-full animate-fade shadow-md animate-duration-[500ms] animate-once animate-ease-in">
       <iframe
         src="https://api.leadconnectorhq.com/widget/form/riTWHwgp3vqF987Z9g9n"
         style={{
