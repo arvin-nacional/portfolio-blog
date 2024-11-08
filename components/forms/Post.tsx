@@ -222,7 +222,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
               </FormLabel>
               <FormControl>
                 <Editor
-                  apiKey="q51zuftvjuqjpc5emk9omlj1e0f3r72vg8af3ia2w4qcyt9d"
+                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor;
@@ -381,7 +381,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
                         <Badge
                           key={tag}
                           variant="secondary"
-                          className="ssubtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
+                          className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
                           onClick={() =>
                             type !== "Edit"
                               ? handleTagRemove(tag, field)

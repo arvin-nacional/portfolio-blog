@@ -21,16 +21,16 @@ const page = async ({ params }: ParamsProps) => {
   return (
     <>
       <Head>
-        <title>{details.title}</title>
+        <title>{details?.title}</title>
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={details.title} />
-        <meta property="og:description" content={details.content} />
-        <meta property="og:image" content={details.mainImage} />
+        <meta property="og:title" content={details?.title} />
+        <meta property="og:description" content={details?.content} />
+        <meta property="og:image" content={details?.mainImage} />
         <meta
           property="og:url"
-          content={`https://www.rvinpaul.com/projects/${details._id}`}
+          content={`https://www.rvinpaul.com/projects/${details?._id}`}
         />
-        <meta name="facebook:card" content={details.mainImage} />
+        <meta name="facebook:card" content={details?.mainImage} />
       </Head>
       <div>
         <section className="flex items-center justify-center px-16 py-20 max-md:px-5 sm:py-[100px]">
@@ -72,7 +72,7 @@ const page = async ({ params }: ParamsProps) => {
                   </SignedIn>
                 </h3>
 
-                <ParseHTML data={details.content} />
+                <ParseHTML data={details?.content} />
               </div>
               <div className=" flex-1 flex-col ">
                 <p className="h3-bold text-dark400_light700 mb-5 mt-12">
