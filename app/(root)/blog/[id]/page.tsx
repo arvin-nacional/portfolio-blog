@@ -20,20 +20,21 @@ const page = async ({ params }: ParamsProps) => {
   const details = result?.post;
 
   const tagArr: Object[] = details?.tags.map((item: { _id: any }) => item._id);
+  console.log(details?.image);
 
   return (
     <>
       <Head>
-        <title>{details.title}</title>
+        <title>{details?.title}</title>
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={details.title} />
-        <meta property="og:description" content={details.content} />
-        <meta property="og:image" content={details.image} />
+        <meta property="og:title" content={details?.title} />
+        <meta property="og:description" content={details?.content} />
+        <meta property="og:image" content={details?.image} />
         <meta
           property="og:url"
-          content={`https://www.rvinpaul.com/blog/${details._id}`}
+          content={`https://www.rvinpaul.com/blog/${details?._id}`}
         />
-        <meta name="facebook:card" content={details.image} />
+        <meta name="facebook:card" content={details?.image} />
       </Head>
       <div>
         <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">

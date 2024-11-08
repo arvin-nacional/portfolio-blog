@@ -222,7 +222,7 @@ const Post = ({ type, postDetails, postId }: Props) => {
               </FormLabel>
               <FormControl>
                 <Editor
-                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                  apiKey="q51zuftvjuqjpc5emk9omlj1e0f3r72vg8af3ia2w4qcyt9d"
                   onInit={(evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor;

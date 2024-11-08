@@ -24,7 +24,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
             Our Recent News and Updates
           </h2> */}
           <h1 className="text-dark500_light700  h2-title max-md:h2-bold text-center max-md:max-w-full">
-            Updates and Contents
+            Blogs
           </h1>
 
           <div className="mt-5 flex flex-row gap-5">
