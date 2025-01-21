@@ -7,7 +7,7 @@ import LogoAnimation from "@/components/LogoAnimation";
 // import Portfolio from "@/components/Portfolio";
 
 import Services from "@/components/Services";
-import Testimonials from "@/components/Testimonials";
+// import Testimonials from "@/components/Testimonials";
 
 import React from "react";
 import { getAllProjects } from "@/lib/actions/project.action";
@@ -34,7 +34,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         isNext={result?.isNext}
       />
       <Blogs />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <CTA />
     </div>
   );
