@@ -138,11 +138,9 @@ const page = async ({ params }: ParamsProps) => {
                 </div>
               </div>
             </div>
-
             <ProjectImages images={JSON.stringify(details?.images)} />
           </div>
         </section>
-
         <CTA />
       </div>
     </>
