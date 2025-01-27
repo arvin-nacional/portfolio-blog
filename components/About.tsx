@@ -6,9 +6,10 @@ import Link from "next/link";
 const About = () => {
   return (
     <div
-      className=" flex items-center justify-center px-16 py-20 max-md:p-10"
+      className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center h-screenflex px-16 py-20 max-md:p-10"
       id="about"
     >
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_40%,black)]"></div>
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10 max-sm:mt-0">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex w-6/12 flex-col max-md:ml-0 max-md:w-full">

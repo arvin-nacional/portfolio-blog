@@ -13,6 +13,7 @@ import React from "react";
 import { getAllProjects } from "@/lib/actions/project.action";
 import { SearchParamsProps } from "@/types";
 import Portfolio from "@/components/Portfolio";
+// import Hero from "@/components/Hero";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllProjects({

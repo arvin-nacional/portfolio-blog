@@ -14,7 +14,7 @@ import { getRecentlyAddedPosts } from "@/lib/actions/post.action";
 const Blogs = async () => {
   const result = await getRecentlyAddedPosts();
   return (
-    <section className="background-light400_dark300 flex items-center justify-center overflow-hidden px-16 py-20 max-md:p-10">
+    <section className="dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] flex items-center justify-center overflow-hidden px-16 py-20 max-md:p-10">
       <div className="w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
         <Carousel
           opts={{

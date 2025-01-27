@@ -18,7 +18,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
 
   return (
     <div>
-      <section className="background-light400_dark300 flex items-center justify-center px-16 py-20 max-md:px-5">
+      <section className="dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] flex items-center justify-center px-16 py-20 max-md:px-5">
         <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
           {/* <h2 className="text-dark300_light700 text-2xl font-bold leading-7 max-md:max-w-full">
             Our Recent News and Updates

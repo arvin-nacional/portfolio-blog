@@ -7,8 +7,8 @@ import Sidebar from "./Sidebar";
 import MobileNav from "./MobileNav";
 import Logo from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +35,7 @@ const Navbar = () => {
         "flex-center background-light900_dark200 fixed z-50 w-full",
         scrolled
           ? "background-light900_dark200 shadow-md"
-          : "navbar-transparent"
+          : "dark:bg-transparent"
       )}
     >
       <div className="flex-between gap-5 py-4  dark:shadow-none max-xl:w-full max-xl:p-6 max-sm:px-10 max-sm:py-6 xl:min-w-[1200px]">
@@ -52,7 +52,7 @@ const Navbar = () => {
         </div>
         <div className="flex-between gap-5">
           <Theme />
-          <SignedOut>
+          {/* <SignedOut>
             <Link href="/sign-in" className="max-lg:hidden">
               <Avatar>
                 <AvatarImage
@@ -74,7 +74,7 @@ const Navbar = () => {
                 },
               }}
             />
-          </SignedIn>
+          </SignedIn> */}
 
           <Sidebar />
 

@@ -34,7 +34,7 @@ const Services: React.FC = () => {
 
   return (
     <section
-      className="background-light400_dark300 flex items-center justify-center px-16 py-10 max-md:p-10"
+      className="dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] flex items-center justify-center px-16 py-10 max-md:p-10"
       id="services"
     >
       <div className="mt-14 flex w-[1200px] max-w-full flex-row max-lg:flex-col max-md:mt-0">

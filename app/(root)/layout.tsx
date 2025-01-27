@@ -15,8 +15,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="mx-auto w-full ">{children}</div>
       </section>
       <Toaster />
-      <Footer />
       <TawkWidget />
+      <Footer />
     </main>
   );
 };

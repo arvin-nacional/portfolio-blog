@@ -18,7 +18,7 @@ const Portfolio = async ({ projects, page, isNext }: Props) => {
   const parsedProjects = JSON.parse(projects);
 
   return (
-    <section className=" flex items-center justify-center px-16 py-20 max-md:px-10 max-sm:py-10">
+    <section className=" w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center h-screenflex px-16 py-20 max-md:px-10 max-sm:py-10">
       <div className="mt-14 w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
         <div className="flex flex-wrap items-end justify-between max-sm:flex-col max-sm:items-start">
           <div>
