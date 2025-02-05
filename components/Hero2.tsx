@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { GlobeDemo } from "./Globe";
 // import { motion } from "framer-motion";
 // import { AuroraBackground } from "./ui/aurora-background";
 
@@ -25,7 +26,7 @@ const Hero2 = () => {
         <div>
           <div className="flex-between max-sm:flex-col max-sm:items-start">
             <div>
-              <h1 className="text-dark500_light700 h1-hero font-extrabold leading-tight max-sm:text-[60px]">
+              <h1 className="text-dark500_light700 h1-hero font-extrabold leading-tight max-sm:text-[60px] max-sm:mt-8">
                 Elevate your <br /> Brand
               </h1>
               <h2 className="text-dark500_light700 max-sm:h2-semibold mt-2 font-normal leading-tight animate-delay-500 sm:text-5xl lg:mb-12">
@@ -33,12 +34,13 @@ const Hero2 = () => {
               </h2>
             </div>
             <div className="max-sm:mt-5 max-sm:w-[350px]">
-              <Image
+              {/* <Image
                 src="/assets/images/hero-image.svg"
                 alt="hero-image"
                 height={500}
                 width={500}
-              />
+              /> */}
+              <GlobeDemo />
             </div>
           </div>
 
