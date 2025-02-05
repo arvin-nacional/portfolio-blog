@@ -9,7 +9,7 @@ const Page = async () => {
     <section className=" w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center h-screenflex  px-16  py-20 max-md:px-5 max-md:py-20">
       <div className="flex w-[1200px] max-w-full  pb-6 max-md:mt-10">
         <div className="flex w-full items-center justify-center">
-          <div className="flex flex-1 flex-col items-start justify-between">
+          <div className="flex flex-1 flex-col items-start justify-between max-sm:hidden">
             <Image
               src="/assets/images/contact-image3.svg"
               alt="contact image"
