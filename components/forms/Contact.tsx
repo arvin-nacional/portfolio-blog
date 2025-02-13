@@ -201,7 +201,7 @@ const Contact = () => {
               <FormControl>
                 <Textarea
                   placeholder="Type your message here."
-                  className="background-light900_dark300 light-border-2 resize-none border"
+                  className="background-light900_dark300 light-border-2 resize-none border text-dark400_light800"
                   {...field}
                 />
               </FormControl>
