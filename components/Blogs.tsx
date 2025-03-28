@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/carousel";
 import BlogCard from "./ui/blogCard";
 import { formatDate } from "@/lib/utils";
-import { getRecentlyAddedPosts } from "@/lib/actions/post.action";
+import { getRecentlyAddedPostsCached } from "@/lib/actions/post.action";
 
 const Blogs = async () => {
-  const result = await getRecentlyAddedPosts();
+  const result = await (await getRecentlyAddedPostsCached())();
+
   return (
     <section className="dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] flex items-center justify-center overflow-hidden px-16 py-20 max-md:p-10">
       <div className="w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
@@ -55,7 +56,6 @@ const Blogs = async () => {
                       key={component._id}
                       content={component.content}
                     />
-                    {/* </CardContent> */}
                   </Card>
                 </div>
               </CarouselItem>

@@ -9,6 +9,8 @@ import {
   addPostParams,
   getPostByIdParams,
 } from "./shared.types";
+
+import { cache } from "react";
 import { connectToDatabase } from "../mongoose";
 import Post, { IPost } from "@/database/post.model";
 
@@ -179,6 +181,9 @@ export async function getRecentlyAddedPosts() {
     throw error;
   }
 }
+export const getRecentlyAddedPostsCached = cache(async () => {
+  return getRecentlyAddedPosts;
+});
 
 export async function getRelatedPosts(
   tags: TagWithPosts[],

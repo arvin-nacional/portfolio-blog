@@ -10,18 +10,21 @@ import Services from "@/components/Services";
 // import Testimonials from "@/components/Testimonials";
 
 import React from "react";
-import { getAllProjects } from "@/lib/actions/project.action";
+import { getAllProjectsCached } from "@/lib/actions/project.action";
 import { SearchParamsProps } from "@/types";
 import Portfolio from "@/components/Portfolio";
+import console from "console";
 // import Hero from "@/components/Hero";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
-  const result = await getAllProjects({
+  const result = await getAllProjectsCached({
     searchQuery: searchParams?.q,
     page: searchParams?.page ? +searchParams.page : 1,
     filter: searchParams?.filter,
     category: searchParams?.category,
   });
+
+  console.log(result);
   return (
     <div>
       {/* <Hero /> */}

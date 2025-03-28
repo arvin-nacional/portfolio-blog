@@ -3,6 +3,9 @@
 import { revalidatePath } from "next/cache";
 
 import { v2 as cloudinary } from "cloudinary";
+
+import { cache } from "react";
+
 // import { FilterQuery } from "mongoose";
 import { connectToDatabase } from "../mongoose";
 import {
@@ -232,6 +235,11 @@ export async function getAllProjects(params: GetProjectsParams) {
     throw error;
   }
 }
+
+export const getAllProjectsCached = cache(async (params: GetProjectsParams) => {
+  return await getAllProjects(params);
+});
+
 export async function getAllCategoryNamesAndIds() {
   try {
     connectToDatabase();
