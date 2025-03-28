@@ -268,7 +268,7 @@ export async function getRecentProjects(params: GetRecentProjectParams) {
     let projects = await Project.find(query)
       .populate({ path: "category", model: Category })
       .sort({ createdOn: -1 }) // Sort by creation date in descending order
-      .limit(4); // Limit to 5 posts to ensure we have 4 after filtering
+      .limit(7); // Limit to 5 posts to ensure we have 4 after filtering
 
     // Filter out the post with the given projectId
     projects = projects.filter(
@@ -281,3 +281,9 @@ export async function getRecentProjects(params: GetRecentProjectParams) {
     throw error;
   }
 }
+
+export const getRecentProjectsCached = cache(
+  async (params: GetRecentProjectParams) => {
+    return await getRecentProjects(params);
+  }
+);

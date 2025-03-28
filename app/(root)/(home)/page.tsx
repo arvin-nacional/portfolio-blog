@@ -12,7 +12,9 @@ import Services from "@/components/Services";
 import React from "react";
 import { getAllProjectsCached } from "@/lib/actions/project.action";
 import { SearchParamsProps } from "@/types";
+
 import console from "console";
+import Projects from "@/components/Projects";
 // import Hero from "@/components/Hero";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
@@ -36,6 +38,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         page={searchParams?.page ? +searchParams.page : 1}
         isNext={result?.isNext}
       /> */}
+      <Projects />
       <Blogs />
       {/* <Testimonials /> */}
       <CTA />

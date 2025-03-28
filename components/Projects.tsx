@@ -7,17 +7,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import BlogCard from "./ui/blogCard";
 import { formatDate } from "@/lib/utils";
-import { getRecentlyAddedPostsCached } from "@/lib/actions/post.action";
-import Link from "next/link";
+import { getRecentProjectsCached } from "@/lib/actions/project.action";
+import ProjectCard from "./ui/projectCard";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
-const Blogs = async () => {
-  const result = await (await getRecentlyAddedPostsCached())();
+const Projects = async () => {
+  // Fetch the recent projects from the server
+  const result = await getRecentProjectsCached({});
 
   return (
-    <section className="dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] flex items-center justify-center overflow-hidden px-16 py-10 max-md:p-10 flex-col">
+    <section className="dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] flex items-center justify-start overflow-hidden px-16 py-10 max-md:p-10 flex-col">
       <div className="w-[1200px] max-w-full justify-between pb-6 max-md:mt-10">
         <Carousel
           opts={{
@@ -28,10 +29,10 @@ const Blogs = async () => {
           <div className="flex-between mb-12 flex items-end">
             <div>
               <h2 className="text-dark300_light700 h2-bold max-md:base-bold leading-7 max-md:max-w-full">
-                Blogs
+                Projects
               </h2>
               <h1 className="text-dark500_light700 max-md:h2-bold h1-semihero mt-3 max-md:max-w-full  md:mt-5">
-                Our recent news and updates
+                Our recent projects
               </h1>
             </div>
             <div className="flex items-end justify-end">
@@ -42,20 +43,19 @@ const Blogs = async () => {
             </div>
           </div>
           <CarouselContent>
-            {result.posts.map((component) => (
+            {result.projects.map((component) => (
               <CarouselItem
                 key={component._id}
                 className="md:basis-1/2 lg:basis-1/3"
               >
                 <div>
                   <Card>
-                    <BlogCard
-                      tags={component.tags}
+                    <ProjectCard
                       title={component.title}
-                      date={formatDate(component.createdAt)}
-                      image={component.image}
-                      link={component._id}
-                      key={component._id}
+                      image={component.mainImage}
+                      date={formatDate(component.dateFinished)}
+                      _id={component._id}
+                      category={component.category}
                       content={component.content}
                     />
                   </Card>
@@ -65,13 +65,14 @@ const Blogs = async () => {
           </CarouselContent>
         </Carousel>
       </div>
-      <Link href="/blog">
+
+      <Link href="/projects">
         <Button className="bg-primary-500 text-white font-regular">
-          Read more
+          See all Projects
         </Button>
       </Link>
     </section>
   );
 };
 
-export default Blogs;
+export default Projects;
