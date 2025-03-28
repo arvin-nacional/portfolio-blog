@@ -12,7 +12,6 @@ import Services from "@/components/Services";
 import React from "react";
 import { getAllProjectsCached } from "@/lib/actions/project.action";
 import { SearchParamsProps } from "@/types";
-import Portfolio from "@/components/Portfolio";
 import console from "console";
 // import Hero from "@/components/Hero";
 
