@@ -32,11 +32,11 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <LogoAnimation />
       <About />
       <Services />
-      <Portfolio
+      {/* <Portfolio
         projects={JSON.stringify(result?.projects)}
         page={searchParams?.page ? +searchParams.page : 1}
         isNext={result?.isNext}
-      />
+      /> */}
       <Blogs />
       {/* <Testimonials /> */}
       <CTA />
