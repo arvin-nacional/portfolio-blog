@@ -5,7 +5,7 @@ import { useTheme } from "@/context/ThemeProvider";
 
 // Simplified Theme component - dark mode only
 const Theme = () => {
-  const { mode } = useTheme(); // We still use the theme context for consistency
+  // const { mode } = useTheme(); // We still use the theme context for consistency
   
   return (
     <div className="relative cursor-default">

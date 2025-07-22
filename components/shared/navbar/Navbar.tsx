@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Theme from "./Theme";
 import Sidebar from "./Sidebar";
 import MobileNav from "./MobileNav";
 import Logo from "@/components/ui/logo";
