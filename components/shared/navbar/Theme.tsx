@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useTheme } from "@/context/ThemeProvider";
+// import { useTheme } from "@/context/ThemeProvider";
 
 // Simplified Theme component - dark mode only
 const Theme = () => {
