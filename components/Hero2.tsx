@@ -25,11 +25,11 @@ const Hero2 = () => {
         <div>
           <div className="flex-between max-sm:flex-col max-sm:items-start">
             <div>
-              <h1 className="text-dark500_light700 h1-hero font-extrabold leading-tight max-sm:text-[60px] max-sm:mt-12">
-                Elevate your <br /> Brand
+              <h1 className="text-dark500_light700 h1-hero font-bold leading-tight max-sm:text-[30px] max-sm:mt-0">
+                Your Tech Partner in the Business World
               </h1>
-              <h2 className="text-dark500_light700 max-sm:h2-semibold mt-2 font-normal leading-tight animate-delay-500 sm:text-5xl lg:mb-12">
-                Design, Develop, Dominate
+              <h2 className="text-dark500_light700 max-sm:text-sm mt-2 font-normal leading-tight animate-delay-500 sm:text-3xl lg:mb-12">
+                Web Development | Digital Marketing | Creative Design
               </h2>
             </div>
             <div className="max-sm:mt-5 max-sm:w-[350px]">

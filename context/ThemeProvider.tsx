@@ -10,42 +10,28 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Always use dark mode
   const [mode, setMode] = useState("dark");
 
-  const handleThemeChange = () => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setMode("dark");
-      document.documentElement.classList.add("dark");
-    } else {
-      setMode("light");
-      document.documentElement.classList.remove("dark");
-    }
+  // Force dark mode regardless of any settings
+  const enforceDarkMode = () => {
+    setMode("dark");
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
   };
 
+  // Keep this function for API compatibility, but it will always set dark mode
   const changeTheme = (newMode: string) => {
-    setMode(newMode);
-    localStorage.setItem("theme", newMode);
-    if (newMode === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    // Ignore the requested mode and always use dark
+    enforceDarkMode();
   };
 
   useEffect(() => {
-    handleThemeChange();
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", handleThemeChange);
-    return () => {
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .removeEventListener("change", handleThemeChange);
-    };
+    // Apply dark mode on mount and whenever this effect runs
+    enforceDarkMode();
+    
+    // No need to listen for system preference changes since we're always using dark mode
+    return () => {};
   }, []);
 
   return (

@@ -32,7 +32,7 @@ const Projects = async () => {
                 Projects
               </h2>
               <h1 className="text-dark500_light700 max-md:h2-bold h1-semihero mt-3 max-md:max-w-full  md:mt-5">
-                Our recent projects
+                My recent projects
               </h1>
             </div>
             <div className="flex items-end justify-end">
