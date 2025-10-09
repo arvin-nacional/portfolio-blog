@@ -390,7 +390,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
           render={({ field: { onChange, value, ...rest } }) => (
             <>
               <FormItem>
-                <FormLabel className="paragraph-semibold">
+                <FormLabel className="paragraph-semibold text-dark400_light800">
                   Project Photo <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl>
@@ -401,7 +401,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                       // @ts-ignore
                       handleMainImageChange(e.target.files[0]);
                     }}
-                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline"
+                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline text-dark400_light800"
                   />
                 </FormControl>
                 <FormDescription className="body-regular mt-2.5 text-light-500">
@@ -445,7 +445,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
           render={({ field: { onChange, value, ...rest } }) => (
             <>
               <FormItem>
-                <FormLabel className="paragraph-semibold">
+                <FormLabel className="paragraph-semibold text-dark400_light800">
                   Related Photos <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl>
@@ -457,7 +457,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                       // @ts-ignore
                       handleMultipleImageChange(e.target.files);
                     }}
-                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline"
+                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline text-dark400_light800"
                   />
                 </FormControl>
                 <FormDescription className="body-regular mt-2.5 text-light-500">
