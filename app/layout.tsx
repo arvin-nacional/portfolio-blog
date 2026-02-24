@@ -9,7 +9,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
 });
 

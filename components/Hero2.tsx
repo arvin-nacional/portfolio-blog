@@ -38,6 +38,7 @@ const Hero2 = () => {
                 alt="hero-image"
                 height={500}
                 width={500}
+                priority
               />
             </div>
           </div>
