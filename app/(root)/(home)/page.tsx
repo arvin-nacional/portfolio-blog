@@ -4,28 +4,16 @@ import CTA from "@/components/shared/CTA";
 
 import Hero2 from "@/components/Hero2";
 import LogoAnimation from "@/components/LogoAnimation";
-// import Portfolio from "@/components/Portfolio";
 
 import Services from "@/components/Services";
-// import Testimonials from "@/components/Testimonials";
 
-import React from "react";
-import { getAllProjectsCached } from "@/lib/actions/project.action";
-import { SearchParamsProps } from "@/types";
-
-import console from "console";
+import React, { Suspense } from "react";
 import Projects from "@/components/Projects";
+import BlogsSkeleton from "@/components/BlogsSkeleton";
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 // import Hero from "@/components/Hero";
 
-const Page = async ({ searchParams }: SearchParamsProps) => {
-  const result = await getAllProjectsCached({
-    searchQuery: searchParams?.q,
-    page: searchParams?.page ? +searchParams.page : 1,
-    filter: searchParams?.filter,
-    category: searchParams?.category,
-  });
-
-  console.log(result);
+const Page = async () => {
   return (
     <div>
       {/* <Hero /> */}
@@ -33,13 +21,12 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <LogoAnimation />
       <About />
       <Services />
-      {/* <Portfolio
-        projects={JSON.stringify(result?.projects)}
-        page={searchParams?.page ? +searchParams.page : 1}
-        isNext={result?.isNext}
-      /> */}
-      <Projects />
-      <Blogs />
+      <Suspense fallback={<ProjectsSkeleton />}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<BlogsSkeleton />}>
+        <Blogs />
+      </Suspense>
       {/* <Testimonials /> */}
       <CTA />
     </div>

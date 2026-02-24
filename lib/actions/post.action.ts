@@ -182,7 +182,7 @@ export async function getRecentlyAddedPosts() {
   }
 }
 export const getRecentlyAddedPostsCached = cache(async () => {
-  return getRecentlyAddedPosts;
+  return await getRecentlyAddedPosts();
 });
 
 export async function getRelatedPosts(
