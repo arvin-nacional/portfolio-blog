@@ -8,7 +8,7 @@ import Project from "@/database/project.model";
 
 export async function getProjectByCategoryId(params: GetProjectByCategoryId) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { categoryId, page = 1, pageSize = 10, searchQuery } = params;
 
     const skipAmount = pageSize * (page - 1);

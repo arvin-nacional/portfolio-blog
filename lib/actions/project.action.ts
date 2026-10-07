@@ -29,7 +29,7 @@ cloudinary.config({
 
 export async function createProject(params: addProjectParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const {
       title,
@@ -96,7 +96,7 @@ export async function createProject(params: addProjectParams) {
 
 export async function deleteProject(params: DeleteProjectParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const { projectId, path } = params;
     await Project.deleteOne({ _id: projectId });
@@ -116,7 +116,7 @@ export async function deleteProject(params: DeleteProjectParams) {
 
 export async function updateProject(params: EditProjectParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const {
       projectId,
       title,
@@ -171,7 +171,7 @@ export async function updateProject(params: EditProjectParams) {
 
 export async function getProjectById(params: getProjectByIdParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { projectId } = params;
     const project = await Project.findById(projectId).populate({
       path: "category",
@@ -186,7 +186,7 @@ export async function getProjectById(params: getProjectByIdParams) {
 
 export async function getAllProjects(params: GetProjectsParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { searchQuery, page = 1, pageSize = 6, category } = params;
 
     // Calculcate the number of posts to skip based on the page number and page size
@@ -242,7 +242,7 @@ export const getAllProjectsCached = cache(async (params: GetProjectsParams) => {
 
 export async function getAllCategoryNamesAndIds() {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const categories = await Category.find({}, { name: 1, _id: 1 });
     return categories;
   } catch (error) {
@@ -253,7 +253,7 @@ export async function getAllCategoryNamesAndIds() {
 
 export async function getRecentProjects(params: GetRecentProjectParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { searchQuery, projectId } = params;
 
     const query: FilterQuery<typeof Project> = {};

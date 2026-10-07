@@ -10,6 +10,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,7 @@ interface Props {
 }
 const Subscriber = ({ type }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const pathname = usePathname();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SubscriberFormSchema>>({
@@ -37,22 +39,24 @@ const Subscriber = ({ type }: Props) => {
     try {
       // Do something with the form values.
       setIsSubmitting(true);
-      await addSubscriber({ email: values.email, path: pathname });
-      console.log(values);
+      setSubmitError("");
+      const result = await addSubscriber({
+        email: values.email,
+        path: pathname,
+      });
+      if (!result.success) {
+        setSubmitError(result.message || "Please try again.");
+        return;
+      }
+      form.reset();
+      toast({
+        title: "Subscribed",
+        description: "You have successfully subscribed to the newsletter.",
+      });
     } catch (error) {
-      console.log(error);
-      throw error;
+      setSubmitError("We couldn't save your subscription. Please try again.");
     } finally {
-      setTimeout(() => {
-        setIsSubmitting(false);
-        // 3. Clear the form after submitting.
-        form.reset();
-        toast({
-          variant: "default",
-          title: "Subscribed",
-          description: "You have successfully subscribed to our newsletter",
-        });
-      }, 1000);
+      setIsSubmitting(false);
     }
   }
 
@@ -64,15 +68,20 @@ const Subscriber = ({ type }: Props) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              {/* <FormLabel>Username</FormLabel> */}
+              <FormLabel className="text-dark300_light700">
+                Email address
+              </FormLabel>
               <FormControl>
                 <Input
+                  type="email"
+                  autoComplete="email"
+                  disabled={isSubmitting}
                   placeholder="Enter your email address"
                   {...field}
                   className={cn(
                     type === "sidebar"
-                      ? "no-focus paragraph-regular min-h-[56px] border border-light-500 text-dark-200 bg-light-800"
-                      : "no-focus paragraph-regular min-h-[56px] border border-dark-500 bg-dark-300 text-light-700"
+                      ? "paragraph-regular min-h-[56px] border border-light-500 text-dark-200 bg-light-800 focus-visible:ring-blue-400"
+                      : "paragraph-regular min-h-[56px] border border-dark-500 bg-dark-300 text-light-700 focus-visible:ring-blue-400",
                   )}
                 />
               </FormControl>
@@ -82,6 +91,11 @@ const Subscriber = ({ type }: Props) => {
           )}
         />
 
+        {submitError && (
+          <p role="alert" className="text-sm text-red-400">
+            {submitError}
+          </p>
+        )}
         <Button
           type="submit"
           className="primary-gradient w-fit !text-light-900"

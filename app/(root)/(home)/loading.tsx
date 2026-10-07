@@ -5,7 +5,7 @@ import React from "react";
 // import LogoAnimation from "@/components/LogoAnimation";
 import Services from "@/components/Services";
 // import Testimonials from "@/components/Testimonials";
-import PortfolioSkeleton from "@/components/PortfolioSkeleton";
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import BlogsSkeleton from "@/components/BlogsSkeleton";
 
 const Page = () => {
@@ -14,9 +14,9 @@ const Page = () => {
       {/* <Hero /> */}
       <Hero2 />
       {/* <LogoAnimation /> */}
+      <ProjectsSkeleton />
       <About />
       <Services />
-      <PortfolioSkeleton />
       <BlogsSkeleton />
       {/* <Testimonials /> */}
       <CTA />

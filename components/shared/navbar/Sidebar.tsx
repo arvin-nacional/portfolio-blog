@@ -19,15 +19,21 @@ const Sidebar = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Image
-          src="/assets/icons/menu-05.svg"
-          width={36}
-          height={36}
-          alt="Menu"
-          className="invert-colors cursor-pointer max-sm:hidden"
-        />
+        <button
+          type="button"
+          aria-label="Open contact details"
+          className="hidden size-11 items-center justify-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400 md:flex"
+        >
+          <Image
+            src="/assets/icons/menu-05.svg"
+            width={28}
+            height={28}
+            alt=""
+            className="invert-colors"
+          />
+        </button>
       </SheetTrigger>
-      <SheetContent className="background-light900_dark200 flex-center h-full grow  flex-col border-none">
+      <SheetContent className="background-light900_dark200 flex-center h-full grow flex-col overflow-y-auto border-none">
         <SheetHeader className="text-dark100_light900 mt-2 p-8">
           <Logo />
           <SheetTitle className="mt-5">
@@ -35,7 +41,9 @@ const Sidebar = () => {
               Do you have a project in your mind? Let&apos;s connect!
             </p>
           </SheetTitle>
-          <SheetDescription className="mt-10 "></SheetDescription>
+          <SheetDescription className="sr-only">
+            Contact details and newsletter subscription.
+          </SheetDescription>
         </SheetHeader>
         <div className="text-dark400_light800 p-6">
           <p className="h3-bold">Contact</p>
@@ -45,25 +53,29 @@ const Sidebar = () => {
                 src="/assets/icons/telephone-call.png"
                 width={20}
                 height={20}
-                alt="logo"
+                alt=""
               />
-              <p>+63 965 9256 451</p>
+              <a href="tel:+639659256451" className="hover:underline">
+                +63 965 9256 451
+              </a>
             </div>
             <div className="mt-3 flex gap-5 ">
               <Image
                 src="/assets/icons/paper-plane.png"
                 width={20}
                 height={20}
-                alt="logo"
+                alt=""
               />
-              <p>arvin@rvinpaul.com</p>
+              <a href="mailto:arvin@rvinpaul.com" className="hover:underline">
+                arvin@rvinpaul.com
+              </a>
             </div>
             <div className="mt-3 flex gap-5 ">
               <Image
                 src="/assets/icons/location-pin.png"
                 width={20}
                 height={20}
-                alt="logo"
+                alt=""
               />
               <p>Camarin, Caloocan City, Philippines</p>
             </div>
@@ -81,30 +93,42 @@ const Sidebar = () => {
         {/* social media links */}
         <SheetFooter className="w-full">
           <div className="flex gap-5 p-6">
-            <a href="https://www.facebook.com/rvinpaul" target="_blank">
+            <a
+              href="https://www.facebook.com/rvinpaul"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 src="/assets/icons/facebook.svg"
                 width={20}
                 height={20}
-                alt="logo"
+                alt="Facebook"
                 className="invert-colors"
               />
             </a>
-            <a href="https://www.instagram.com/rvinpaul" target="_blank">
+            <a
+              href="https://www.instagram.com/rvinpaul"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 src="/assets/icons/instagram.svg"
                 width={20}
                 height={20}
-                alt="logo"
+                alt="Instagram"
                 className="invert-colors"
               />
             </a>
-            <a href="https://www.linkedin.com/rvinpaul" target="_blank">
+            <a
+              href="https://www.linkedin.com/rvinpaul"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 src="/assets/icons/linkedin.svg"
                 width={20}
                 height={20}
-                alt="logo"
+                alt="LinkedIn"
                 className="invert-colors"
               />
             </a>

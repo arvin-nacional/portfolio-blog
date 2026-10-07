@@ -20,9 +20,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Elevate your online presence and drive real results",
+  title: "Arvin Paul | Web Development & Brand Design",
   description:
-    "A web developer with a passion for creating visually stunning designs and developing seamless web experiences. With a background in graphic design and a strong understandingof digital marketing, Arvin Paul has a unique ability to combinecreativity with strategy to produce effective and engaging campaigns",
+    "Custom websites, landing pages, and brand design by Arvin Paul. Explore selected projects and get in touch to discuss your business’s online presence.",
   icons: {
     icon: "./favicon.ico",
   },
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
         <ClerkProvider
           appearance={{

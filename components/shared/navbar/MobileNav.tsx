@@ -7,6 +7,8 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,7 +36,7 @@ const NavContent = () => {
             >
               <Image
                 src={item.imgURL}
-                alt={item.label}
+                alt=""
                 width={20}
                 height={20}
                 className={`${isActive ? "" : "invert-colors"}`}
@@ -55,40 +57,48 @@ const MobileNav = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Image
-          src="/assets/icons/hamburger.svg"
-          width={36}
-          height={36}
-          alt="Menu"
-          className="invert-colors sm:hidden"
-        />
+        <button
+          type="button"
+          aria-label="Open navigation"
+          className="flex size-11 items-center justify-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400 md:hidden"
+        >
+          <Image
+            src="/assets/icons/hamburger.svg"
+            width={28}
+            height={28}
+            alt=""
+            className="invert-colors"
+          />
+        </button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 flex h-full flex-col justify-between border-none"
+        className="background-light900_dark200 flex h-full flex-col justify-between overflow-y-auto border-none"
       >
         <div>
+          <SheetTitle className="sr-only">Navigation</SheetTitle>
+          <SheetDescription className="sr-only">
+            Explore my work, services, and contact information.
+          </SheetDescription>
           <div className="my-5 p-3">
             {mode === "light" ? (
               <Image
                 src="/assets/images/primary-logo-dark.svg"
                 width={100}
                 height={40}
-                alt="logo"
+                alt="Arvin Paul"
               />
             ) : (
               <Image
                 src="/assets/images/primary-logo-light.svg"
                 width={100}
                 height={40}
-                alt="logo"
+                alt="Arvin Paul"
               />
             )}
           </div>
           <div>
-            <SheetClose asChild>
-              <NavContent />
-            </SheetClose>
+            <NavContent />
             {/* <SignedOut>
             <div className="flex flex-col gap-3">
               <SheetClose asChild>
@@ -111,30 +121,42 @@ const MobileNav = () => {
         </div>
 
         <div className="flex gap-5 p-6">
-          <a href="https://www.facebook.com/rvinpaul" target="_blank">
+          <a
+            href="https://www.facebook.com/rvinpaul"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image
               src="/assets/icons/facebook.svg"
               width={20}
               height={20}
-              alt="logo"
+              alt="Facebook"
               className="invert-colors"
             />
           </a>
-          <a href="https://www.instagram.com/rvinpaul" target="_blank">
+          <a
+            href="https://www.instagram.com/rvinpaul"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image
               src="/assets/icons/instagram.svg"
               width={20}
               height={20}
-              alt="logo"
+              alt="Instagram"
               className="invert-colors"
             />
           </a>
-          <a href="https://www.linkedin.com/rvinpaul" target="_blank">
+          <a
+            href="https://www.linkedin.com/rvinpaul"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image
               src="/assets/icons/linkedin.svg"
               width={20}
               height={20}
-              alt="logo"
+              alt="LinkedIn"
               className="invert-colors"
             />
           </a>

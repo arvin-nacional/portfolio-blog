@@ -18,12 +18,12 @@ const Page = async () => {
     <div>
       {/* <Hero /> */}
       <Hero2 />
-      <LogoAnimation />
-      <About />
-      <Services />
       <Suspense fallback={<ProjectsSkeleton />}>
         <Projects />
       </Suspense>
+      <About />
+      <Services />
+      <LogoAnimation />
       <Suspense fallback={<BlogsSkeleton />}>
         <Blogs />
       </Suspense>

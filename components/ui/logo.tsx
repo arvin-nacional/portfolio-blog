@@ -14,14 +14,14 @@ const Logo = () => {
           src="/assets/images/primary-logo-dark.svg"
           width={150}
           height={40}
-          alt="logo"
+          alt="Arvin Paul"
         />
       ) : (
         <Image
           src="/assets/images/primary-logo-light.svg"
           width={150}
           height={40}
-          alt="logo"
+          alt="Arvin Paul"
         />
       )}
     </div>

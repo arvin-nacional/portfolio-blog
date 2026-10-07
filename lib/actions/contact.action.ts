@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 // add contact
 export async function addContact(params: addContactParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { fullName, email, contactNumber, path, message, typeOfService } =
       params;
 

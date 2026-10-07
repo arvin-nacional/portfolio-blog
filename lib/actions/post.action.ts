@@ -28,7 +28,7 @@ cloudinary.config({
 
 export async function createPost(params: addPostParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const { title, content, tags, image, path, images } = params;
 
@@ -80,7 +80,7 @@ export async function createPost(params: addPostParams) {
 
 export async function getPosts(params: GetPostsParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { searchQuery, page = 1, pageSize = 6 } = params;
 
     // Calculcate the number of posts to skip based on the page number and page size
@@ -114,7 +114,7 @@ export async function getPosts(params: GetPostsParams) {
 
 export async function getPostById(params: getPostByIdParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { postId } = params;
     const post = await Post.findById(postId).populate({
       path: "tags",
@@ -129,7 +129,7 @@ export async function getPostById(params: getPostByIdParams) {
 
 export async function getRecentPosts(params: GetRecentPostParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { searchQuery, postId } = params;
 
     const query: FilterQuery<typeof Post> = {};
@@ -169,7 +169,7 @@ export async function getRecentPosts(params: GetRecentPostParams) {
 
 export async function getRecentlyAddedPosts() {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const posts = await Post.find()
       .populate({ path: "tags", model: Tag })
       .sort({ createdAt: -1 }) // Sort by creation date in descending order
@@ -191,7 +191,7 @@ export async function getRelatedPosts(
   limit = 4
 ) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     // Extract unique post IDs from tags array
     const postIds: Object[] = [];
@@ -226,7 +226,7 @@ export async function getRelatedPosts(
 
 export async function editPost(params: EditPostParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const { postId, title, content, path, image, images } = params;
     const post = await Post.findById(postId).populate("tags");
@@ -261,7 +261,7 @@ export async function editPost(params: EditPostParams) {
 
 export async function deletePost(params: DeletePostParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const { postId, path } = params;
     await Post.deleteOne({ _id: postId });

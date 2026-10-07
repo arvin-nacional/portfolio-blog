@@ -7,7 +7,7 @@ import Tag, { ITag } from "@/database/tag.model";
 
 export async function getPostsByTagId(params: GetPostsByTagIdParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const {
       tagIds,
