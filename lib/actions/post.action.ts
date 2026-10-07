@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/auth/session";
+
 import {
   DeletePostParams,
   EditPostParams,
@@ -27,6 +29,7 @@ cloudinary.config({
 });
 
 export async function createPost(params: addPostParams) {
+  await requireAdmin();
   try {
     await connectToDatabase();
 
@@ -225,6 +228,7 @@ export async function getRelatedPosts(
 }
 
 export async function editPost(params: EditPostParams) {
+  await requireAdmin();
   try {
     await connectToDatabase();
 
@@ -260,6 +264,7 @@ export async function editPost(params: EditPostParams) {
 }
 
 export async function deletePost(params: DeletePostParams) {
+  await requireAdmin();
   try {
     await connectToDatabase();
 

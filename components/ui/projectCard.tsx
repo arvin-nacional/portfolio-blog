@@ -4,7 +4,6 @@ import React from "react";
 import { getCardExcerpt } from "@/lib/card-excerpt";
 // import Image from "next/image";
 // import DeletePost from "../DeletePost";
-// import { SignedIn } from "@clerk/nextjs";
 import { ProjectCardProps } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -60,20 +59,7 @@ const ProjectCard = ({
               </div>
             ))}
           </div>
-          {/* <SignedIn>
-            <div className="flex items-center gap-5">
-              <Link href={`/blog/edit/${link}`}>
-                <Image
-                  src="/assets/icons/edit.svg"
-                  alt="edit"
-                  height={20}
-                  width={20}
-                  className="hover:text-primary-500"
-                />
-              </Link>
-              <DeletePost postId={link} />
-            </div>
-          </SignedIn> */}
+
         </div>
       </div>
     </div>

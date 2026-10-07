@@ -8,30 +8,37 @@ import { getProjectById } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
 import ParseHTML from "@/components/shared/ParseHTML";
 import Link from "next/link";
-import { SignedIn } from "@clerk/nextjs";
+import AdminOnly from "@/components/auth/AdminOnly";
 import DeletePost from "@/components/DeletePost";
 import RecentProjects from "@/components/RecentProjects";
-import Head from "next/head";
-const page = async ({ params }: ParamsProps) => {
-  const { id } = params;
-  const result = await getProjectById({ projectId: id });
+import type { Metadata } from "next";
+import { cache } from "react";
+import { getCardExcerpt } from "@/lib/card-excerpt";
+const getDetails = cache(async (id: string) => (await getProjectById({ projectId: id }))?.project);
 
-  const details = result?.project;
+export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
+  const { id } = await params;
+  const details = await getDetails(id);
+  if (!details) return {};
+  return {
+    title: details.title,
+    description: getCardExcerpt(details.content),
+    openGraph: {
+      type: "article",
+      title: details.title,
+      description: getCardExcerpt(details.content),
+      images: [details.mainImage],
+      url: `https://www.rvinpaul.com/projects/${id}`,
+    },
+  };
+}
+
+const page = async ({ params }: ParamsProps) => {
+  const { id } = await params;
+  const details = await getDetails(id);
 
   return (
     <>
-      <Head>
-        <title>{details?.title}</title>
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={details?.title} />
-        <meta property="og:description" content={details?.content} />
-        <meta property="og:image" content={details?.mainImage} />
-        <meta
-          property="og:url"
-          content={`https://www.rvinpaul.com/projects/${details?._id}`}
-        />
-        <meta name="facebook:card" content={details?.mainImage} />
-      </Head>
       <div>
         <section className="flex items-center justify-center px-16 py-20 max-md:px-5 sm:py-[100px]">
           <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10 ">
@@ -56,7 +63,7 @@ const page = async ({ params }: ParamsProps) => {
                 </h4>
                 <h3 className="h2-bold text-dark400_light700 mb-5">
                   {details?.title}{" "}
-                  <SignedIn>
+                  <AdminOnly>
                     <div className="flex items-center gap-5">
                       <Link href={`/projects/edit/${id}`}>
                         <Image
@@ -69,7 +76,7 @@ const page = async ({ params }: ParamsProps) => {
                       </Link>
                       <DeletePost id={JSON.stringify(id)} type="project" />
                     </div>
-                  </SignedIn>
+                  </AdminOnly>
                 </h3>
 
                 <ParseHTML data={details?.content} />

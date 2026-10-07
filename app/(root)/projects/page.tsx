@@ -9,17 +9,18 @@ import {
 } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
 import { SearchParamsProps } from "@/types";
-import { SignedIn } from "@clerk/nextjs";
+import AdminOnly from "@/components/auth/AdminOnly";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
+  const query = await searchParams;
   const result = await getAllProjects({
-    searchQuery: searchParams?.q,
-    page: searchParams?.page ? +searchParams.page : 1,
-    filter: searchParams?.filter,
-    category: searchParams?.category,
+    searchQuery: query?.q,
+    page: query?.page ? +query.page : 1,
+    filter: query?.filter,
+    category: query?.category,
   });
 
   const categories = await getAllCategoryNamesAndIds();
@@ -45,7 +46,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                 otherClasses="text-dark500_light500"
               />
             </div>
-            <SignedIn>
+            <AdminOnly>
               <Button className="  mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
                 <Link
                   href="/projects/add"
@@ -60,7 +61,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                   Add a Project
                 </Link>
               </Button>
-            </SignedIn>
+            </AdminOnly>
           </div>
           <PortfolioFilter filters={JSON.stringify(categories)} />
 
@@ -79,7 +80,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
             ))}
           </div>
           <Pagination
-            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            pageNumber={query?.page ? +query.page : 1}
             isNext={result?.isNext}
           />
         </div>

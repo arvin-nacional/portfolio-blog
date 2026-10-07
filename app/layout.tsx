@@ -1,6 +1,4 @@
-/* eslint-disable camelcase */
-import React from "react";
-import { ClerkProvider } from "@clerk/nextjs";
+import React, { Suspense } from "react";
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
@@ -24,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Custom websites, landing pages, and brand design by Arvin Paul. Explore selected projects and get in touch to discuss your business’s online presence.",
   icons: {
-    icon: "./favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 
@@ -36,20 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-        <ClerkProvider
-          appearance={{
-            elements: {
-              formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover:text-primary-500",
-            },
-          }}
-        >
-          <ThemeProvider>
-            {children}
-            <Analytics />
+        <ThemeProvider>
+          {children}
+          <Analytics />
+          <Suspense fallback={null}>
             <SpeedInsights />
-          </ThemeProvider>
-        </ClerkProvider>
+          </Suspense>
+        </ThemeProvider>
       </body>
     </html>
   );

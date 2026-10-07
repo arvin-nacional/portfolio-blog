@@ -4,7 +4,7 @@ import React from "react";
 import { getCardExcerpt } from "@/lib/card-excerpt";
 import Image from "next/image";
 import DeletePost from "../DeletePost";
-import { SignedIn } from "@clerk/nextjs";
+import AdminOnly from "@/components/auth/AdminOnly";
 import { BlogCardProps } from "@/types";
 import { Badge } from "@/components/ui/badge";
 
@@ -61,7 +61,7 @@ const BlogCard = ({
               </div>
             ))}
           </div>
-          <SignedIn>
+          <AdminOnly>
             <div className="flex items-center gap-5">
               <Link href={`/blog/edit/${link}`}>
                 <Image
@@ -74,7 +74,7 @@ const BlogCard = ({
               </Link>
               <DeletePost id={JSON.stringify(link)} type="post" />
             </div>
-          </SignedIn>
+          </AdminOnly>
         </div>
       </div>
     </div>

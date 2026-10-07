@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/auth/session";
+
 import { revalidatePath } from "next/cache";
 
 import { v2 as cloudinary } from "cloudinary";
@@ -28,6 +30,7 @@ cloudinary.config({
 });
 
 export async function createProject(params: addProjectParams) {
+  await requireAdmin();
   try {
     await connectToDatabase();
 
@@ -95,6 +98,7 @@ export async function createProject(params: addProjectParams) {
 }
 
 export async function deleteProject(params: DeleteProjectParams) {
+  await requireAdmin();
   try {
     await connectToDatabase();
 
@@ -115,6 +119,7 @@ export async function deleteProject(params: DeleteProjectParams) {
 }
 
 export async function updateProject(params: EditProjectParams) {
+  await requireAdmin();
   try {
     await connectToDatabase();
     const {

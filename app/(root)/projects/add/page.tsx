@@ -1,7 +1,9 @@
+import { requireAdminPage } from "@/lib/auth/session";
 import Project from "@/components/forms/Project";
 import React from "react";
 
-const Page = () => {
+const Page = async () => {
+  await requireAdminPage('/projects/add');
   return (
     <div>
       <section className="mt-1 flex items-center justify-center px-16 max-md:px-5 sm:py-20">

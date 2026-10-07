@@ -3,10 +3,10 @@ import LocalSearchbar from "@/components/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import CardSekeleton from "@/components/ui/skeletonCard";
 // import { getAllCategoryNamesAndIds } from "@/lib/actions/project.action";
-import { SignedIn } from "@clerk/nextjs";
+import AdminOnly from "@/components/auth/AdminOnly";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 const Page = async () => {
   // const categories = await getAllCategoryNamesAndIds();
@@ -24,15 +24,17 @@ const Page = async () => {
 
           <div className="mt-5 flex flex-row gap-5">
             <div className="w-[900px] max-lg:w-full">
-              <LocalSearchbar
+              <Suspense fallback={null}>
+<LocalSearchbar
                 route="/projects"
                 iconPosition="left"
                 imgSrc="/assets/icons/search.svg"
                 placeholder="Search for articles"
                 otherClasses="text-dark300_light700"
               />
+</Suspense>
             </div>
-            <SignedIn>
+            <AdminOnly>
               <Button className="  mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
                 <Link
                   href="/projects/add"
@@ -47,7 +49,7 @@ const Page = async () => {
                   Add a Project
                 </Link>
               </Button>
-            </SignedIn>
+            </AdminOnly>
           </div>
           {/* <PortfolioFilter filters={JSON.stringify(categories)} /> */}
 

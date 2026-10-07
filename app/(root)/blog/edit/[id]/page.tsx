@@ -1,10 +1,13 @@
+import { requireAdminPage } from "@/lib/auth/session";
 import Post from "@/components/forms/Post";
 import { getPostById } from "@/lib/actions/post.action";
 import { ParamsProps } from "@/types";
 import React from "react";
 
 const Page = async ({ params }: ParamsProps) => {
-  const result = await getPostById({ postId: params.id });
+  const { id } = await params;
+  await requireAdminPage(`/blog/edit/${id}`);
+  const result = await getPostById({ postId: id });
   return (
     <div>
       <section className=" flex items-center justify-center px-16 max-md:px-5 sm:py-20">
@@ -13,7 +16,7 @@ const Page = async ({ params }: ParamsProps) => {
           <div className="w-[600px] max-sm:w-full">
             <Post
               type="Edit"
-              postId={params.id}
+              postId={id}
               postDetails={JSON.stringify(result?.post)}
             />
           </div>

@@ -8,34 +8,42 @@ import { Badge } from "@/components/ui/badge";
 import { getPostById } from "@/lib/actions/post.action";
 import { formatDate } from "@/lib/utils";
 import { ParamsProps } from "@/types";
-import { SignedIn } from "@clerk/nextjs";
+import AdminOnly from "@/components/auth/AdminOnly";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Head from "next/head";
+import type { Metadata } from "next";
+import { cache } from "react";
+import { getCardExcerpt } from "@/lib/card-excerpt";
+
+const getDetails = cache(async (id: string) => (await getPostById({ postId: id }))?.post);
+
+export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
+  const { id } = await params;
+  const details = await getDetails(id);
+  if (!details) return {};
+  return {
+    title: details.title,
+    description: getCardExcerpt(details.content),
+    openGraph: {
+      type: "article",
+      title: details.title,
+      description: getCardExcerpt(details.content),
+      images: [details.image],
+      url: `https://www.rvinpaul.com/blog/${id}`,
+    },
+  };
+}
 
 const page = async ({ params }: ParamsProps) => {
-  const result = await getPostById({ postId: params.id });
-
-  const details = result?.post;
+  const { id } = await params;
+  const details = await getDetails(id);
 
   const tagArr: Object[] = details?.tags.map((item: { _id: any }) => item._id);
   console.log(details?.image);
 
   return (
     <>
-      <Head>
-        <title>{details?.title}</title>
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={details?.title} />
-        <meta property="og:description" content={details?.content} />
-        <meta property="og:image" content={details?.image} />
-        <meta
-          property="og:url"
-          content={`https://www.rvinpaul.com/blog/${details?._id}`}
-        />
-        <meta name="facebook:card" content={details?.image} />
-      </Head>
       <div>
         <section className="flex flex-col items-center px-16 py-12 max-md:px-5 sm:py-24">
           <div className="flex w-[1200px] max-w-full flex-col items-center justify-center pb-6 max-md:mt-10">
@@ -56,9 +64,9 @@ const page = async ({ params }: ParamsProps) => {
                     <h3 className="h2-bold text-dark400_light700 ">
                       {details?.title}
                     </h3>
-                    <SignedIn>
+                    <AdminOnly>
                       <div className="flex items-center gap-2 ">
-                        <Link href={`/blog/edit/${params.id}`}>
+                        <Link href={`/blog/edit/${id}`}>
                           <Image
                             src="/assets/icons/edit.svg"
                             alt="edit"
@@ -68,11 +76,11 @@ const page = async ({ params }: ParamsProps) => {
                           />
                         </Link>
                         <DeletePost
-                          id={JSON.stringify(params.id)}
+                          id={JSON.stringify(id)}
                           type="project"
                         />
                       </div>
-                    </SignedIn>
+                    </AdminOnly>
                   </div>
 
                   <h4 className="base-semibold text-dark400_light700 mb-5 flex flex-wrap gap-2 ">
@@ -89,9 +97,9 @@ const page = async ({ params }: ParamsProps) => {
                 {/* <p className="paragraph-regular mt-10">{details.content}</p> */}
               </div>
               <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
-                <RecentPosts postId={params.id} />
+                <RecentPosts postId={id} />
                 {/* @ts-ignore */}
-                <RelatedPosts currentPostId={params.id} tagIds={tagArr} />
+                <RelatedPosts currentPostId={id} tagIds={tagArr} />
               </div>
             </div>
             <ProjectImages images={JSON.stringify(details?.images)} />

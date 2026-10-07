@@ -1,7 +1,9 @@
+import { requireAdminPage } from "@/lib/auth/session";
 import Post from "@/components/forms/Post";
 import React from "react";
 
-const Page = () => {
+const Page = async () => {
+  await requireAdminPage('/blog/add');
   return (
     <div>
       <section className=" flex items-center justify-center px-16 max-md:px-5 sm:py-20">

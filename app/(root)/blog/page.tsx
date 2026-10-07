@@ -5,15 +5,16 @@ import { Button } from "@/components/ui/button";
 import { getPosts } from "@/lib/actions/post.action";
 import { formatDate } from "@/lib/utils";
 import { SearchParamsProps } from "@/types";
-import { SignedIn } from "@clerk/nextjs";
+import AdminOnly from "@/components/auth/AdminOnly";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const page = async ({ searchParams }: SearchParamsProps) => {
+  const query = await searchParams;
   const result = await getPosts({
-    searchQuery: searchParams?.q,
-    page: searchParams?.page ? +searchParams?.page : 1,
+    searchQuery: query?.q,
+    page: query?.page ? +query?.page : 1,
   });
 
   return (
@@ -37,7 +38,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
                 otherClasses="text-dark500_light700"
               />
             </div>
-            <SignedIn>
+            <AdminOnly>
               <Button className="  mb-10 bg-primary-500 px-7 py-6 transition-all duration-300 ease-in-out hover:bg-primary-300">
                 <Link
                   href="/blog/add"
@@ -52,7 +53,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
                   Add an article
                 </Link>
               </Button>
-            </SignedIn>
+            </AdminOnly>
           </div>
 
           <div className="mt-5 grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -69,7 +70,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
             ))}
           </div>
           <Pagination
-            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            pageNumber={query?.page ? +query.page : 1}
             isNext={result?.isNext}
           />
         </div>
