@@ -18,7 +18,7 @@ export interface ParamsProps {
 }
 
 export interface RelatedPostsProps {
-  tagIds: ObjectId[];
+  tagIds: (ObjectId | string)[];
   currentPostId: string;
 }
 
@@ -36,7 +36,7 @@ export interface RemoveUrlQueryParams {
 export interface TagProps {
   _id: string | undefined;
   name: string;
-  posts: ObjectId[];
+  posts?: ObjectId[];
   description?: string;
   createdOn?: Date;
 }
@@ -51,9 +51,9 @@ export interface BlogCardProps {
   tags: TagProps[];
 }
 export interface CategoryProps {
-  _id: ObjectId;
+  _id: ObjectId | string;
   name: string;
-  projects: ObjectId[];
+  projects?: ObjectId[];
 }
 export interface ProjectCardProps {
   title: string;

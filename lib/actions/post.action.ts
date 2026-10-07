@@ -1,4 +1,5 @@
 "use server";
+import { publicPosts, publicRecentPosts } from "@/lib/public-content";
 
 import { requireAdmin } from "@/lib/auth/session";
 
@@ -16,7 +17,7 @@ import { cache } from "react";
 import { connectToDatabase } from "../mongoose";
 import Post, { IPost } from "@/database/post.model";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import Tag from "@/database/tag.model";
 
 import { v2 as cloudinary } from "cloudinary";
@@ -75,45 +76,14 @@ export async function createPost(params: addPostParams) {
       $push: { tags: { $each: tagDocuments } },
     });
 
+    updateTag("posts");
     revalidatePath(path);
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function getPosts(params: GetPostsParams) {
-  try {
-    await connectToDatabase();
-    const { searchQuery, page = 1, pageSize = 6 } = params;
-
-    // Calculcate the number of posts to skip based on the page number and page size
-    const skipAmount = (page - 1) * pageSize;
-
-    const query: FilterQuery<typeof Post> = {};
-
-    if (searchQuery) {
-      query.$or = [
-        { title: { $regex: new RegExp(searchQuery, "i") } },
-        { content: { $regex: new RegExp(searchQuery, "i") } },
-      ];
-    }
-
-    const posts = await Post.find(query)
-      .populate({ path: "tags", model: Tag })
-      .skip(skipAmount)
-      .sort({ createdAt: -1 })
-      .limit(pageSize);
-
-    const totalPosts = await Post.countDocuments(query);
-
-    const isNext = totalPosts > skipAmount + posts.length;
-
-    return { posts, isNext };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+export async function getPosts(params: GetPostsParams) { return publicPosts(params); }
 
 export async function getPostById(params: getPostByIdParams) {
   try {
@@ -130,60 +100,9 @@ export async function getPostById(params: getPostByIdParams) {
   }
 }
 
-export async function getRecentPosts(params: GetRecentPostParams) {
-  try {
-    await connectToDatabase();
-    const { searchQuery, postId } = params;
+export async function getRecentPosts(params: GetRecentPostParams) { return publicRecentPosts(params.postId || "", params.searchQuery || ""); }
 
-    const query: FilterQuery<typeof Post> = {};
-
-    if (searchQuery) {
-      query.$or = [
-        { title: { $regex: new RegExp(searchQuery, "i") } },
-        { content: { $regex: new RegExp(searchQuery, "i") } },
-      ];
-    }
-
-    let posts = await Post.find(query)
-      .populate({ path: "tags", model: Tag })
-      .sort({ createdAt: -1 }) // Sort by creation date in descending order
-      .limit(5); // Limit to 5 posts to ensure we have 4 after filtering
-
-    // Filter out the post with the given postId
-    posts = posts.filter((post) => post._id.toString() !== postId);
-
-    // If the number of posts is less than 4 after filtering, get more posts
-    if (posts.length < 4) {
-      const additionalPosts = await Post.find(query)
-        .populate({ path: "tags", model: Tag })
-        .sort({ createdAt: -1 })
-        .skip(5) // Skip the first 5 posts we already retrieved
-        .limit(4 - posts.length); // Limit to the number of posts needed to reach 4
-
-      posts = posts.concat(additionalPosts);
-    }
-
-    return { posts };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-export async function getRecentlyAddedPosts() {
-  try {
-    await connectToDatabase();
-    const posts = await Post.find()
-      .populate({ path: "tags", model: Tag })
-      .sort({ createdAt: -1 }) // Sort by creation date in descending order
-      .limit(5); // Limit to 5 posts to ensure we have 4 after filtering
-
-    return { posts };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+export async function getRecentlyAddedPosts() { return publicRecentPosts(); }
 export const getRecentlyAddedPostsCached = cache(async () => {
   return await getRecentlyAddedPosts();
 });
@@ -257,6 +176,7 @@ export async function editPost(params: EditPostParams) {
 
     await post.save();
 
+    updateTag("posts");
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -272,10 +192,12 @@ export async function deletePost(params: DeletePostParams) {
     await Post.deleteOne({ _id: postId });
     await Tag.updateMany({ posts: postId }, { $pull: { posts: postId } });
 
+    updateTag("posts");
     revalidatePath(path);
   } catch (error) {
     console.log(error);
   } finally {
     await Tag.deleteMany({ posts: { $size: 0 } });
+    updateTag("posts");
   }
 }

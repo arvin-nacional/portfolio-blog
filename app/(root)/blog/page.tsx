@@ -1,3 +1,4 @@
+import { positivePage } from "@/lib/content-query";
 import LocalSearchbar from "@/components/search/LocalSearchBar";
 import Pagination from "@/components/search/Pagination";
 import BlogCard from "@/components/ui/blogCard";
@@ -14,7 +15,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
   const result = await getPosts({
     searchQuery: query?.q,
-    page: query?.page ? +query?.page : 1,
+    page: positivePage(query?.page),
   });
 
   return (
@@ -25,16 +26,17 @@ const page = async ({ searchParams }: SearchParamsProps) => {
             Our Recent News and Updates
           </h2> */}
           <h1 className="text-dark500_light700  h2-title max-md:h2-bold text-center max-md:max-w-full">
-            Blogs
+            Articles
           </h1>
 
-          <div className="mt-5 flex flex-row gap-5">
-            <div className="w-[900px] max-lg:w-full">
+          <div className="mt-5 flex w-full flex-col gap-5 sm:flex-row">
+            <div className="w-full max-w-[900px]">
               <LocalSearchbar
+                key={query?.q || ""}
                 route="/blog"
                 iconPosition="left"
                 imgSrc="/assets/icons/search.svg"
-                placeholder="Search for articles"
+                placeholder="Search articles"
                 otherClasses="text-dark500_light700"
               />
             </div>
@@ -57,6 +59,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
           </div>
 
           <div className="mt-5 grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-sm:grid-cols-1">
+            {result.posts.length === 0 && <p role="status" className="col-span-full py-10 text-center text-light-700">No articles found. Try a different search.</p>}
             {result.posts.map((component) => (
               <BlogCard
                 tags={component.tags}
@@ -70,7 +73,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
             ))}
           </div>
           <Pagination
-            pageNumber={query?.page ? +query.page : 1}
+            pageNumber={positivePage(query?.page)}
             isNext={result?.isNext}
           />
         </div>

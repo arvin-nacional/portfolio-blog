@@ -5,7 +5,6 @@ import RelatedPosts from "@/components/RelatedPosts";
 import CTA from "@/components/shared/CTA";
 import ParseHTML from "@/components/shared/ParseHTML";
 import { Badge } from "@/components/ui/badge";
-import { getPostById } from "@/lib/actions/post.action";
 import { formatDate } from "@/lib/utils";
 import { ParamsProps } from "@/types";
 import AdminOnly from "@/components/auth/AdminOnly";
@@ -13,10 +12,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import type { Metadata } from "next";
-import { cache } from "react";
+import { publicPost } from "@/lib/public-content";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getCardExcerpt } from "@/lib/card-excerpt";
 
-const getDetails = cache(async (id: string) => (await getPostById({ postId: id }))?.post);
+const getDetails = publicPost;
 
 export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
   const { id } = await params;
@@ -38,9 +39,9 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
 const page = async ({ params }: ParamsProps) => {
   const { id } = await params;
   const details = await getDetails(id);
+  if (!details) notFound();
 
-  const tagArr: Object[] = details?.tags.map((item: { _id: any }) => item._id);
-  console.log(details?.image);
+  const tagArr = details.tags.map(item => item._id);
 
   return (
     <>
@@ -51,9 +52,13 @@ const page = async ({ params }: ParamsProps) => {
               <div className="col-span-2 max-md:col-span-1">
                 <Image
                   src={details?.image}
-                  alt="projectImage"
+                  alt={details.title}
                   width={1200}
-                  height={300}
+                  height={675}
+                  loading="eager"
+                  fetchPriority="high"
+                  sizes="(max-width: 767px) 100vw, 800px"
+                  className="h-auto w-full rounded-xl"
                   style={{ borderRadius: "10px" }}
                 />
                 <div className="px-3">
@@ -61,9 +66,9 @@ const page = async ({ params }: ParamsProps) => {
                     {formatDate(details?.createdAt)}
                   </p>
                   <div className="mb-3 flex flex-row items-center  gap-2 ">
-                    <h3 className="h2-bold text-dark400_light700 ">
+                    <h1 className="h2-bold text-dark400_light700 ">
                       {details?.title}
-                    </h3>
+                    </h1>
                     <AdminOnly>
                       <div className="flex items-center gap-2 ">
                         <Link href={`/blog/edit/${id}`}>
@@ -77,7 +82,7 @@ const page = async ({ params }: ParamsProps) => {
                         </Link>
                         <DeletePost
                           id={JSON.stringify(id)}
-                          type="project"
+                          type="post"
                         />
                       </div>
                     </AdminOnly>
@@ -97,9 +102,8 @@ const page = async ({ params }: ParamsProps) => {
                 {/* <p className="paragraph-regular mt-10">{details.content}</p> */}
               </div>
               <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
-                <RecentPosts postId={id} />
-                {/* @ts-ignore */}
-                <RelatedPosts currentPostId={id} tagIds={tagArr} />
+                <Suspense fallback={<p className="text-sm text-light-500">Loading recent content…</p>}><RecentPosts postId={id} /></Suspense>
+                <Suspense fallback={null}><RelatedPosts currentPostId={id} tagIds={tagArr} /></Suspense>
               </div>
             </div>
             <ProjectImages images={JSON.stringify(details?.images)} />

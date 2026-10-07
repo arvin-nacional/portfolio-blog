@@ -1,3 +1,4 @@
+import { positivePage } from "@/lib/content-query";
 import LocalSearchbar from "@/components/search/LocalSearchBar";
 import Pagination from "@/components/search/Pagination";
 import PortfolioFilter from "@/components/search/PortfolioFilter";
@@ -16,14 +17,15 @@ import React from "react";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
-  const result = await getAllProjects({
+  const [result, categories] = await Promise.all([
+    getAllProjects({
     searchQuery: query?.q,
-    page: query?.page ? +query.page : 1,
+    page: positivePage(query?.page),
     filter: query?.filter,
     category: query?.category,
-  });
-
-  const categories = await getAllCategoryNamesAndIds();
+  }),
+    getAllCategoryNamesAndIds(),
+  ]);
 
   return (
     <div>
@@ -33,16 +35,17 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
             Portfolio
           </h2> */}
           <h1 className="text-dark500_light700 h2-title max-md:h2-bold text-center max-md:max-w-full">
-            Our Projects
+            Portfolio
           </h1>
 
-          <div className="mt-5 flex flex-row gap-5">
-            <div className="w-[900px] max-lg:w-full">
+          <div className="mt-5 flex w-full flex-col gap-5 sm:flex-row">
+            <div className="w-full max-w-[900px]">
               <LocalSearchbar
+                key={query?.q || ""}
                 route="/projects"
                 iconPosition="left"
                 imgSrc="/assets/icons/search.svg"
-                placeholder="Search for articles"
+                placeholder="Search projects"
                 otherClasses="text-dark500_light500"
               />
             </div>
@@ -66,6 +69,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
           <PortfolioFilter filters={JSON.stringify(categories)} />
 
           <div className="mt-5 grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-sm:grid-cols-1">
+            {result.projects.length === 0 && <p role="status" className="col-span-full py-10 text-center text-light-700">No projects found. Try a different search or category.</p>}
             {result?.projects?.map((item: any) => (
               <div key={item._id}>
                 <ProjectCard
@@ -80,7 +84,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
             ))}
           </div>
           <Pagination
-            pageNumber={query?.page ? +query.page : 1}
+            pageNumber={positivePage(query?.page)}
             isNext={result?.isNext}
           />
         </div>

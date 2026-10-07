@@ -1,64 +1,22 @@
 "use client";
-import React, { useState } from "react";
-import "yet-another-react-lightbox/styles.css";
+
+import { useState } from "react";
 import Image from "next/image";
-// import { ImageProps } from "@/types";
 import dynamic from "next/dynamic";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
-// Dynamically import the lightbox to ensure it works only in the browser
-const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
-  ssr: false,
-});
 
-// const Zoom = dynamic(() => import("yet-another-react-lightbox/plugins/zoom"), {
-//   ssr: false,
-// });
-interface Props {
-  images: string;
-}
-
-const ProjectImages = ({ images }: Props) => {
+const GalleryLightbox = dynamic(() => import("./GalleryLightbox"), { ssr: false });
+export default function ProjectImages({ images }: { images: string }) {
   const [index, setIndex] = useState(-1);
-
-  let imageList = [];
-
-  if (images) {
-    const parsedImages = JSON.parse(images);
-    imageList = parsedImages;
-  }
-
-  return (
-    <div>
-      {/* <p className="h3-bold text-dark400_light900 mb-10 ">Related Images</p> */}
-      <div className="flex w-full flex-wrap gap-5">
-        {imageList.map((image: any, idx: any) => (
-          <Image
-            key={idx}
-            src={image.src}
-            alt={image.alt}
-            onClick={() => setIndex(idx)}
-            width={380}
-            height={380}
-            loading="lazy" // Add lazy loading here
-            className="max-w-[450px] cursor-pointer rounded-lg object-cover shadow-md transition-transform hover:scale-105"
-          />
-        ))}
-      </div>
-
-      <div>
-        {index >= 0 && (
-          <Lightbox
-            open={index >= 0}
-            close={() => setIndex(-1)}
-            slides={imageList}
-            plugins={[Zoom]}
-            index={index}
-            // onIndexChange={setIndex}
-          />
-        )}
-      </div>
+  const imageList: { src: string; alt: string }[] = images ? JSON.parse(images) || [] : [];
+  if (!imageList.length) return null;
+  return <div className="w-full">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {imageList.map((image, idx) => <button key={image.src + idx} type="button" onClick={() => setIndex(idx)}
+        aria-label={`Enlarge ${image.alt || `image ${idx + 1}`}`} className="overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500">
+        <Image src={image.src} alt={image.alt} width={600} height={400} loading="lazy"
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 380px" className="h-auto w-full rounded-lg object-cover" />
+      </button>)}
     </div>
-  );
-};
-
-export default ProjectImages;
+    {index >= 0 && <GalleryLightbox index={index} images={imageList} close={() => setIndex(-1)} />}
+  </div>;
+}

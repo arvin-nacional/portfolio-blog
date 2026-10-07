@@ -1,8 +1,9 @@
 "use server";
+import { publicProjects, publicRecentProjects, publicCategories } from "@/lib/public-content";
 
 import { requireAdmin } from "@/lib/auth/session";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 import { v2 as cloudinary } from "cloudinary";
 
@@ -91,6 +92,7 @@ export async function createProject(params: addProjectParams) {
       $push: { category: { $each: categoryDocuments } },
     });
 
+    updateTag("projects");
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -109,12 +111,14 @@ export async function deleteProject(params: DeleteProjectParams) {
       { $pull: { projects: projectId } }
     );
 
+    updateTag("projects");
     revalidatePath(path);
   } catch (error) {
     console.log(error);
   } finally {
     // Remove any categories that no longer have any projects
     await Category.deleteMany({ projects: { $size: 0 } });
+    updateTag("projects");
   }
 }
 
@@ -168,6 +172,7 @@ export async function updateProject(params: EditProjectParams) {
 
     await project.save();
 
+    updateTag("projects");
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -189,103 +194,15 @@ export async function getProjectById(params: getProjectByIdParams) {
   }
 }
 
-export async function getAllProjects(params: GetProjectsParams) {
-  try {
-    await connectToDatabase();
-    const { searchQuery, page = 1, pageSize = 6, category } = params;
-
-    // Calculcate the number of posts to skip based on the page number and page size
-    const skipAmount = (page - 1) * pageSize;
-    const query: FilterQuery<typeof Project> = {};
-
-    if (searchQuery) {
-      query.$or = [
-        { title: { $regex: new RegExp(searchQuery, "i") } },
-        { content: { $regex: new RegExp(searchQuery, "i") } },
-      ];
-    }
-
-    if (category && category !== "All") {
-      if (!mongoose.Types.ObjectId.isValid(category)) {
-        return;
-      }
-      const categoryQuery = await Category.findOne({ _id: category });
-
-      if (categoryQuery) {
-        query.category = categoryQuery._id;
-      }
-    }
-
-    // if (category && category !== "All") {
-    //   const categoryQuery = await Category.findOne({ _id: category });
-
-    //   if (categoryQuery) {
-    //     query.category = categoryQuery._id;
-    //   }
-    // }
-
-    const projects = await Project.find(query)
-      .populate({ path: "category", model: Category })
-      .skip(skipAmount)
-      .sort({ createdOn: -1 })
-      .limit(pageSize);
-
-    const totalProjects = await Project.countDocuments(query);
-
-    const isNext = totalProjects > skipAmount + projects.length;
-
-    return { projects, isNext };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+export async function getAllProjects(params: GetProjectsParams) { return publicProjects(params); }
 
 export const getAllProjectsCached = cache(async (params: GetProjectsParams) => {
   return await getAllProjects(params);
 });
 
-export async function getAllCategoryNamesAndIds() {
-  try {
-    await connectToDatabase();
-    const categories = await Category.find({}, { name: 1, _id: 1 });
-    return categories;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+export async function getAllCategoryNamesAndIds() { return publicCategories(); }
 
-export async function getRecentProjects(params: GetRecentProjectParams) {
-  try {
-    await connectToDatabase();
-    const { searchQuery, projectId } = params;
-
-    const query: FilterQuery<typeof Project> = {};
-
-    if (searchQuery) {
-      query.$or = [
-        { title: { $regex: new RegExp(searchQuery, "i") } },
-        { content: { $regex: new RegExp(searchQuery, "i") } },
-      ];
-    }
-
-    let projects = await Project.find(query)
-      .populate({ path: "category", model: Category })
-      .sort({ createdOn: -1 }) // Sort by creation date in descending order
-      .limit(7); // Limit to 5 posts to ensure we have 4 after filtering
-
-    // Filter out the post with the given projectId
-    projects = projects.filter(
-      (project) => project._id.toString() !== projectId
-    );
-
-    return { projects };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+export async function getRecentProjects(params: GetRecentProjectParams) { return publicRecentProjects(params.projectId || "", params.searchQuery || ""); }
 
 export const getRecentProjectsCached = cache(
   async (params: GetRecentProjectParams) => {

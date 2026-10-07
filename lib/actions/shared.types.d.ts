@@ -123,7 +123,7 @@ export interface TagWithPosts {
 }
 
 export interface GetPostsByTagIdParams {
-  tagIds: ObjectId[];
+  tagIds: (ObjectId | string)[];
   page?: number;
   pageSize?: number;
   searchQuery?: string;

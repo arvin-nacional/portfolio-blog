@@ -2,92 +2,42 @@
 
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
-interface CustomInputProps {
-  route: string;
-  iconPosition: string;
-  imgSrc: string;
-  placeholder: string;
-  otherClasses?: string;
-}
+interface Props { route: string; iconPosition: string; imgSrc: string; placeholder: string; otherClasses?: string }
 
-const LocalSearchbar = ({
-  route,
-  iconPosition,
-  imgSrc,
-  placeholder,
-  otherClasses,
-}: CustomInputProps) => {
+export default function LocalSearchbar({ route, iconPosition, imgSrc, placeholder, otherClasses = "" }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  const query = searchParams.get("q");
-
-  const [search, setSearch] = useState(query || "");
-
+  const query = searchParams.get("q") || "";
+  const [search, setSearch] = useState(query);
+  const [pending, startTransition] = useTransition();
+  const edited = useRef(false);
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      if (search) {
-        const newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: "q",
-          value: search,
-        });
-
-        router.push(newUrl, { scroll: false });
-      } else {
-        console.log(route, pathname);
-        if (pathname === route) {
-          const newUrl = removeKeysFromQuery({
-            params: searchParams.toString(),
-            keysToRemove: ["q"],
-          });
-
-          router.push(newUrl, { scroll: false });
-        }
-      }
+    if (!edited.current) setSearch(query);
+  }, [query]);
+  useEffect(() => {
+    if (!edited.current || pathname !== route || search.trim() === query) return;
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      const nextQuery = search.trim();
+      if (nextQuery) params.set("q", nextQuery); else params.delete("q");
+      params.delete("page");
+      edited.current = false;
+      startTransition(() => router.replace(`${pathname}${params.size ? `?${params}` : ""}`, { scroll: false }));
     }, 300);
+    return () => clearTimeout(timer);
+  }, [search, query, searchParams, pathname, route, router]);
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [search, route, pathname, router, searchParams, query]);
-
-  return (
-    <div
-      className={`background-light800_darkgradient flex min-h-[50px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses} mb-5`}
-    >
-      {iconPosition === "left" && (
-        <Image
-          src={imgSrc}
-          alt="search icon"
-          width={24}
-          height={24}
-          className="cursor-pointer"
-        />
-      )}
-
-      <Input
-        type="text"
-        placeholder={placeholder}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className=" paragraph-regular placeholder no-focus text-dark500_light500 border-none bg-transparent shadow-none outline-none"
-      />
-
-      {iconPosition === "right" && (
-        <Image
-          src={imgSrc}
-          alt="search icon"
-          width={24}
-          height={24}
-          className="cursor-pointer"
-        />
-      )}
-    </div>
-  );
-};
-
-export default LocalSearchbar;
+  const icon = <Image src={imgSrc} alt="" width={24} height={24} aria-hidden="true" />;
+  return <div className={`background-light800_darkgradient mb-5 flex min-h-[50px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`} aria-busy={pending}>
+    {iconPosition === "left" && icon}
+    <Input type="search" aria-label={placeholder} placeholder={placeholder} value={search} maxLength={120}
+      onChange={event => { edited.current = true; setSearch(event.target.value); }}
+      className="paragraph-regular text-dark500_light500 border-none bg-transparent shadow-none outline-none" />
+    {iconPosition === "right" && icon}
+    {pending && <span role="status" className="sr-only">Updating results…</span>}
+  </div>;
+}

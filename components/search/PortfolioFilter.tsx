@@ -2,7 +2,7 @@
 
 import { cn, formUrlQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useTransition } from "react";
 import { Button } from "../ui/button";
 
 interface Props {
@@ -14,28 +14,34 @@ const PortfolioFilter = ({ filters, otherClasses }: Props) => {
   const parsedFilters = JSON.parse(filters);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
 
   //   const [filter, setFilter] = useState<string | null>(
   //     searchParams.get("category")
   //   );
 
   const paramFilter = searchParams.get("category");
-  console.log("paramFilter", paramFilter);
+
 
   const handleUpdateParams = (value: string) => {
+    if ((paramFilter || "All") === value) return;
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("page");
     const newUrl = formUrlQuery({
-      params: searchParams.toString(),
+      params: params.toString(),
       key: "category",
       value,
     });
 
-    router.push(newUrl, { scroll: false });
+    startTransition(() => router.push(newUrl, { scroll: false }));
   };
 
   return (
-    <div className="flex-center mb-2 gap-2 max-sm:hidden">
-      <div onClick={() => handleUpdateParams("All")}>
+    <div aria-label="Project categories" aria-busy={pending} className="mb-2 flex flex-wrap justify-center gap-2">
+
         <Button
+          onClick={() => handleUpdateParams("All")}
+          aria-pressed={paramFilter === "All" || !paramFilter}
           className={cn(
             "hover:bg-primary-500 hover:text-white text-dark500_light500",
             paramFilter === "All" || !paramFilter
@@ -45,10 +51,11 @@ const PortfolioFilter = ({ filters, otherClasses }: Props) => {
         >
           All Projects
         </Button>
-      </div>
       {parsedFilters.map((item: any) => (
-        <div onClick={() => handleUpdateParams(item._id)} key={item._id}>
+        <React.Fragment key={item._id}>
           <Button
+            onClick={() => handleUpdateParams(item._id)}
+            aria-pressed={paramFilter === item._id}
             className={cn(
               "transition-all duration-150 hover:bg-primary-500 hover:text-white text-dark500_light500",
               paramFilter === item._id ? "bg-primary-500 text-white" : ""
@@ -56,7 +63,7 @@ const PortfolioFilter = ({ filters, otherClasses }: Props) => {
           >
             {item.name}
           </Button>
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );

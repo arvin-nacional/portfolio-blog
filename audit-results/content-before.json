@@ -1,0 +1,102 @@
+{
+  "measuredAt": "2026-10-07T13:16:49.748Z",
+  "base": "http://localhost:3002",
+  "measurements": [
+    {
+      "route": "/projects",
+      "samples": [
+        {
+          "status": 200,
+          "headersMs": 1926,
+          "completeMs": 2788
+        },
+        {
+          "status": 200,
+          "headersMs": 32,
+          "completeMs": 150
+        },
+        {
+          "status": 200,
+          "headersMs": 27,
+          "completeMs": 1161
+        }
+      ],
+      "htmlBytes": 76833,
+      "jsFiles": 16,
+      "jsBytes": 798527,
+      "jsGzipBytes": 249615
+    },
+    {
+      "route": "/blog",
+      "samples": [
+        {
+          "status": 200,
+          "headersMs": 38,
+          "completeMs": 145
+        },
+        {
+          "status": 200,
+          "headersMs": 20,
+          "completeMs": 101
+        },
+        {
+          "status": 200,
+          "headersMs": 18,
+          "completeMs": 104
+        }
+      ],
+      "htmlBytes": 67465,
+      "jsFiles": 17,
+      "jsBytes": 804925,
+      "jsGzipBytes": 251595
+    },
+    {
+      "route": "/projects/699d29d161f1cd69155dc9fd",
+      "samples": [
+        {
+          "status": 200,
+          "headersMs": 148,
+          "completeMs": 384
+        },
+        {
+          "status": 200,
+          "headersMs": 78,
+          "completeMs": 250
+        },
+        {
+          "status": 200,
+          "headersMs": 84,
+          "completeMs": 349
+        }
+      ],
+      "htmlBytes": 700948,
+      "jsFiles": 21,
+      "jsBytes": 1071190,
+      "jsGzipBytes": 344659
+    },
+    {
+      "route": "/blog/672d938aac0cd023a8a7659b",
+      "samples": [
+        {
+          "status": 200,
+          "headersMs": 94,
+          "completeMs": 1711
+        },
+        {
+          "status": 200,
+          "headersMs": 74,
+          "completeMs": 2950
+        },
+        {
+          "status": 200,
+          "headersMs": 61,
+          "completeMs": 1729
+        }
+      ],
+      "htmlBytes": 5123530,
+      "jsFiles": 21,
+      "jsBytes": 1070012,
+      "jsGzipBytes": 344019
+    }
+  ]
+}

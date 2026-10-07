@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import React from "react";
 import { ParamsProps } from "@/types";
-import { getProjectById } from "@/lib/actions/project.action";
 import { formatDate } from "@/lib/utils";
 import ParseHTML from "@/components/shared/ParseHTML";
 import Link from "next/link";
@@ -12,9 +11,11 @@ import AdminOnly from "@/components/auth/AdminOnly";
 import DeletePost from "@/components/DeletePost";
 import RecentProjects from "@/components/RecentProjects";
 import type { Metadata } from "next";
-import { cache } from "react";
+import { publicProject } from "@/lib/public-content";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getCardExcerpt } from "@/lib/card-excerpt";
-const getDetails = cache(async (id: string) => (await getProjectById({ projectId: id }))?.project);
+const getDetails = publicProject;
 
 export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
   const { id } = await params;
@@ -36,6 +37,7 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
 const page = async ({ params }: ParamsProps) => {
   const { id } = await params;
   const details = await getDetails(id);
+  if (!details) notFound();
 
   return (
     <>
@@ -45,23 +47,27 @@ const page = async ({ params }: ParamsProps) => {
             <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
               <Image
                 src={details?.mainImage}
-                alt="projectImage"
+                alt={details.title}
                 width={1200}
-                height={300}
+                height={675}
+                  loading="eager"
+                  fetchPriority="high"
+                  sizes="(max-width: 767px) 100vw, 800px"
+
                 style={{ borderRadius: "20px" }}
-                className="col-span-2"
+                className="col-span-2 h-auto w-full rounded-xl max-md:col-span-1"
               />
               <div className="col-span-1 flex flex-col gap-10 max-md:hidden ">
-                <RecentProjects projectId={id} />
+                <Suspense fallback={<p className="text-sm text-light-500">Loading recent content…</p>}><RecentProjects projectId={id} /></Suspense>
               </div>
             </div>
 
             <div className="flex gap-10 px-2 py-10 max-lg:flex-col lg:flex-row">
               <div className=" flex-1">
                 <h4 className="base-semibold text-dark400_light700 mb-5">
-                  {details?.category[0].name}
+                  {details.category[0]?.name}
                 </h4>
-                <h3 className="h2-bold text-dark400_light700 mb-5">
+                <h1 className="h2-bold text-dark400_light700 mb-5">
                   {details?.title}{" "}
                   <AdminOnly>
                     <div className="flex items-center gap-5">
@@ -77,7 +83,7 @@ const page = async ({ params }: ParamsProps) => {
                       <DeletePost id={JSON.stringify(id)} type="project" />
                     </div>
                   </AdminOnly>
-                </h3>
+                </h1>
 
                 <ParseHTML data={details?.content} />
               </div>
