@@ -52,6 +52,7 @@ const Sidebar = () => {
                 width={20}
                 height={20}
                 alt=""
+                className="size-5 shrink-0 object-contain"
               />
               <a href="tel:+639659256451" className="hover:underline">
                 +63 965 9256 451
@@ -63,6 +64,7 @@ const Sidebar = () => {
                 width={20}
                 height={20}
                 alt=""
+                className="size-5 shrink-0 object-contain"
               />
               <a href="mailto:arvin@rvinpaul.com" className="hover:underline">
                 arvin@rvinpaul.com
@@ -74,6 +76,7 @@ const Sidebar = () => {
                 width={20}
                 height={20}
                 alt=""
+                className="size-5 shrink-0 object-contain"
               />
               <p>Camarin, Caloocan City, Philippines</p>
             </div>

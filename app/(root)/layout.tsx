@@ -7,10 +7,12 @@ import React from "react";
 import AdminOnly from "@/components/auth/AdminOnly";
 import { signOut } from "@/lib/actions/auth.action";
 import Link from "next/link";
+import { isAdmin } from "@/lib/auth/session";
 
 // import CustomCursor from "@/components/shared/CustomCursor";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
+  const admin = await isAdmin();
   return (
     <main className="background-light900_dark200 relative">
       <Navbar />
@@ -25,7 +27,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="mx-auto w-full ">{children}</div>
       </section>
       <Toaster />
-      <TawkWidget />
+      <TawkWidget enabled={!admin} />
       <Footer />
     </main>
   );
