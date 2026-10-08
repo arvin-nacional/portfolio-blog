@@ -367,43 +367,39 @@ const Post = ({ type, postDetails, postId }: Props) => {
                 Tags <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                <>
-                  <Input
-                    disabled={type === "Edit"}
-                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
-                    placeholder="Add tags..."
-                    onKeyDown={(e) => handleInputKeyDown(e, field)}
-                  />
-
-                  {field.value.length > 0 && (
-                    <div className="mt-2.5 flex justify-start gap-2.5">
-                      {field.value.map((tag: any) => (
-                        <Badge
-                          key={tag}
-                          variant="secondary"
-                          className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
-                          onClick={() =>
-                            type !== "Edit"
-                              ? handleTagRemove(tag, field)
-                              : () => {}
-                          }
-                        >
-                          {tag}
-                          {type !== "Edit" && (
-                            <Image
-                              src="/assets/icons/close.svg"
-                              alt="Close icon"
-                              width={12}
-                              height={12}
-                              className="cursor-pointer object-contain text-white "
-                            />
-                          )}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </>
+                <Input
+                  disabled={type === "Edit"}
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  placeholder="Add tags..."
+                  onKeyDown={(e) => handleInputKeyDown(e, field)}
+                />
               </FormControl>
+
+              {field.value.length > 0 && (
+                <div className="mt-2.5 flex justify-start gap-2.5">
+                  {field.value.map((tag: any) => (
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
+                      onClick={() =>
+                        type !== "Edit" ? handleTagRemove(tag, field) : () => {}
+                      }
+                    >
+                      {tag}
+                      {type !== "Edit" && (
+                        <Image
+                          src="/assets/icons/close.svg"
+                          alt="Close icon"
+                          width={12}
+                          height={12}
+                          className="cursor-pointer object-contain text-white "
+                        />
+                      )}
+                    </Badge>
+                  ))}
+                </div>
+              )}
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Add up to 3 tags to describe what your article is about. You
                 need to press enter to add a tag.
