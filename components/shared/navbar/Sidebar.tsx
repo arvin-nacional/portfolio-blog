@@ -10,12 +10,10 @@ import {
 } from "@/components/ui/sheet";
 
 import Image from "next/image";
-// import { useTheme } from "@/context/ThemeProvider";
 import Subscriber from "@/components/forms/Subscriber";
 import Logo from "@/components/ui/logo";
 
 const Sidebar = () => {
-  // const { mode } = useTheme();
   return (
     <Sheet>
       <SheetTrigger asChild>

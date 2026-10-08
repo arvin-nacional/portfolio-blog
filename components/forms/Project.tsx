@@ -58,15 +58,15 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
   });
 
   const [previewImages, setPreviewImages] = useState(
-    parsedProjectDetails?.images ? parsedProjectDetails.images : []
+    parsedProjectDetails?.images ? parsedProjectDetails.images : [],
   );
 
-  const groupedCategories = parsedProjectDetails?.category.map(
-    (tag: any) => tag.name
+  const groupedCategories = parsedProjectDetails?.category?.map(
+    (tag: any) => tag.name,
   );
 
-  const groupedSoftwareUsed = parsedProjectDetails?.softwareUsed.map(
-    (item: any) => item
+  const groupedSoftwareUsed = parsedProjectDetails?.softwareUsed?.map(
+    (item: any) => item,
   );
 
   // convert image to string
@@ -78,9 +78,10 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         fileReader.readAsDataURL(readFile);
       });
 
-    reader(file).then((result: string) =>
-      setPreview({ name: file?.name, url: result })
-    );
+    reader(file).then((result: string) => {
+      setPreview({ name: file.name, url: result });
+      form.setValue("mainImage", result, { shouldValidate: true });
+    });
   };
 
   // Handle multiple images and convert them to strings
@@ -96,14 +97,16 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
     const promises = Array.from(files).map((file) => reader(file));
 
     Promise.all(promises).then((results: string[]) => {
-      setPreviewImages((prevImages: any) => [
-        ...prevImages,
+      const updatedImages = [
+        ...previewImages,
         ...results.map((result, index) => ({
           alt: files[index]?.name,
           src: result,
-          _id: Math.floor(Math.random() * 1000),
+          _id: crypto.randomUUID(),
         })),
-      ]);
+      ];
+      setPreviewImages(updatedImages);
+      form.setValue("images", updatedImages, { shouldValidate: true });
     });
   };
 
@@ -118,7 +121,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
       softwareUsed: groupedSoftwareUsed || [],
       images: previewImages,
       dateFinished:
-        formatDateInput(parsedProjectDetails?.dateFinished.toString()) || "",
+        formatDateInput(parsedProjectDetails?.dateFinished?.toString()) || "",
       url: parsedProjectDetails?.url || "",
     },
   });
@@ -126,14 +129,15 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
   // removeImagefromListButton
   const handleRemoveImageFromList = (item: string) => {
     const updatedImages = previewImages.filter(
-      (image: any) => image.src !== item
+      (image: any) => image.src !== item,
     );
     setPreviewImages(updatedImages);
+    form.setValue("images", updatedImages, { shouldValidate: true });
   };
 
   const handleInputKeyDownCategory = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    field: any
+    field: any,
   ) => {
     if (e.key === "Enter" && field.name === "category") {
       e.preventDefault();
@@ -145,7 +149,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         if (categoryValue.length > 30) {
           return form.setError("category", {
             type: "required",
-            message: "Cateogry must be less than 30 characters.",
+            message: "Category must be at most 30 characters.",
           });
         }
 
@@ -162,7 +166,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
 
   const handleInputKeyDownSoftwareUsed = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    field: any
+    field: any,
   ) => {
     if (e.key === "Enter" && field.name === "softwareUsed") {
       e.preventDefault();
@@ -174,7 +178,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
         if (softwareUsedValue.length > 30) {
           return form.setError("softwareUsed", {
             type: "required",
-            message: "Tag must be less than 30 characters.",
+            message: "Software name must be at most 30 characters.",
           });
         }
 
@@ -203,6 +207,7 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof ProjectSchema>) {
     setIsSubmitting(true);
+    form.clearErrors("root");
 
     try {
       if (type === "Edit") {
@@ -237,6 +242,9 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
 
       // router.push(`/projects/${parsedProjectDetails?._id}`);
     } catch (error) {
+      form.setError("root", {
+        message: "Unable to save the project. Please try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -278,46 +286,46 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                 Category <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                <>
-                  <Input
-                    disabled={type === "Edit"}
-                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
-                    placeholder="Add category..."
-                    onKeyDown={(e) => handleInputKeyDownCategory(e, field)}
-                  />
-
-                  {field.value.length > 0 && (
-                    <div className="mt-2.5 flex justify-start gap-2.5">
-                      {field.value.map((category: any) => (
-                        <Badge
-                          key={category}
-                          variant="secondary"
-                          className="subtle-medium  flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
-                          onClick={() =>
-                            type !== "Edit"
-                              ? handleTagRemoveCategory(category, field)
-                              : () => {}
-                          }
-                        >
-                          {category}
-                          {type !== "Edit" && (
-                            <Image
-                              src="/assets/icons/close.svg"
-                              alt="Close icon"
-                              width={12}
-                              height={12}
-                              className="cursor-pointer object-contain text-white "
-                            />
-                          )}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </>
+                <Input
+                  name={field.name}
+                  ref={field.ref}
+                  onBlur={field.onBlur}
+                  disabled={type === "Edit"}
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  placeholder="Add category..."
+                  onKeyDown={(e) => handleInputKeyDownCategory(e, field)}
+                />
               </FormControl>
+
+              {field.value.length > 0 && (
+                <div className="mt-2.5 flex justify-start gap-2.5">
+                  {field.value.map((category: any) => (
+                    <Badge
+                      key={category}
+                      variant="secondary"
+                      className="subtle-medium  flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
+                      onClick={() =>
+                        type !== "Edit"
+                          ? handleTagRemoveCategory(category, field)
+                          : () => {}
+                      }
+                    >
+                      {category}
+                      {type !== "Edit" && (
+                        <Image
+                          src="/assets/icons/close.svg"
+                          alt="Close icon"
+                          width={12}
+                          height={12}
+                          className="cursor-pointer object-contain text-white "
+                        />
+                      )}
+                    </Badge>
+                  ))}
+                </div>
+              )}
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Add up to 3 category to describe what your project is about. You
-                need to press enter to add a category.
+                Press enter to add each category (up to 30 characters).
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -398,8 +406,8 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                     type="file"
                     {...rest}
                     onChange={(e) => {
-                      // @ts-ignore
-                      handleMainImageChange(e.target.files[0]);
+                      const file = e.target.files?.[0];
+                      if (file) handleMainImageChange(file);
                     }}
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline text-dark400_light800"
                   />
@@ -454,8 +462,9 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
                     {...rest}
                     multiple // Allow multiple file selection
                     onChange={(e) => {
-                      // @ts-ignore
-                      handleMultipleImageChange(e.target.files);
+                      if (e.target.files?.length) {
+                        handleMultipleImageChange(e.target.files);
+                      }
                     }}
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border align-baseline text-dark400_light800"
                   />
@@ -496,49 +505,49 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Sotware Used <span className="text-primary-500">*</span>
+                Software Used <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                <>
-                  <Input
-                    disabled={type === "Edit"}
-                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
-                    placeholder="Add tags..."
-                    onKeyDown={(e) => handleInputKeyDownSoftwareUsed(e, field)}
-                  />
-
-                  {field.value.length > 0 && (
-                    <div className="mt-2.5 flex justify-start gap-2.5">
-                      {field.value.map((softwareUsed: any) => (
-                        <Badge
-                          key={softwareUsed}
-                          variant="secondary"
-                          className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
-                          onClick={() =>
-                            type !== "Edit"
-                              ? handleTagRemoveSoftwareUsed(softwareUsed, field)
-                              : () => {}
-                          }
-                        >
-                          {softwareUsed}
-                          {type !== "Edit" && (
-                            <Image
-                              src="/assets/icons/close.svg"
-                              alt="Close icon"
-                              width={12}
-                              height={12}
-                              className="cursor-pointer object-contain text-white "
-                            />
-                          )}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </>
+                <Input
+                  name={field.name}
+                  ref={field.ref}
+                  onBlur={field.onBlur}
+                  disabled={type === "Edit"}
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  placeholder="Add tags..."
+                  onKeyDown={(e) => handleInputKeyDownSoftwareUsed(e, field)}
+                />
               </FormControl>
+
+              {field.value.length > 0 && (
+                <div className="mt-2.5 flex justify-start gap-2.5">
+                  {field.value.map((softwareUsed: any) => (
+                    <Badge
+                      key={softwareUsed}
+                      variant="secondary"
+                      className="subtle-medium background-light400_dark700 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize "
+                      onClick={() =>
+                        type !== "Edit"
+                          ? handleTagRemoveSoftwareUsed(softwareUsed, field)
+                          : () => {}
+                      }
+                    >
+                      {softwareUsed}
+                      {type !== "Edit" && (
+                        <Image
+                          src="/assets/icons/close.svg"
+                          alt="Close icon"
+                          width={12}
+                          height={12}
+                          className="cursor-pointer object-contain text-white "
+                        />
+                      )}
+                    </Badge>
+                  ))}
+                </div>
+              )}
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Add up to 3 category to describe what your project is about. You
-                need to press enter to add a category.
+                Press enter to add each software name (up to 30 characters).
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -588,6 +597,11 @@ const Project = ({ type, projectDetails, projectId }: Props) => {
           )}
         />
 
+        {form.formState.errors.root?.message && (
+          <p role="alert" className="text-red-500">
+            {form.formState.errors.root.message}
+          </p>
+        )}
         <Button
           type="submit"
           className="primary-gradient w-fit !text-light-900"

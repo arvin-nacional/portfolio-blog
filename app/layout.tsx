@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeProvider";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -32,15 +31,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html
+      lang="en"
+      className="dark"
+      // Browser extensions can add classes before React hydrates this element.
+      suppressHydrationWarning
+      style={{
+        colorScheme: "dark",
+        backgroundColor: "#0F1117",
+        color: "#FFFFFF",
+      }}
+    >
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-        <ThemeProvider>
-          {children}
-          <Analytics />
-          <Suspense fallback={null}>
-            <SpeedInsights />
-          </Suspense>
-        </ThemeProvider>
+        {children}
+        <Analytics />
+        <Suspense fallback={null}>
+          <SpeedInsights />
+        </Suspense>
       </body>
     </html>
   );

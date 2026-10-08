@@ -96,6 +96,7 @@ export async function createProject(params: addProjectParams) {
     revalidatePath(path);
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
@@ -176,6 +177,7 @@ export async function updateProject(params: EditProjectParams) {
     revalidatePath(path);
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 

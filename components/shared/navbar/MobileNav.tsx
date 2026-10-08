@@ -14,7 +14,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
-import { useTheme } from "@/context/ThemeProvider";
 
 const NavContent = () => {
   const pathname = usePathname();
@@ -53,7 +52,6 @@ const NavContent = () => {
 };
 
 const MobileNav = () => {
-  const { mode } = useTheme();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -81,25 +79,15 @@ const MobileNav = () => {
             Explore my work, services, and contact information.
           </SheetDescription>
           <div className="my-5 p-3">
-            {mode === "light" ? (
-              <Image
-                src="/assets/images/primary-logo-dark.svg"
-                width={100}
-                height={40}
-                alt="Arvin Paul"
-              />
-            ) : (
-              <Image
-                src="/assets/images/primary-logo-light.svg"
-                width={100}
-                height={40}
-                alt="Arvin Paul"
-              />
-            )}
+            <Image
+              src="/assets/images/primary-logo-light.svg"
+              width={100}
+              height={40}
+              alt="Arvin Paul"
+            />
           </div>
           <div>
             <NavContent />
-
           </div>
         </div>
 

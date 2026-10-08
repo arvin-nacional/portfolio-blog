@@ -36,3 +36,23 @@ test("project publishing mutations reject unauthenticated callers before touchin
   }
   assert.equal(connections, 0);
 });
+
+test("project create and update propagate service failures to the form", async () => {
+  const actions = load("lib/actions/project.action.ts", {
+    "@/lib/public-content": {},
+    "@/lib/auth/session": { requireAdmin: async () => {} },
+    react: { cache: (fn) => fn },
+    "../mongoose": {
+      connectToDatabase: async () => {
+        throw new Error("Database unavailable");
+      },
+    },
+    "next/cache": {},
+    cloudinary: { v2: { config() {} } },
+    mongoose: {},
+    "@/database/project.model": {},
+    "@/database/category.model": {},
+  });
+  await assert.rejects(actions.createProject({}), /Database unavailable/);
+  await assert.rejects(actions.updateProject({}), /Database unavailable/);
+});

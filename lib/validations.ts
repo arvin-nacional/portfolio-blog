@@ -25,7 +25,7 @@ export const PostSchema = z.object({
       src: z.string().url(),
       alt: z.string().min(1),
       _id: z.string().min(1).max(30),
-    })
+    }),
   ),
 });
 
@@ -35,13 +35,19 @@ export const ProjectSchema = z.object({
   content: z.string().min(5).max(10000),
   mainImage: z.string(),
   clientName: z.string().min(1),
-  softwareUsed: z.array(z.string().min(1).max(20)).min(1),
+  softwareUsed: z
+    .array(
+      z.string().min(1).max(30, {
+        message: "Software name must be at most 30 characters.",
+      }),
+    )
+    .min(1),
   images: z.array(
     z.object({
       src: z.string().url(),
       alt: z.string().min(1),
-      _id: z.string().min(1).max(30),
-    })
+      _id: z.string().min(1).max(36),
+    }),
   ),
   dateFinished: z.string().trim().refine(validateDate, {
     message:
