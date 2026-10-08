@@ -1,4 +1,5 @@
 import React from "react";
+import { Boxes } from "../ui/background-boxes";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
@@ -8,10 +9,10 @@ const CTA = () => {
       <div className="background-light850_dark100 relative flex h-96 w-full flex-col items-center justify-center gap-10 overflow-hidden rounded-lg">
         <div className="background-light850_dark100 pointer-events-none absolute inset-0 z-20 size-full [mask-image:radial-gradient(transparent,white)]" />
 
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grid-small-white/[0.08]" />
-        <h2 className="text-dark500_light700 z-20 text-center text-4xl font-extrabold leading-tight max-sm:text-2xl">
+        <Boxes />
+        <h1 className="text-dark500_light700 z-20 text-center text-4xl font-extrabold leading-tight max-sm:text-2xl">
           LET&apos;S DISCUSS AND MAKE <br /> SOMETHING COOL TOGETHER
-        </h2>
+        </h1>
         {/* <p className="relative z-20 mt-2 text-center text-neutral-300">
           Framer motion is the best animation library ngl
         </p> */}
